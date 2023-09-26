@@ -1,17 +1,17 @@
 <h1 align="center">Hi 👋, I'm Jainal Gosaliya</h1>
 <h3 align="center">👨‍💻 geeky neighborhood dev man</h3>
-
-- 🔭 I’m currently pursuing [masters in software engineering at Northeastern University, Boston, MA](https://www.northeastern.edu/graduate/program/master-of-science-in-software-engineering-systems-18774/)
+- 🔭 I'am currently a Software Engineering Co-Op at Doble Engineering Company. 
+- 📚 I’m currently pursuing [masters in software engineering at Northeastern University, Boston, MA](https://www.northeastern.edu/graduate/program/master-of-science-in-software-engineering-systems-18774/)
 
 - 🌱 I’m currently learning **Kubernetes, Java-Spring**
 
-- 👯 I’m looking for internship/ co-op oppurtunities in **software development intern, backend developer intern, frontend development intern, full stack development intern**
+- 👯 I’m looking for Full Time Oppurtunities in **software development & engineering, backend development, frontend development, full stack development**
 
 - 👨‍💻 All of my projects are available at [github.com/jainal09](github.com/jainal09)
 
 - 📝 I regularly write articles on [https://medium.com/@jainal](https://medium.com/@jainal)
 
-- 💬 Ask me about **Django, Fastapi, Flask, Docker, Docker-Compose**
+- 💬 Ask me about **Kafka, Distributed Systems, Scaling, Microservices, Kubernetes, Python, Django, Fastapi, Flask, Docker, Docker-Compose**
 
 - 📫 How to reach me **jainal09gosalia@gmail.com**
 
