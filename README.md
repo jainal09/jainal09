@@ -1,6 +1,8 @@
 <h1 align="center">Hi 👋, I'm Jainal Gosaliya</h1>
 <h3 align="center">👨‍💻 geeky neighborhood dev man</h3>
+
 - 🔭 I'am currently a Software Engineering Co-Op at Doble Engineering Company. 
+
 - 📚 I’m currently pursuing [masters in software engineering at Northeastern University, Boston, MA](https://www.northeastern.edu/graduate/program/master-of-science-in-software-engineering-systems-18774/)
 
 - 🌱 I’m currently learning **Kubernetes, Java-Spring**
