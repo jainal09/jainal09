@@ -17,8 +17,6 @@
 
 - 📫 How to reach me **jainal09gosalia@gmail.com**
 
-- 📄 Know about my experiences [Resume](https://raw.githubusercontent.com/jainal09/jainal09/main/Jainal_Gosaliya_Resume.pdf)
-
 - ⚡ Fun fact **You can still put 🍍 on your 🍕 (just kidding 😛!)**
 
 <h3 align="left">Connect with me:</h3>
