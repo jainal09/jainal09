@@ -15,7 +15,6 @@
 
 - 💬 Happy to talk about **Kafka, distributed systems, microservices, Kubernetes, Spring Boot, Python, Django, FastAPI, Flask, Docker**
 
-- 📫 Reach me at **jainal09gosalia@gmail.com**
 
 <h3 align="left">Connect with me:</h3>
 
