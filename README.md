@@ -1,27 +1,21 @@
-<h1 align="center">Hi 👋, I'm Jainal Gosaliya</h1>
-<h3 align="center">👨‍💻 A seasoned Python developer</h3>
+<h1 align="center">Jainal Gosaliya</h1>
+<h3 align="center">Software Engineer | Distributed Systems | Backend & Platform Engineering</h3>
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=jainal09&label=Profile%20views&color=0e75b6&style=flat" alt="jainal09" /> </p>
 
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-trophies.vercel.app/?username=jainal09" alt="jainal09" /></a> </p>
 
-- 🔭 Interested in solving advanced problems on **distributed systems, scalability and crafting reliable systems**
+- 🔭 Building and scaling **distributed systems, event-driven architectures, and high-throughput backend services**
 
-- 📚 Graduated with [Masters in Software Engineering at Northeastern University, Boston, MA](https://www.northeastern.edu/graduate/program/master-of-science-in-software-engineering-systems-18774/)
+- 🎓 MS in Software Engineering from [Northeastern University, Boston](https://www.northeastern.edu/graduate/program/master-of-science-in-software-engineering-systems-18774/)
 
-- 🌱 I'm currently working on **Kubernetes, Spring Cloud & Reactive Programming**
+- 🛠 Currently deep in **Kubernetes, Spring Cloud, and Reactive Programming**
 
-- 👯 I'm looking for Full Time Opportunities in **software development & engineering, backend development, frontend development, full stack development**
+- 📝 I write about systems design and engineering on [Scale Bites](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7169831353377619968)
 
-- 👨‍💻 All of my projects are available at [github.com/jainal09](https://github.com/jainal09)
+- 💬 Happy to talk about **Kafka, distributed systems, microservices, Kubernetes, Spring Boot, Python, Django, FastAPI, Flask, Docker**
 
-- 📝 I regularly write articles on my newsletter [Scale Bites](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7169831353377619968)
-
-- 💬 Ask me about **Kafka, Distributed Systems, Scaling, Microservices, Kubernetes, Spring Boot, Python, Django, FastAPI, Flask, Docker, Docker-Compose**
-
-- 📫 How to reach me **jainal09gosalia@gmail.com**
-
-- ⚡ Fun fact **You can still put 🍍 on your 🍕 (just kidding 😛!)**
+- 📫 Reach me at **jainal09gosalia@gmail.com**
 
 <h3 align="left">Connect with me:</h3>
 
