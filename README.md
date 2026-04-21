@@ -51,7 +51,7 @@ Production-grade benchmarking across 9 categories — generates 20+ charts, cros
 
 ## Connect
 
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jainal09) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jainal09) [![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/SysSniper) [![Medium](https://img.shields.io/badge/Medium-000000?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@jainal) [![Dev.to](https://img.shields.io/badge/Dev.to-0A0A0A?style=for-the-badge&logo=devdotto&logoColor=white)](https://dev.to/jainal09) [![Stack Overflow](https://img.shields.io/badge/Stack_Overflow-F58025?style=for-the-badge&logo=stackoverflow&logoColor=white)](https://stackoverflow.com/users/10401497/jainal-gosaliya)
+[![Substack](https://img.shields.io/badge/Scale_Bites-FF6719?style=for-the-badge&logo=substack&logoColor=white)](https://scalebites.substack.com/) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jainal09) [![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/SysSniper) [![Medium](https://img.shields.io/badge/Medium-000000?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@jainal) [![Dev.to](https://img.shields.io/badge/Dev.to-0A0A0A?style=for-the-badge&logo=devdotto&logoColor=white)](https://dev.to/jainal09) [![Stack Overflow](https://img.shields.io/badge/Stack_Overflow-F58025?style=for-the-badge&logo=stackoverflow&logoColor=white)](https://stackoverflow.com/users/10401497/jainal-gosaliya)
 
 ---
 
@@ -64,3 +64,11 @@ Production-grade benchmarking across 9 categories — generates 20+ charts, cros
 ---
 
 <table><tr><td valign="top" width="33%"><img src="https://github-readme-stats.vercel.app/api/top-langs?username=jainal09&show_icons=true&locale=en&layout=compact" alt="jainal09" /></td><td valign="top" width="34%"><img src="https://github-readme-stats.vercel.app/api?username=jainal09&show_icons=true&locale=en" alt="jainal09" /></td><td valign="top" width="33%"><img src="https://github-readme-streak-stats.herokuapp.com/?user=jainal09&" alt="jainal09" /></td></tr></table>
+
+<p align="center"> <img src="https://github-readme-activity-graph.vercel.app/graph?username=jainal09&theme=react-dark&hide_border=true" alt="Activity Graph" /> </p>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/output/github-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/output/github-snake.svg" />
+  <img alt="snake eating contributions" src="https://raw.githubusercontent.com/jainal09/jainal09/output/github-snake.svg" />
+</picture>
