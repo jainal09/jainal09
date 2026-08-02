@@ -65,21 +65,33 @@ Production-grade benchmarking across 9 categories — generates 20+ charts, cros
 
 ## Upstream
 
-I wrote [knack](https://github.com/jainal09/knack) to benchmark NATS against Kafka on constrained hardware. Some of what it surfaced turned out to be defects in NATS rather than in the benchmark, so that is where they were fixed.
+Built [knack](https://github.com/jainal09/knack) to benchmark NATS against Kafka on small hardware. What it surfaced were NATS bugs, not benchmark bugs — so they got fixed there.
 
-- **[nats-server #8420](https://github.com/nats-io/nats-server/pull/8420)** — a server configured with `allow_non_tls` announced `TLS required for client connections` at startup while accepting plaintext on that same port. Shipped in 2.14.4 and 2.12.14.
-- **[nui #126](https://github.com/nats-nui/nui/pull/126)** — identifier sanitization stripped the dots from fully-qualified protobuf type names, and a cache that overwrote external clears on unload left no way to recover from the bad state.
-- **[natscli #1647](https://github.com/nats-io/natscli/pull/1647)** — `--throughput` for the generator-side `bench` commands, holding aggregate send rate at or below a target and dividing it across `--clients`. Merged to main, not yet in a release.
+|  |  | shipped |
+|:--|:--|:--|
+| [**nats-server#8420**](https://github.com/nats-io/nats-server/pull/8420) | `allow_non_tls` servers announced `TLS required`, then served plaintext | `2.14.4` `2.12.14` |
+| [**nui#126**](https://github.com/nats-nui/nui/pull/126) | protobuf cache dropped dotted type names, with no way back | `0.9.3` |
+| [**natscli#1647**](https://github.com/nats-io/natscli/pull/1647) | `--throughput` rate cap across the `bench` generators | `main` |
+| [**grpcui#398**](https://github.com/fullstorydev/grpcui/pull/398) | dark mode | merged |
+| [**hoppscotch#1593**](https://github.com/hoppscotch/hoppscotch/pull/1593) | one null `url` aborted the entire Postman import | merged |
+| [**celery#5792**](https://github.com/celery/celery/pull/5792) | broker URL slashes | merged |
 
-The one worth reading, though, is **[grpcui #398](https://github.com/fullstorydev/grpcui/pull/398)**. I opened it with a dark mode built on a toggle, JavaScript and cookie storage. The maintainer's response was that this was "a bit much" and that pure CSS would do. I pushed back once with a middle ground, they held their position, and they were right — what merged is a single CSS file, no JavaScript at all.
-
-Older, elsewhere: [hoppscotch #1593](https://github.com/hoppscotch/hoppscotch/pull/1593), [celery #5792](https://github.com/celery/celery/pull/5792).
+> **#398 is the one worth opening.** I proposed dark mode as a toggle, JavaScript and cookies. The maintainer said it was "a bit much." I argued once, lost, and stripped it — what shipped is one CSS file, their design.
 
 ## Practice
 
-[envdrift](https://github.com/jainal09/envdrift) is where I keep myself honest. Commit format isn't a convention I claim to follow there — commitlint is one of twelve required checks on `main`, with admin enforcement switched on, so a malformed message blocks the merge for me too. release-please then cuts versions straight from that history, which is the point: a careless message becomes a wrong changelog. Ninety-six versions on PyPI in eight months.
+[**envdrift**](https://github.com/jainal09/envdrift) — encrypted `.env` sync with schema validation and a secret-scanning engine fronting 9 third-party scanners. **96 releases on PyPI in 8 months**, ~3.9k downloads/month, **4,075 tests at 94.7% coverage**.
 
-The rest is unglamorous on purpose. Integration tests run against real containers instead of mocks — an Azure Key Vault emulator, LocalStack, Vault — and they gate the merge rather than reporting into the void. Renovate carries eight custom managers that bump the pinned scanner binaries inside the source. CodeQL and bandit read the code, benchmarks are recorded per pull request, and every workflow holding `id-token: write` pins its actions to a commit SHA.
+`main` sits behind **12 required checks** with admin enforcement on — no self-merge escape hatch.
+
+|  |  |
+|:--|:--|
+| `commitlint` | a malformed commit message blocks the merge — mine included |
+| `release-please` | versions cut straight from that history, across 3 independent packages |
+| `integration` | real containers over mocks — Key Vault emulator, LocalStack, Vault |
+| `codeql` `bandit` | across 4 languages, every push |
+| `renovate` | 8 custom managers bumping pinned scanner binaries in-source |
+| `id-token: write` | those workflows pin every action to a commit SHA |
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/output/github-snake-dark.svg" />
