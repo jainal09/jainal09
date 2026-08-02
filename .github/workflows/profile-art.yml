@@ -31,6 +31,11 @@ jobs:
       - name: Render
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Absent until the Spotify secrets are added; the renderer falls back
+          # to a "not connected" panel rather than failing the run.
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
         run: python3 .github/scripts/generate_art.py
 
       - name: Commit if the numbers moved

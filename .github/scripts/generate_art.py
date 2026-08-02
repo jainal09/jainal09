@@ -249,10 +249,135 @@ def fetch_stats() -> dict:
     }
 
 
+# ------------------------------------------------------------------ music ---
+
+MW, MH = 980, 232
+COLS, ROWS = 32, 7
+CELL_W, CELL_H, CELL_GX, CELL_GY = 20, 10, 6, 4
+LED_X = (MW - (COLS * CELL_W + (COLS - 1) * CELL_GX)) // 2
+LED_Y = 26
+STEPS = 16                      # frames in the level loop
+SCREEN, LIT, UNLIT = "#0a0a0a", "#f0f0f0", "#2a2a2a"
+
+
+def _levels(col: int) -> list[int]:
+    """A deterministic level sequence per column.
+
+    Deterministic on purpose: this file is regenerated daily, and randomising
+    the animation each run would produce a diff every day and churn the commit
+    history for nothing.
+    """
+    seq, x = [], (col * 2654435761) & 0xFFFFFFFF
+    for _ in range(STEPS):
+        x = (x * 1103515245 + 12345) & 0x7FFFFFFF
+        seq.append(1 + (x >> 16) % ROWS)
+    return seq
+
+
+def music(track: dict | None) -> str:
+    s = [svg_open(MW, MH)]
+    s.append(f'<rect x="0" y="0" width="{MW}" height="{MH}" rx="10" fill="{SCREEN}"/>')
+
+    # A black screen regardless of the reader's theme -- it is a device sitting
+    # on the page, not a panel that failed to pick up the page background.
+    for c in range(COLS):
+        seq = _levels(c)
+        x = LED_X + c * (CELL_W + CELL_GX)
+        dur = round(1.5 + (c % 5) * 0.17, 2)
+        for r in range(ROWS):
+            y = LED_Y + (ROWS - 1 - r) * (CELL_H + CELL_GY)
+            vals = ";".join("1" if lvl > r else "0.14" for lvl in seq)
+            s.append(
+                f'<rect x="{x}" y="{y}" width="{CELL_W}" height="{CELL_H}" rx="1.5" '
+                f'fill="{LIT}" opacity="0.14">'
+                # discrete: LEDs snap between states, they do not cross-fade
+                f'<animate attributeName="opacity" values="{vals}" dur="{dur}s" '
+                f'calcMode="discrete" repeatCount="indefinite"/></rect>'
+            )
+
+    base = LED_Y + ROWS * (CELL_H + CELL_GY) + 18
+    if track:
+        title, artist = track["title"], track["artist"]
+        pct, label = track["pct"], track["label"]
+    else:
+        title, artist, pct, label = "— not connected —", "add Spotify secrets to light this up", 0.0, ""
+
+    s.append(text(LED_X, base + 12, title[:46], LIT, 15, "bold"))
+    s.append(text(LED_X, base + 34, artist[:56], "#8a8a8a", 12))
+
+    # Terminal-style block meter rather than a rounded bar.
+    blocks, bx = 46, LED_X
+    filled = round(pct * blocks)
+    for i in range(blocks):
+        s.append(
+            f'<rect x="{bx + i * 13}" y="{base + 48}" width="9" height="9" '
+            f'fill="{LIT if i < filled else UNLIT}"/>'
+        )
+    if label:
+        s.append(text(bx + blocks * 13 + 12, base + 57, label, "#8a8a8a", 11))
+    return "\n".join(s) + "\n</svg>"
+
+
+def fetch_spotify() -> dict | None:
+    """Currently playing, else most recent. None when unconfigured."""
+    import base64 as b64, json, os, urllib.parse, urllib.request
+
+    cid = os.environ.get("SPOTIFY_CLIENT_ID")
+    sec = os.environ.get("SPOTIFY_CLIENT_SECRET")
+    ref = os.environ.get("SPOTIFY_REFRESH_TOKEN")
+    if not (cid and sec and ref):
+        return None
+
+    def api(url, data=None, headers=None):
+        req = urllib.request.Request(url, data=data, headers=headers or {})
+        with urllib.request.urlopen(req, timeout=20) as r:
+            body = r.read()
+            return json.loads(body) if body else {}
+
+    auth = b64.b64encode(f"{cid}:{sec}".encode()).decode()
+    tok = api(
+        "https://accounts.spotify.com/api/token",
+        data=urllib.parse.urlencode(
+            {"grant_type": "refresh_token", "refresh_token": ref}
+        ).encode(),
+        headers={"Authorization": f"Basic {auth}",
+                 "Content-Type": "application/x-www-form-urlencoded"},
+    )["access_token"]
+    h = {"Authorization": f"Bearer {tok}"}
+
+    try:
+        now = api("https://api.spotify.com/v1/me/player/currently-playing", headers=h)
+    except Exception:
+        now = {}
+    if now.get("item"):
+        it, prog = now["item"], now.get("progress_ms", 0)
+        dur = it["duration_ms"]
+        return {
+            "title": it["name"],
+            "artist": ", ".join(a["name"] for a in it["artists"]),
+            "pct": min(1.0, prog / dur) if dur else 0.0,
+            "label": f"{prog//60000}:{prog//1000%60:02d} / {dur//60000}:{dur//1000%60:02d}",
+        }
+
+    recent = api(
+        "https://api.spotify.com/v1/me/player/recently-played?limit=1", headers=h
+    ).get("items", [])
+    if not recent:
+        return None
+    it = recent[0]["track"]
+    return {
+        "title": it["name"],
+        "artist": ", ".join(a["name"] for a in it["artists"]),
+        "pct": 1.0,
+        "label": "last played",
+    }
+
+
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for name, body in (("cluster", cluster()), ("stack", stack()),
-                       ("trophies", trophies(fetch_stats()))):
+    pieces = (("cluster", cluster()), ("stack", stack()),
+              ("trophies", trophies(fetch_stats())), ("music", music(fetch_spotify())))
+    for name, body in pieces:
         path = OUT_DIR / f"{name}.svg"
         path.write_text(body, encoding="utf-8")
         print(f"wrote {path}")
