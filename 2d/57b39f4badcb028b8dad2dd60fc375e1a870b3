@@ -1,0 +1,27 @@
+README.md
+  s_dadda1ac265589::t_acd633882af6be 17
+assets/stack.svg
+  s_dadda1ac265589::t_e358b76df57bbb 5-6,9-10,13-14,17-19
+  s_dadda1ac265589::t_f100aede03035d 2-4,7-8,11-12,15-16,20-21
+  s_dadda1ac265589::t_a5d6db1febb25a 1
+.github/scripts/generate_art.py
+  s_dadda1ac265589::t_81368762df86f5 145-158
+  s_dadda1ac265589::t_77874f51263171 2-105,107-144,159-169
+  s_dadda1ac265589::t_a5d6db1febb25a 106
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "2d57b39f4badcb028b8dad2dd60fc375e1a870b3",
+  "prompts": {},
+  "sessions": {
+    "s_dadda1ac265589": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bc13c4f6-7af9-407c-b6e6-ce1f0bcf23e1",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Jainal Gosaliya <jainal09gosalia@gmail.com>"
+    }
+  }
+}
