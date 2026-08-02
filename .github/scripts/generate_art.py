@@ -351,6 +351,12 @@ def fetch_spotify() -> dict | None:
     except Exception as exc:
         print(f"::warning::Spotify token refresh failed ({exc}). "
               "Re-run .github/scripts/spotify_auth.py and update the secret.")
+        # Surface it as a workflow output so the job can raise an issue. A
+        # warning in a log is a silent failure in practice.
+        out = os.environ.get("GITHUB_OUTPUT")
+        if out:
+            with open(out, "a", encoding="utf-8") as fh:
+                fh.write("spotify=expired\n")
         return None
 
     if tok.get("refresh_token") and tok["refresh_token"] != ref:

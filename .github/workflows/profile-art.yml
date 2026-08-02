@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write
     steps:
       - uses: actions/checkout@v4
 
@@ -29,6 +30,7 @@ jobs:
           python-version: "3.12"
 
       - name: Render
+        id: render
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Absent until the Spotify secrets are added; the renderer falls back
@@ -37,6 +39,30 @@ jobs:
           SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
           SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
         run: python3 .github/scripts/generate_art.py
+
+      - name: Open an issue when the Spotify token dies
+        if: steps.render.outputs.spotify == 'expired'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TITLE: "Spotify refresh token expired"
+        run: |
+          set -euo pipefail
+          # Only one open issue at a time, or this files a fresh one daily.
+          if [ "$(gh issue list --state open --search "$TITLE in:title" --json number --jq 'length')" != "0" ]; then
+            echo "Issue already open."
+            exit 0
+          fi
+          gh issue create --title "$TITLE" --body \
+            'The music panel has reverted to "not connected".
+
+          Spotify issues refresh tokens with a 180 day lifetime, so this is
+          expected rather than a fault. A new one needs your consent in a
+          browser, which cannot be automated.
+
+          To fix: run `.github/scripts/spotify_auth.py` locally, then update
+          the `SPOTIFY_REFRESH_TOKEN` repository secret.
+
+          Everything else on the profile keeps rendering meanwhile.'
 
       - name: Commit if the numbers moved
         run: |
