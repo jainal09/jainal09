@@ -111,6 +111,11 @@ def build_rows(user: dict) -> list[tuple[str, str]]:
         ("followers", f"{user['followers']['totalCount']}"),
         ("commits", f"{commits:,} this year"),
         ("pull requests", f"{contrib['totalPullRequestContributions']:,} this year"),
+        # Deliberately not derived from repository language bytes. Measured that
+        # way the top four are C++, Python, Swift, JavaScript -- C++ and Swift
+        # are vendored/coursework weight, and Go disappears entirely because the
+        # Go I write lands in nats-server and natscli, repos I do not own. Bytes
+        # measure what is checked in, not what I work in.
         ("languages", "Python · Go · TypeScript · Java"),
         ("focus", "distributed systems · platform"),
     ]
