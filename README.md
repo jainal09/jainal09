@@ -68,8 +68,6 @@ I fix the tools I build on. Code I've written ships in NATS Server, NATS NUI and
 
 Benchmarking NATS against Kafka for [knack](https://github.com/jainal09/knack) turned up three defects that belonged to NATS rather than to my benchmark — a startup notice that contradicted the server's own TLS configuration, a cache that mangled fully-qualified protobuf type names, and no way to cap send rate in the bench tooling. All three merged; two shipped in **nats-server 2.14.4** and **nui 0.9.3**.
 
-The one I'd point at is [**gRPC UI**](https://github.com/fullstorydev/grpcui/pull/398). I proposed dark mode as a toggle with JavaScript and cookie storage. The maintainer said it was "a bit much." I argued once, lost, and threw the whole thing out — what ships today is their design, not mine.
-
 ---
 
 ## Connect
