@@ -1,0 +1,44 @@
+README.md
+  s_dadda1ac265589::t_6bebebb14e4fb6 84-91
+assets/card-light.svg
+  s_dadda1ac265589::t_bc6e285e28ea3e 27
+  s_dadda1ac265589::t_e0590561bcc980 43
+  s_dadda1ac265589::t_0f2fcfd8e5b505 1-2,44-49
+  s_dadda1ac265589::t_48e851a1bf7dc3 31-42
+  s_dadda1ac265589::t_f0a22eedb9b93c 3-5,50
+  s_dadda1ac265589::t_cde80bff5759dd 6-26,28-30
+.github/scripts/generate_card.py
+  s_dadda1ac265589::t_b5e25a6dd61a42 105-106,109-111
+  s_dadda1ac265589::t_6cd816b9a90b0e 152-154,156-162
+  s_dadda1ac265589::t_e0590561bcc980 115,134
+  s_dadda1ac265589::t_778bffefbdf49e 169-172,174-175
+  s_dadda1ac265589::t_ae5e10e99b39bd 125
+  s_dadda1ac265589::t_39c2420d8f8f92 1-38,46-104,107-108,112-114,116-124,126-127,136-151,155,163-168,173,176-200
+  s_dadda1ac265589::t_10df6b61dd29a6 39-45
+  s_dadda1ac265589::t_275de144837916 128-133,135
+.github/workflows/profile-card.yml
+  s_dadda1ac265589::t_60e959f11f4ef0 1-47
+assets/card-dark.svg
+  s_dadda1ac265589::t_0f2fcfd8e5b505 1-2,44-49
+  s_dadda1ac265589::t_f0a22eedb9b93c 3-5,50
+  s_dadda1ac265589::t_cde80bff5759dd 6-26,28-30
+  s_dadda1ac265589::t_bc6e285e28ea3e 27
+  s_dadda1ac265589::t_48e851a1bf7dc3 31-42
+  s_dadda1ac265589::t_e0590561bcc980 43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "568abdfa5ca619607fe3abe297e2d3a1baa91350",
+  "prompts": {},
+  "sessions": {
+    "s_dadda1ac265589": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bc13c4f6-7af9-407c-b6e6-ce1f0bcf23e1",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Jainal Gosaliya <jainal09gosalia@gmail.com>"
+    }
+  }
+}
