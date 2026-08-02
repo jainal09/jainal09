@@ -251,7 +251,7 @@ def fetch_stats() -> dict:
 
 # ------------------------------------------------------------------ music ---
 
-MW, MH = 980, 232
+MW, MH = 980, 258
 COLS, ROWS = 32, 7
 CELL_W, CELL_H, CELL_GX, CELL_GY = 20, 10, 6, 4
 LED_X = (MW - (COLS * CELL_W + (COLS - 1) * CELL_GX)) // 2
@@ -299,8 +299,12 @@ def music(track: dict | None) -> str:
     if track:
         title, artist = track["title"], track["artist"]
         pct, label = track["pct"], track["label"]
+        quirk = "you may now appreciate my taste in music"
     else:
-        title, artist, pct, label = "— not connected —", "add Spotify secrets to light this up", 0.0, ""
+        # Whoever is reading this cannot fix it, so tell them what happened
+        # rather than leaving instructions to myself on a public page.
+        title, artist, pct, label = "— not connected —", "", 0.0, ""
+        quirk = "looks like my OAuth token expired. it does that."
 
     s.append(text(LED_X, base + 12, title[:46], LIT, 15, "bold"))
     s.append(text(LED_X, base + 34, artist[:56], "#8a8a8a", 12))
@@ -315,6 +319,7 @@ def music(track: dict | None) -> str:
         )
     if label:
         s.append(text(bx + blocks * 13 + 12, base + 57, label, "#8a8a8a", 11))
+    s.append(text(LED_X, base + 80, quirk, "#5a5a5a", 11))
     return "\n".join(s) + "\n</svg>"
 
 
