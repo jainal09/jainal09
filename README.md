@@ -53,6 +53,8 @@ Production-grade benchmarking across 9 categories — generates 20+ charts, cros
 
 ## Open Source
 
+<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster.svg" alt="message flow through a NATS cluster" width="100%" />
+
 I fix the tools I build on. Code I've written ships in NATS Server, NATS NUI and gRPC UI.
 
 <p align="center">
@@ -81,15 +83,3 @@ Benchmarking NATS against Kafka for [knack](https://github.com/jainal09/knack) t
 <p align="left"> <a href="https://skillicons.dev"> <img src="https://skillicons.dev/icons?i=python,java,go,rust,c,cpp,cs,js,ts,html,css,django,fastapi,flask,spring,react,nextjs,vue,nodejs,express,dotnet,graphql,kafka&perline=15" /> </a> </p>
 
 <p align="left"> <a href="https://skillicons.dev"> <img src="https://skillicons.dev/icons?i=rabbitmq,docker,kubernetes,aws,azure,gcp,nginx,jenkins,grafana,elasticsearch,postgres,mysql,mongodb,redis,sqlite,firebase,git,linux,bash,selenium,tensorflow,pytorch,opencv,figma,postman,arduino,heroku&perline=15" /> </a> </p>
-
----
-
-<!-- Keep the space after the colon in "(prefers-color-scheme: dark)". GitHub's
-     themed-picture element classifies these sources with a literal string match,
-     so removing it silently breaks theme switching for anyone whose GitHub theme
-     is set explicitly rather than to auto. Do not let a formatter reflow this. -->
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/card-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/card-light.svg" />
-  <img alt="jainal09 — profile stats" src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/card-light.svg" />
-</picture>
