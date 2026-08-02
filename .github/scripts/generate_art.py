@@ -335,15 +335,31 @@ def fetch_spotify() -> dict | None:
             return json.loads(body) if body else {}
 
     auth = b64.b64encode(f"{cid}:{sec}".encode()).decode()
-    tok = api(
-        "https://accounts.spotify.com/api/token",
-        data=urllib.parse.urlencode(
-            {"grant_type": "refresh_token", "refresh_token": ref}
-        ).encode(),
-        headers={"Authorization": f"Basic {auth}",
-                 "Content-Type": "application/x-www-form-urlencoded"},
-    )["access_token"]
-    h = {"Authorization": f"Bearer {tok}"}
+    # Spotify issues refresh tokens with a 180 day lifetime, so this WILL fail
+    # eventually. Degrade to the "not connected" panel instead of raising --
+    # otherwise an expired music token stops cluster/stack/trophies rendering
+    # too, and the whole page goes stale over one dead credential.
+    try:
+        tok = api(
+            "https://accounts.spotify.com/api/token",
+            data=urllib.parse.urlencode(
+                {"grant_type": "refresh_token", "refresh_token": ref}
+            ).encode(),
+            headers={"Authorization": f"Basic {auth}",
+                     "Content-Type": "application/x-www-form-urlencoded"},
+        )
+    except Exception as exc:
+        print(f"::warning::Spotify token refresh failed ({exc}). "
+              "Re-run .github/scripts/spotify_auth.py and update the secret.")
+        return None
+
+    if tok.get("refresh_token") and tok["refresh_token"] != ref:
+        # Never echo the token itself -- Actions logs are public on this repo.
+        print("::warning::Spotify returned a rotated refresh token. Re-run "
+              "spotify_auth.py and update SPOTIFY_REFRESH_TOKEN before the old "
+              "one lapses.")
+
+    h = {"Authorization": f"Bearer {tok['access_token']}"}
 
     try:
         now = api("https://api.spotify.com/v1/me/player/currently-playing", headers=h)
