@@ -65,36 +65,55 @@ Production-grade benchmarking across 9 categories — generates 20+ charts, cros
 
 ## Upstream
 
-Built [knack](https://github.com/jainal09/knack) to benchmark NATS against Kafka on small hardware. What it surfaced were NATS bugs, not benchmark bugs — so they got fixed there.
+```text
+knack ── Kafka vs NATS, 9 scenario categories, constrained hardware
+  │
+  └──▶ three defects that belonged to NATS, not to the benchmark
+         │
+    ┌────┴───────────────┬────────────────────┐
+    ▼                    ▼                    ▼
+nats-server #8420    nui #126           natscli #1647
+▸ 2.14.4, 2.12.14    ▸ 0.9.3            ▸ merged to main
+```
 
-|  |  | shipped |
-|:--|:--|:--|
-| [**nats-server#8420**](https://github.com/nats-io/nats-server/pull/8420) | `allow_non_tls` servers announced `TLS required`, then served plaintext | `2.14.4` `2.12.14` |
-| [**nui#126**](https://github.com/nats-nui/nui/pull/126) | protobuf cache dropped dotted type names, with no way back | `0.9.3` |
-| [**natscli#1647**](https://github.com/nats-io/natscli/pull/1647) | `--throughput` rate cap across the `bench` generators | `main` |
-| [**grpcui#398**](https://github.com/fullstorydev/grpcui/pull/398) | dark mode | merged |
-| [**hoppscotch#1593**](https://github.com/hoppscotch/hoppscotch/pull/1593) | one null `url` aborted the entire Postman import | merged |
-| [**celery#5792**](https://github.com/celery/celery/pull/5792) | broker URL slashes | merged |
+A server that accepts plaintext should not announce that TLS is required. It had never consulted `allow_non_tls` at all:
 
-> **#398 is the one worth opening.** I proposed dark mode as a toggle, JavaScript and cookies. The maintainer said it was "a bit much." I argued once, lost, and stripped it — what shipped is one CSS file, their design.
+```diff
+- s.Noticef("TLS required for client connections")
++ if opts.AllowNonTLS && !tlsHandshakeFirstOnly {
++     s.Noticef("TLS available for client connections")
++ } else {
++     s.Noticef("TLS required for client connections")
++ }
+```
+
+`\w` is `[A-Za-z0-9_]`, so every fully-qualified protobuf name lost its dots on the way into the cache. `Poc.OrderCreated` was stored as `PocOrderCreated`, and every lookup after that missed:
+
+```diff
+- return identifier.trim().replace(/[^\w\-]/g, '')
++ return identifier.trim().replace(/[^\w\-\.\/]/g, '')
+```
+
+> **[grpcui #398](https://github.com/fullstorydev/grpcui/pull/398) is the one worth opening.** I proposed dark mode as a toggle, JavaScript and cookie storage. The maintainer's answer was that this was "a bit much." I argued once, lost, and threw the whole thing away — what shipped is one CSS file, their design.
+
+[nats-server #8420](https://github.com/nats-io/nats-server/pull/8420) · [nui #126](https://github.com/nats-nui/nui/pull/126) · [natscli #1647](https://github.com/nats-io/natscli/pull/1647) · [grpcui #398](https://github.com/fullstorydev/grpcui/pull/398) · [hoppscotch #1593](https://github.com/hoppscotch/hoppscotch/pull/1593) · [celery #5792](https://github.com/celery/celery/pull/5792)
 
 ## Practice
 
-[**envdrift**](https://github.com/jainal09/envdrift) — encrypted `.env` sync with schema validation and a secret-scanning engine fronting 9 third-party scanners. **96 releases on PyPI in 8 months**, ~3.9k downloads/month, **4,075 tests at 94.7% coverage**.
+[**envdrift**](https://github.com/jainal09/envdrift) — encrypted `.env` sync, schema validation, and a secret-scanning engine fronting 9 third-party scanners.
+**96 PyPI releases in 8 months** · **~3.9k downloads/month** · **4,075 tests at 94.7% coverage**
 
-`main` sits behind **12 required checks** with admin enforcement on — no self-merge escape hatch.
+```text
+commit ──▶ commitlint ──▶ 12 required checks ──▶ release-please ──▶ PyPI
+               │                  │                     │
+          malformed          admin enforced        version cut from
+          message =          — no self-merge       the commit history
+          no merge             bypass
+```
 
 |  |  |
 |:--|:--|
-| `commitlint` | a malformed commit message blocks the merge — mine included |
-| `release-please` | versions cut straight from that history, across 3 independent packages |
 | `integration` | real containers over mocks — Key Vault emulator, LocalStack, Vault |
-| `codeql` `bandit` | across 4 languages, every push |
+| `codeql` `bandit` | 4 languages, every push |
 | `renovate` | 8 custom managers bumping pinned scanner binaries in-source |
 | `id-token: write` | those workflows pin every action to a commit SHA |
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/output/github-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/output/github-snake.svg" />
-  <img alt="snake eating contributions" src="https://raw.githubusercontent.com/jainal09/jainal09/output/github-snake.svg" />
-</picture>
