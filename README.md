@@ -6,19 +6,17 @@
   </a>
 </p>
 
-<p align="center"> <img src="https://komarev.com/ghpvc/?username=jainal09&label=Profile%20views&color=0e75b6&style=flat" alt="jainal09" /> </p>
-
-<p align="center"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-trophies.vercel.app/?username=jainal09&column=6&margin-w=15&margin-h=15" alt="jainal09" /></a> </p>
-
 ## About
 
 MS in Software Engineering from [Northeastern University, Boston](https://www.northeastern.edu/graduate/program/master-of-science-in-software-engineering-systems-18774/). I work on the parts of a system that have to hold when the load stops cooperating — event-driven backends, high-throughput services, and the brokers underneath them. Currently deep in Kubernetes, Spring Cloud and reactive programming.
 
 <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack.svg" alt="a request descending the layers I work in" width="100%" />
 
-Roughly the shape of what I build, and what I am happy to be asked about. I write about how the pieces fit together on [Scale Bites](https://scalebites.substack.com/) — also on [Medium](https://medium.com/@jainal) and [LinkedIn](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7169831353377619968).
+That is the slice I get asked about most, not the whole of it — a large private Swift codebase and a pile of C++ do not fit in five bands. I write about how the pieces fit together on [Scale Bites](https://scalebites.substack.com/) — also on [Medium](https://medium.com/@jainal) and [LinkedIn](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7169831353377619968).
 
 ⚡ I debug distributed systems for fun. Yes, I need better hobbies.
+
+<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/trophies.svg" alt="profile numbers" width="100%" />
 
 ---
 

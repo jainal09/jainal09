@@ -1,0 +1,47 @@
+name: Profile Art
+
+on:
+  schedule:
+    # trophies.svg carries live counts, so it genuinely goes stale. cluster.svg
+    # and stack.svg are static and regenerate to identical bytes -- the commit
+    # step below only pushes when something actually moved.
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/scripts/generate_art.py
+      - .github/workflows/profile-art.yml
+
+concurrency:
+  group: profile-art
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Render
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 .github/scripts/generate_art.py
+
+      - name: Commit if the numbers moved
+        run: |
+          set -euo pipefail
+          if git diff --quiet --exit-code -- assets; then
+            echo "Nothing changed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets
+          git commit -m "chore: refresh profile art"
+          git push

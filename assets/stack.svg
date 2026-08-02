@@ -1,21 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="980" height="252" viewBox="0 0 980 252" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" fill="none">
-<line x1="44" y1="40" x2="44" y2="236" stroke="#8b949e" stroke-width="1" opacity="0.3"/>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="980" height="304" viewBox="0 0 980 304" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" fill="none">
+<line x1="44" y1="40" x2="44" y2="288" stroke="#8b949e" stroke-width="1" opacity="0.3"/>
 <rect x="76" y="40" width="860" height="40" rx="6" stroke="#8b949e" stroke-width="1" opacity="0.28"><animate attributeName="opacity" values="0.28;0.85;0.28" dur="5.2s" begin="0.0s" repeatCount="indefinite"/></rect>
 <circle cx="44" cy="60" r="4" fill="#3fb950" opacity="0.25"><animate attributeName="opacity" values="0.25;1;0.25" dur="5.2s" begin="0.0s" repeatCount="indefinite"/></circle>
-<text x="100" y="66" fill="#4c8eda" font-size="13" font-weight="bold">edge</text>
-<text x="596" y="66" fill="#7d8590" font-size="13" font-weight="normal">FastAPI · Spring Boot</text>
-<rect x="76" y="92" width="860" height="40" rx="6" stroke="#8b949e" stroke-width="1" opacity="0.28"><animate attributeName="opacity" values="0.28;0.85;0.28" dur="5.2s" begin="1.3s" repeatCount="indefinite"/></rect>
-<circle cx="44" cy="112" r="4" fill="#3fb950" opacity="0.25"><animate attributeName="opacity" values="0.25;1;0.25" dur="5.2s" begin="1.3s" repeatCount="indefinite"/></circle>
-<text x="100" y="118" fill="#4c8eda" font-size="13" font-weight="bold">broker</text>
-<text x="596" y="118" fill="#7d8590" font-size="13" font-weight="normal">Kafka · NATS JetStream</text>
-<rect x="76" y="144" width="860" height="40" rx="6" stroke="#8b949e" stroke-width="1" opacity="0.28"><animate attributeName="opacity" values="0.28;0.85;0.28" dur="5.2s" begin="2.6s" repeatCount="indefinite"/></rect>
-<circle cx="44" cy="164" r="4" fill="#3fb950" opacity="0.25"><animate attributeName="opacity" values="0.25;1;0.25" dur="5.2s" begin="2.6s" repeatCount="indefinite"/></circle>
-<text x="100" y="170" fill="#4c8eda" font-size="13" font-weight="bold">workers</text>
-<text x="596" y="170" fill="#7d8590" font-size="13" font-weight="normal">Celery · consumers</text>
-<rect x="76" y="196" width="860" height="40" rx="6" stroke="#8b949e" stroke-width="1" opacity="0.28"><animate attributeName="opacity" values="0.28;0.85;0.28" dur="5.2s" begin="3.9s" repeatCount="indefinite"/></rect>
-<circle cx="44" cy="216" r="4" fill="#3fb950" opacity="0.25"><animate attributeName="opacity" values="0.25;1;0.25" dur="5.2s" begin="3.9s" repeatCount="indefinite"/></circle>
-<text x="100" y="222" fill="#4c8eda" font-size="13" font-weight="bold">state</text>
-<text x="596" y="222" fill="#7d8590" font-size="13" font-weight="normal">Postgres · Redis</text>
-<circle cx="44" r="5" fill="#3fb950"><animate attributeName="cy" values="40;236" dur="5.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" dur="5.2s" repeatCount="indefinite"/></circle>
+<text x="100" y="66" fill="#4c8eda" font-size="13" font-weight="bold">clients</text>
+<text x="596" y="66" fill="#7d8590" font-size="13" font-weight="normal">Swift · TypeScript · React</text>
+<rect x="76" y="92" width="860" height="40" rx="6" stroke="#8b949e" stroke-width="1" opacity="0.28"><animate attributeName="opacity" values="0.28;0.85;0.28" dur="5.2s" begin="1.04s" repeatCount="indefinite"/></rect>
+<circle cx="44" cy="112" r="4" fill="#3fb950" opacity="0.25"><animate attributeName="opacity" values="0.25;1;0.25" dur="5.2s" begin="1.04s" repeatCount="indefinite"/></circle>
+<text x="100" y="118" fill="#4c8eda" font-size="13" font-weight="bold">edge</text>
+<text x="596" y="118" fill="#7d8590" font-size="13" font-weight="normal">FastAPI · Spring Boot</text>
+<rect x="76" y="144" width="860" height="40" rx="6" stroke="#8b949e" stroke-width="1" opacity="0.28"><animate attributeName="opacity" values="0.28;0.85;0.28" dur="5.2s" begin="2.08s" repeatCount="indefinite"/></rect>
+<circle cx="44" cy="164" r="4" fill="#3fb950" opacity="0.25"><animate attributeName="opacity" values="0.25;1;0.25" dur="5.2s" begin="2.08s" repeatCount="indefinite"/></circle>
+<text x="100" y="170" fill="#4c8eda" font-size="13" font-weight="bold">broker</text>
+<text x="596" y="170" fill="#7d8590" font-size="13" font-weight="normal">Kafka · NATS JetStream</text>
+<rect x="76" y="196" width="860" height="40" rx="6" stroke="#8b949e" stroke-width="1" opacity="0.28"><animate attributeName="opacity" values="0.28;0.85;0.28" dur="5.2s" begin="3.12s" repeatCount="indefinite"/></rect>
+<circle cx="44" cy="216" r="4" fill="#3fb950" opacity="0.25"><animate attributeName="opacity" values="0.25;1;0.25" dur="5.2s" begin="3.12s" repeatCount="indefinite"/></circle>
+<text x="100" y="222" fill="#4c8eda" font-size="13" font-weight="bold">workers</text>
+<text x="596" y="222" fill="#7d8590" font-size="13" font-weight="normal">Celery · consumers</text>
+<rect x="76" y="248" width="860" height="40" rx="6" stroke="#8b949e" stroke-width="1" opacity="0.28"><animate attributeName="opacity" values="0.28;0.85;0.28" dur="5.2s" begin="4.16s" repeatCount="indefinite"/></rect>
+<circle cx="44" cy="268" r="4" fill="#3fb950" opacity="0.25"><animate attributeName="opacity" values="0.25;1;0.25" dur="5.2s" begin="4.16s" repeatCount="indefinite"/></circle>
+<text x="100" y="274" fill="#4c8eda" font-size="13" font-weight="bold">state</text>
+<text x="596" y="274" fill="#7d8590" font-size="13" font-weight="normal">Postgres · Redis</text>
+<circle cx="44" r="5" fill="#3fb950"><animate attributeName="cy" values="40;288" dur="5.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" dur="5.2s" repeatCount="indefinite"/></circle>
 <text x="76" y="24" fill="#7d8590" font-size="11" font-weight="normal">a request, on the way down</text>
 </svg>

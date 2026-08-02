@@ -103,8 +103,12 @@ def cluster() -> str:
 
 # ------------------------------------------------------------------ stack ---
 
-SW, SH = 980, 252
+SW, SH = 980, 304
 LAYERS = [
+    # A clients layer so the stack spans client to state. Without it the
+    # drawing reads as an exhaustive list of what I touch, which it is not --
+    # Swift and C++ are both larger in bytes than most of what is named here.
+    ("clients", "Swift · TypeScript · React"),
     ("edge", "FastAPI · Spring Boot"),
     ("broker", "Kafka · NATS JetStream"),
     ("workers", "Celery · consumers"),
@@ -161,9 +165,94 @@ def stack() -> str:
     return "\n".join(s) + "\n</svg>"
 
 
+# --------------------------------------------------------------- trophies ---
+
+TW, TH = 980, 214
+TCOLS = 4
+TM, TCOL = 40, 225
+TROW = [64, 152]
+
+
+def trophies(stats: dict) -> str:
+    """The same information the trophy row carried, in this design system.
+
+    No rank letters and no progress bars: a bar needs a scale, and inventing
+    one to make a number look like an achievement is how the original reads
+    as a video game. Label, figure, rule.
+    """
+    tiles = [
+        ("commits", f"{stats['commits_yr']:,}", "this year"),
+        ("pull requests", f"{stats['prs_total']:,}", "opened"),
+        ("issues", f"{stats['issues_total']:,}", "opened"),
+        ("repositories", f"{stats['repos']}", "public, non-fork"),
+        ("stars", f"{stats['stars']}", "received"),
+        ("followers", f"{stats['followers']}", ""),
+        ("organisations", f"{stats['orgs']}", ""),
+        ("on github", f"{stats['years']}", "years"),
+    ]
+    s = [svg_open(TW, TH)]
+    for i, (label, value, note) in enumerate(tiles):
+        x = TM + (i % TCOLS) * TCOL
+        y = TROW[i // TCOLS]
+        s.append(text(x, y - 22, label, DIM, 11))
+        s.append(text(x, y + 8, value, GREEN, 25, "bold"))
+        if note:
+            s.append(text(x + len(value) * 16 + 10, y + 8, note, DIM, 11))
+        # Rule draws in once and freezes. Decorative, and deliberately the
+        # same width everywhere so it cannot be misread as a proportion.
+        # Authored at full width and animated up from zero, so a renderer that
+        # ignores SMIL shows the finished rule rather than nothing at all.
+        s.append(
+            f'<line x1="{x}" y1="{y + 24}" x2="{x + 168}" y2="{y + 24}" '
+            f'stroke="{BLUE}" stroke-width="2" opacity="0.6">'
+            f'<animate attributeName="x2" from="{x}" to="{x + 168}" dur="0.7s" '
+            f'begin="{round(i * 0.08, 2)}s" fill="freeze"/></line>'
+        )
+    return "\n".join(s) + "\n</svg>"
+
+
+def fetch_stats() -> dict:
+    import json, os, subprocess, urllib.request
+    from datetime import datetime, timezone
+
+    q = """{ user(login:"jainal09"){ createdAt followers{totalCount}
+      organizations{totalCount}
+      repositories(first:100, ownerAffiliations:OWNER, isFork:false){
+        totalCount nodes{ stargazerCount } }
+      contributionsCollection{ totalCommitContributions restrictedContributionsCount }
+      pullRequests{totalCount} issues{totalCount} } }"""
+    tok = os.environ.get("GITHUB_TOKEN") or subprocess.run(
+        ["gh", "auth", "token"], capture_output=True, text=True, check=True
+    ).stdout.strip()
+    req = urllib.request.Request(
+        "https://api.github.com/graphql",
+        data=json.dumps({"query": q}).encode(),
+        headers={"Authorization": f"bearer {tok}", "Content-Type": "application/json",
+                 "User-Agent": "jainal09-profile-art"},
+    )
+    with urllib.request.urlopen(req, timeout=30) as r:
+        payload = json.load(r)
+    if "errors" in payload:
+        raise SystemExit(f"GraphQL error: {payload['errors']}")
+    u = payload["data"]["user"]
+    c = u["contributionsCollection"]
+    start = datetime.fromisoformat(u["createdAt"].replace("Z", "+00:00"))
+    return {
+        "commits_yr": c["totalCommitContributions"] + c["restrictedContributionsCount"],
+        "prs_total": u["pullRequests"]["totalCount"],
+        "issues_total": u["issues"]["totalCount"],
+        "repos": u["repositories"]["totalCount"],
+        "stars": sum(n["stargazerCount"] for n in u["repositories"]["nodes"]),
+        "followers": u["followers"]["totalCount"],
+        "orgs": u["organizations"]["totalCount"],
+        "years": (datetime.now(timezone.utc) - start).days // 365,
+    }
+
+
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for name, body in (("cluster", cluster()), ("stack", stack())):
+    for name, body in (("cluster", cluster()), ("stack", stack()),
+                       ("trophies", trophies(fetch_stats()))):
         path = OUT_DIR / f"{name}.svg"
         path.write_text(body, encoding="utf-8")
         print(f"wrote {path}")
