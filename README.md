@@ -12,12 +12,20 @@
 
 ## About
 
-- 🔭 Building and scaling **distributed systems, event-driven architectures, and high-throughput backend services**
-- 🎓 MS in Software Engineering from [Northeastern University, Boston](https://www.northeastern.edu/graduate/program/master-of-science-in-software-engineering-systems-18774/)
-- 🛠 Currently deep in **Kubernetes, Spring Cloud, and Reactive Programming**
-- 📝 I write about systems design and engineering on [Scale Bites](https://scalebites.substack.com/) — also on [Medium](https://medium.com/@jainal) and [LinkedIn](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7169831353377619968)
-- 💬 Happy to talk about **Kafka, distributed systems, microservices, Kubernetes, Spring Boot, Python, Django, FastAPI, Flask, Docker**
-- ⚡ I debug distributed systems for fun. Yes, I need better hobbies.
+MS in Software Engineering from [Northeastern University, Boston](https://www.northeastern.edu/graduate/program/master-of-science-in-software-engineering-systems-18774/). I work on the parts of a system that have to hold when the load stops cooperating — event-driven backends, high-throughput services, and the brokers underneath them. Currently deep in Kubernetes, Spring Cloud and reactive programming.
+
+```mermaid
+flowchart LR
+  A["clients"] --> B["edge<br/>FastAPI · Spring Boot"]
+  B --> C["broker<br/>Kafka · NATS JetStream"]
+  C --> D["workers<br/>Celery · consumers"]
+  D --> E[("state<br/>Postgres · Redis")]
+  B --> E
+```
+
+Roughly the shape of what I build, and what I am happy to be asked about. I write about how the pieces fit together on [Scale Bites](https://scalebites.substack.com/) — also on [Medium](https://medium.com/@jainal) and [LinkedIn](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7169831353377619968).
+
+⚡ I debug distributed systems for fun. Yes, I need better hobbies.
 
 ---
 
