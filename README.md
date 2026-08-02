@@ -84,6 +84,10 @@ Benchmarking NATS against Kafka for [knack](https://github.com/jainal09/knack) t
 
 ---
 
+<!-- Keep the space after the colon in "(prefers-color-scheme: dark)". GitHub's
+     themed-picture element classifies these sources with a literal string match,
+     so removing it silently breaks theme switching for anyone whose GitHub theme
+     is set explicitly rather than to auto. Do not let a formatter reflow this. -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/card-dark.svg" />
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/card-light.svg" />
