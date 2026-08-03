@@ -42,13 +42,14 @@ def esc(s: str) -> str:
             .replace(">", "&gt;").replace('"', "&quot;"))
 
 
-def text(x, y, body, fill=DIM, size=13, weight="normal") -> str:
+def text(x, y, body, fill=DIM, size=13, weight="normal", cls=None) -> str:
     # Left-anchored at an explicit x throughout. text-anchor="end" puts the
     # right edge of the string at the mercy of whichever monospace face the
     # viewer resolves, and an overrun here is clipped by the viewBox.
     return (
-        f'<text x="{x}" y="{y}" fill="{fill}" font-size="{size}" '
-        f'font-weight="{weight}">{esc(body)}</text>'
+        f'<text x="{x}" y="{y}"'
+        + (f' class="{cls}"' if cls else f' fill="{fill}"')
+        + f' font-size="{size}" font-weight="{weight}">{esc(body)}</text>'
     )
 
 
@@ -267,7 +268,18 @@ CELL_W, CELL_H, CELL_GX, CELL_GY = 20, 10, 6, 4
 LED_X = (MW - (COLS * CELL_W + (COLS - 1) * CELL_GX)) // 2
 LED_Y = 26
 STEPS = 16
-SCREEN, LIT, UNLIT, MUTED = "#0a0a0a", "#f0f0f0", "#2a2a2a", "#8a8a8a"
+# Painted with GitHub's own canvas colours and switched by an internal media
+# query, so the panel reads as part of the page instead of a black slab on it.
+# One file rather than a two-file <picture> swap: the 16 covers are inlined as
+# base64, and a second variant would duplicate every byte of them.
+SCREEN_STYLE = """<style>
+  .bg{fill:#ffffff}.lit{fill:#1f2328}.unlit{fill:#d0d7de}
+  .mut{fill:#656d76}.quirk{fill:#8c959f}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#0d1117}.lit{fill:#e6edf3}.unlit{fill:#21262d}
+    .mut{fill:#8b949e}.quirk{fill:#6e7681}
+  }
+</style>"""
 
 RANGES = [("all time", "long_term"), ("last 6 months", "medium_term"),
           ("last 4 weeks", "short_term")]
@@ -296,7 +308,7 @@ def _art(uri: str | None, x: int, y: int, size: int) -> str:
     """
     if not uri:
         return (f'<rect x="{x}" y="{y}" width="{size}" height="{size}" rx="3" '
-                f'fill="{UNLIT}"/>')
+                f'class="unlit"/>')
     return (f'<image x="{x}" y="{y}" width="{size}" height="{size}" '
             f'href="{uri}" xlink:href="{uri}" preserveAspectRatio="xMidYMid slice"/>')
 
@@ -308,8 +320,8 @@ def music(data: dict | None) -> str:
     cols_y = head + 118
     height = cols_y + 24 + rows * ROW_H + 34 if rows else head + 116
 
-    s = [svg_open(MW, height)]
-    s.append(f'<rect x="0" y="0" width="{MW}" height="{height}" rx="10" fill="{SCREEN}"/>')
+    s = [svg_open(MW, height), SCREEN_STYLE]
+    s.append(f'<rect x="0" y="0" width="{MW}" height="{height}" rx="10" class="bg"/>')
 
     # A black screen on both themes deliberately: a device on the page, not a
     # panel that failed to pick up the background.
@@ -322,7 +334,7 @@ def music(data: dict | None) -> str:
             vals = ";".join("1" if lvl > r else "0.14" for lvl in seq)
             s.append(
                 f'<rect x="{x}" y="{y}" width="{CELL_W}" height="{CELL_H}" rx="1.5" '
-                f'fill="{LIT}" opacity="0.14">'
+                f'class="lit" opacity="0.14">'
                 f'<animate attributeName="opacity" values="{vals}" dur="{dur}s" '
                 f'calcMode="discrete" repeatCount="indefinite"/></rect>'
             )
@@ -336,30 +348,30 @@ def music(data: dict | None) -> str:
         title, artist, pct, label, art = "— not connected —", "", 0.0, "", None
         quirk = "looks like my OAuth token expired. it does that."
 
-    s.append(text(LED_X, head + 4, now and "now playing" or "status", MUTED, 11))
+    s.append(text(LED_X, head + 4, now and "now playing" or "status", None, 11, cls="mut"))
     s.append(_art(art, LED_X, head + 14, 56))
-    s.append(text(LED_X + 70, head + 36, title[:44], LIT, 15, "bold"))
-    s.append(text(LED_X + 70, head + 58, artist[:52], MUTED, 12))
+    s.append(text(LED_X + 70, head + 36, title[:44], None, 15, "bold", cls="lit"))
+    s.append(text(LED_X + 70, head + 58, artist[:52], None, 12, cls="mut"))
 
     blocks, bx, by = 46, LED_X + 70, head + 72
     filled = round(pct * blocks)
     for i in range(blocks):
         s.append(f'<rect x="{bx + i * 13}" y="{by}" width="9" height="9" '
-                 f'fill="{LIT if i < filled else UNLIT}"/>')
+                 f'class="{"lit" if i < filled else "unlit"}"/>')
     if label:
-        s.append(text(bx + blocks * 13 + 12, by + 9, label, MUTED, 11))
-    s.append(text(LED_X, head + 100, quirk, "#5a5a5a", 11))
+        s.append(text(bx + blocks * 13 + 12, by + 9, label, None, 11, cls="mut"))
+    s.append(text(LED_X, head + 100, quirk, None, 11, cls="quirk"))
 
     if rows:
         cx0 = (MW - (3 * COL_W + 2 * COL_GAP)) // 2
         for ci, (heading, key) in enumerate(RANGES):
             cx = cx0 + ci * (COL_W + COL_GAP)
-            s.append(text(cx, cols_y, heading, MUTED, 11))
+            s.append(text(cx, cols_y, heading, None, 11, cls="mut"))
             for ri, tr in enumerate(tops.get(key, [])):
                 y = cols_y + 18 + ri * ROW_H
                 s.append(_art(tr.get("art"), cx, y, ART))
-                s.append(text(cx + ART + 12, y + 15, tr["title"][:24], LIT, 12))
-                s.append(text(cx + ART + 12, y + 30, tr["artist"][:26], MUTED, 11))
+                s.append(text(cx + ART + 12, y + 15, tr["title"][:24], None, 12, cls="lit"))
+                s.append(text(cx + ART + 12, y + 30, tr["artist"][:26], None, 11, cls="mut"))
     return "\n".join(s) + "\n</svg>"
 
 
