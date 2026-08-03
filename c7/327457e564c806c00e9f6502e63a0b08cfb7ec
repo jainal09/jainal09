@@ -1,0 +1,28 @@
+assets/music.svg
+  s_dadda1ac265589::t_aa925893aed339 1-2,227-229,231-260,276,278-326
+  s_dadda1ac265589::t_cbb1bdea613e26 230,261-275,277
+.github/scripts/generate_art.py
+  s_dadda1ac265589::t_b95e635be9ce97 264,269-274,278,280-281,290-312,314-315,330-332,334,336,339-342,344,347-348,350-362,367,378,383-385,406,409-431,433,435-437,439,443-464
+  s_dadda1ac265589::t_0fe9aafee9f0df 35-44
+  s_dadda1ac265589::t_cbb1bdea613e26 51
+.github/scripts/spotify_auth.py
+  s_dadda1ac265589::t_d59bbfeeb71483 32
+assets/trophies.svg
+  s_dadda1ac265589::t_aa925893aed339 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "c7327457e564c806c00e9f6502e63a0b08cfb7ec",
+  "prompts": {},
+  "sessions": {
+    "s_dadda1ac265589": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bc13c4f6-7af9-407c-b6e6-ce1f0bcf23e1",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Jainal Gosaliya <jainal09gosalia@gmail.com>"
+    }
+  }
+}
