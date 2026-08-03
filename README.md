@@ -1,6 +1,6 @@
 <h1 align="center">Jainal Gosaliya</h1>
 
-<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/worldmap.svg" alt="jainal09 — distributed systems, event-driven backends, platform" width="100%" />
+<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner.svg" alt="jainal09 — software engineer, distributed systems" width="100%" />
 
 <p align="center"> <img src="https://komarev.com/ghpvc/?username=jainal09&label=Profile%20views&color=0e75b6&style=flat" alt="jainal09" /> </p>
 
