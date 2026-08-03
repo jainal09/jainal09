@@ -547,9 +547,116 @@ def banner() -> str:
     return "\n".join(s) + "\n</svg>"
 
 
+# ---------------------------------------------------------- contributions ---
+
+CONTRIB_W = 980
+CELL, CGAP = 13, 4
+GRID_X, GRID_Y = 58, 44
+
+# GitHub's own contribution ramp, so the graph reads as the thing it mirrors
+# rather than an approximation of it.
+CONTRIB_STYLE = """<style>
+  .c0{fill:#ebedf0}.c1{fill:#aceebb}.c2{fill:#4ac26b}.c3{fill:#2da44e}.c4{fill:#116329}
+  .clab{fill:#59636e}.cnum{fill:#1f2328}
+  @media (prefers-color-scheme: dark){
+    .c0{fill:#151b23}.c1{fill:#033a16}.c2{fill:#196c2e}.c3{fill:#2ea043}.c4{fill:#56d364}
+    .clab{fill:#8b949e}.cnum{fill:#e6edf3}
+  }
+</style>"""
+
+MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+
+
+def _level(n: int, peak: int) -> int:
+    if n <= 0:
+        return 0
+    # Quarters of the peak rather than fixed cutoffs, so the ramp still has
+    # range whether the busiest day is 9 commits or 95.
+    for i, frac in enumerate((0.06, 0.18, 0.42), start=1):
+        if n <= max(1, round(peak * frac)):
+            return i
+    return 4
+
+
+def contributions(cal: dict) -> str:
+    weeks = cal["weeks"]
+    days = [d for w in weeks for d in w["contributionDays"]]
+    peak = max((d["contributionCount"] for d in days), default=0)
+
+    # Longest and current run of consecutive active days. Trailing zeroes are
+    # skipped for the current streak -- today being quiet at 04:00 UTC should
+    # not read as a broken streak.
+    longest = run = 0
+    for d in days:
+        run = run + 1 if d["contributionCount"] > 0 else 0
+        longest = max(longest, run)
+    current = 0
+    for d in reversed(days):
+        if d["contributionCount"] > 0:
+            current += 1
+        elif current or d is days[-1]:
+            break
+
+    height = GRID_Y + 7 * (CELL + CGAP) + 42
+    s = [svg_open(CONTRIB_W, height), CONTRIB_STYLE]
+
+    seen = set()
+    for wi, w in enumerate(weeks):
+        first = w["contributionDays"][0]["date"]
+        mon = int(first[5:7])
+        if first[8:10] <= "07" and mon not in seen:
+            seen.add(mon)
+            s.append(text(GRID_X + wi * (CELL + CGAP), GRID_Y - 10,
+                          MONTHS[mon - 1], None, 10, cls="clab"))
+
+    for label, row in (("Mon", 1), ("Wed", 3), ("Fri", 5)):
+        s.append(text(GRID_X - 34, GRID_Y + row * (CELL + CGAP) + 11,
+                      label, None, 10, cls="clab"))
+
+    for wi, w in enumerate(weeks):
+        for d in w["contributionDays"]:
+            x = GRID_X + wi * (CELL + CGAP)
+            y = GRID_Y + d["weekday"] * (CELL + CGAP)
+            s.append(f'<rect x="{x}" y="{y}" width="{CELL}" height="{CELL}" rx="2.5" '
+                     f'class="c{_level(d["contributionCount"], peak)}"/>')
+
+    base = GRID_Y + 7 * (CELL + CGAP) + 24
+    s.append(text(GRID_X, base, f'{cal["totalContributions"]:,}', None, 15, "bold", cls="cnum"))
+    s.append(text(GRID_X + 58, base, "contributions in the last year", None, 12, cls="clab"))
+    s.append(text(GRID_X + 300, base, f"{longest}", None, 15, "bold", cls="cnum"))
+    s.append(text(GRID_X + 330, base, "day longest streak", None, 12, cls="clab"))
+    s.append(text(GRID_X + 490, base, f"{current}", None, 15, "bold", cls="cnum"))
+    s.append(text(GRID_X + 520, base, "day current streak", None, 12, cls="clab"))
+
+    lx = GRID_X + 700
+    s.append(text(lx, base, "less", None, 10, cls="clab"))
+    for i in range(5):
+        s.append(f'<rect x="{lx + 34 + i * 16}" y="{base - 10}" width="12" height="12" '
+                 f'rx="2.5" class="c{i}"/>')
+    s.append(text(lx + 118, base, "more", None, 10, cls="clab"))
+    return "\n".join(s) + "\n</svg>"
+
+
+def fetch_calendar() -> dict:
+    import json, os, subprocess, urllib.request
+    q = """{ user(login:"jainal09"){ contributionsCollection{ contributionCalendar{
+      totalContributions weeks{ contributionDays{ date contributionCount weekday } } } } } }"""
+    tok = os.environ.get("GITHUB_TOKEN") or subprocess.run(
+        ["gh", "auth", "token"], capture_output=True, text=True, check=True).stdout.strip()
+    req = urllib.request.Request(
+        "https://api.github.com/graphql", data=json.dumps({"query": q}).encode(),
+        headers={"Authorization": f"bearer {tok}", "Content-Type": "application/json",
+                 "User-Agent": "jainal09-profile-art"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        payload = json.load(r)
+    if "errors" in payload:
+        raise SystemExit(f"GraphQL error: {payload['errors']}")
+    return payload["data"]["user"]["contributionsCollection"]["contributionCalendar"]
+
+
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    pieces = (("banner", banner()), ("cluster", cluster()), ("stack", stack()),
+    pieces = (("banner", banner()), ("contributions", contributions(fetch_calendar())), ("cluster", cluster()), ("stack", stack()),
               ("trophies", trophies(fetch_stats())), ("music", music(fetch_spotify())))
     for name, body in pieces:
         path = OUT_DIR / f"{name}.svg"
