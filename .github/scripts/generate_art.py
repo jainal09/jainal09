@@ -476,9 +476,80 @@ def fetch_spotify() -> dict | None:
     return {"now": now, "tops": tops}
 
 
+# ----------------------------------------------------------------- banner ---
+
+BW, BH = 980, 176
+BANNER_STYLE = """<style>
+  .bpr{fill:#656d76}.bcmd{fill:#1a7f37}.btxt{fill:#1f2328}
+  .bcur{fill:#0969da}.bchrome{fill:#d0d7de}
+  @media (prefers-color-scheme: dark){
+    .bpr{fill:#8b949e}.bcmd{fill:#3fb950}.btxt{fill:#e6edf3}
+    .bcur{fill:#58a6ff}.bchrome{fill:#30363d}
+  }
+</style>"""
+
+# (text, class, start second). Typed in sequence, so it reads as a session
+# rather than four lines that happen to fade in.
+BANNER_LINES = [
+    ("jainal09@github:~$ whoami", "bcmd", 0.20),
+    ("Software Engineer — distributed systems, event-driven backends", "btxt", 1.35),
+    ("jainal09@github:~$ cat focus.txt", "bcmd", 2.85),
+    ("Kafka · NATS · Kubernetes · things that stay up under load", "btxt", 4.00),
+]
+BX, BY, BLH, BSIZE = 40, 52, 30, 15
+
+
+def banner() -> str:
+    """Header terminal, typed out.
+
+    The reveal is a clipPath whose width animates -- SMIL cannot animate text
+    content, so the glyphs are all present from the start and simply uncovered
+    left to right. Same result, and it degrades to fully-typed rather than
+    blank if a renderer ignores the animation.
+    """
+    s = [svg_open(BW, BH), BANNER_STYLE]
+    for i, c in enumerate(("#f85149", "#d29922", "#3fb950")):
+        s.append(f'<circle cx="{BX + i * 18}" cy="24" r="5.5" fill="{c}"/>')
+    s.append(f'<line x1="{BX}" y1="38" x2="{BW - BX}" y2="38" class="bchrome" '
+             f'stroke="currentColor" stroke-width="1" opacity="0.5"/>')
+
+    end = BX
+    for i, (body, cls, begin) in enumerate(BANNER_LINES):
+        y = BY + i * BLH
+        # Generous per-character estimate: overshooting the clip just reveals
+        # the whole line, while undershooting would truncate it forever.
+        w = int(len(body) * BSIZE * 0.75)
+        dur = round(len(body) * 0.021, 2)
+        s.append(
+            f'<clipPath id="t{i}"><rect x="{BX}" y="{y - BSIZE}" width="0" '
+            f'height="{BSIZE + 8}">'
+            f'<animate attributeName="width" from="0" to="{w}" dur="{dur}s" '
+            f'begin="{begin}s" fill="freeze"/></rect></clipPath>'
+        )
+        s.append(
+            f'<text x="{BX}" y="{y}" class="{cls}" font-size="{BSIZE}" '
+            f'clip-path="url(#t{i})">{esc(body)}</text>'
+        )
+        if i == len(BANNER_LINES) - 1:
+            end = BX + int(len(body) * BSIZE * 0.6) + 8
+            last_y, last_begin = y, begin + dur
+
+    s.append(
+        f'<rect x="{end}" y="{last_y - 12}" width="9" height="16" class="bcur" '
+        f'opacity="0"><animate attributeName="opacity" values="0;0;1;0;1;0;1" '
+        f'keyTimes="0;{round(last_begin / (last_begin + 3), 3)};'
+        f'{round((last_begin + 0.4) / (last_begin + 3), 3)};'
+        f'{round((last_begin + 0.9) / (last_begin + 3), 3)};'
+        f'{round((last_begin + 1.4) / (last_begin + 3), 3)};'
+        f'{round((last_begin + 1.9) / (last_begin + 3), 3)};1" '
+        f'dur="{round(last_begin + 3, 2)}s" repeatCount="indefinite"/></rect>'
+    )
+    return "\n".join(s) + "\n</svg>"
+
+
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    pieces = (("cluster", cluster()), ("stack", stack()),
+    pieces = (("banner", banner()), ("cluster", cluster()), ("stack", stack()),
               ("trophies", trophies(fetch_stats())), ("music", music(fetch_spotify())))
     for name, body in pieces:
         path = OUT_DIR / f"{name}.svg"

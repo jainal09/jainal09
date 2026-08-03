@@ -1,10 +1,6 @@
 <h1 align="center">Jainal Gosaliya</h1>
 
-<p align="center">
-  <a href="https://github.com/jainal09">
-    <img src="https://readme-svg-typing-generator.vercel.app/api?lines=Software+Engineer;Distributed+Systems+%7C+Backend+%7C+Platform;Building+things+that+scale&animation=typing&color=36BCF7&size=22&center=true&vCenter=true&width=600&height=60&duration=4000&repeat=true" alt="Typing SVG" />
-  </a>
-</p>
+<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner.svg" alt="jainal09 — software engineer, distributed systems" width="100%" />
 
 <p align="center"> <img src="https://komarev.com/ghpvc/?username=jainal09&label=Profile%20views&color=0e75b6&style=flat" alt="jainal09" /> </p>
 
@@ -18,7 +14,11 @@ That is the slice I get asked about most, not the whole of it — a large privat
 
 ⚡ I debug distributed systems for fun. Yes, I need better hobbies.
 
+## Listening
+
 <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music.svg" alt="what I am listening to" width="100%" />
+
+## Numbers
 
 <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/trophies.svg" alt="profile numbers" width="100%" />
 
