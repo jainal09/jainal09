@@ -75,4 +75,16 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add assets
           git commit -m "chore: refresh profile art"
-          git push
+          # Rebase and retry rather than pushing blind. A human pushing while
+          # this job runs makes the commit non-fast-forward, and the job used to
+          # simply die there -- the render was fine, only the push lost a race.
+          for attempt in 1 2 3; do
+            if git pull --rebase --autostash origin "$GITHUB_REF_NAME" && git push; then
+              echo "pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "push race on attempt $attempt, retrying"
+            sleep 5
+          done
+          echo "::error::Could not push after 3 attempts"
+          exit 1
