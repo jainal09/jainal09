@@ -18,6 +18,8 @@ That is the slice I get asked about most, not the whole of it — a large privat
 
 ⚡ I debug distributed systems for fun. Yes, I need better hobbies.
 
+<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music.svg" alt="what I am listening to" width="100%" />
+
 <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/trophies.svg" alt="profile numbers" width="100%" />
 
 ---

@@ -68,9 +68,16 @@ def main() -> None:
     server = http.server.HTTPServer(("127.0.0.1", PORT), Handler)
     threading.Thread(target=server.serve_forever, daemon=True).start()
 
-    print(f"\nAdd this EXACT redirect URI to your Spotify app first:\n  {REDIRECT}\n")
-    print("Opening your browser. Log in to Spotify there.\n")
-    webbrowser.open(url)
+    print(f"\nRedirect URI registered on the Spotify app must be exactly:\n  {REDIRECT}\n")
+    # Always print the URL. webbrowser.open() silently no-ops when there is no
+    # session to open into -- launched from a daemon, over ssh, from CI -- and
+    # without the URL there is nothing to fall back to.
+    print("Open this if your browser does not appear:\n")
+    print(f"  {url}\n", flush=True)
+    try:
+        webbrowser.open(url)
+    except Exception:
+        pass
 
     while _code is None:
         server.handle_request()
