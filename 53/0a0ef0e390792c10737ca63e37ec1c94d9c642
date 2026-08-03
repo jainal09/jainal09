@@ -1,0 +1,21 @@
+assets/worldmap.svg
+  s_dadda1ac265589::t_67271d18bd0969 1-28
+.github/scripts/generate_art.py
+  s_dadda1ac265589::t_c931fb562031c7 550-693,696
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "530a0ef0e390792c10737ca63e37ec1c94d9c642",
+  "prompts": {},
+  "sessions": {
+    "s_dadda1ac265589": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bc13c4f6-7af9-407c-b6e6-ce1f0bcf23e1",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Jainal Gosaliya <jainal09gosalia@gmail.com>"
+    }
+  }
+}
