@@ -20,6 +20,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / ".github" / "scripts" / "preview.html"
+VARIANTS = ROOT / ".github" / "scripts" / ".preview-assets"
 RAW = re.compile(
     r"https://raw\.githubusercontent\.com/jainal09/jainal09/[^/]+/(assets/[^\"'\s)]+)"
 )
@@ -51,9 +52,41 @@ button{font:inherit;padding:5px 12px;border-radius:6px;cursor:pointer;
 """
 
 JS = """
-document.getElementById('t').onclick=()=>document.body.classList.toggle('dark');
+function paint(dark){
+  document.body.classList.toggle('dark', dark);
+  for(const i of document.querySelectorAll('img[data-dark]'))
+    i.src = (dark ? i.dataset.dark : i.dataset.light) + '?v=' + Date.now();
+}
+let dark = matchMedia('(prefers-color-scheme: dark)').matches;
+document.getElementById('t').onclick=()=>{dark=!dark;paint(dark)};
 document.getElementById('r').onclick=()=>location.reload();
+paint(dark);
 """
+
+
+MEDIA = re.compile(r"@media \(prefers-color-scheme: dark\)\{(.*?)\}\s*\}", re.S)
+
+
+def variants() -> None:
+    """Bake each asset into an explicitly light and an explicitly dark copy.
+
+    The SVGs decide their own colours from prefers-color-scheme, which reads
+    the OS -- so a page-level toggle cannot move them, and the preview would
+    happily show a dark graph on a white page and call it a preview. Resolving
+    the media query ahead of time is the only way to see both without
+    restarting into a different system appearance.
+    """
+    VARIANTS.mkdir(exist_ok=True)
+    for src in sorted((ROOT / "assets").glob("*.svg")):
+        body = src.read_text(encoding="utf-8")
+        m = MEDIA.search(body)
+        if m:
+            light = MEDIA.sub("}", body)              # base rules are the light set
+            dark = body.replace("</style>", m.group(1) + "</style>")
+        else:
+            light = dark = body                       # no media query, same either way
+        (VARIANTS / f"{src.stem}.light.svg").write_text(light, encoding="utf-8")
+        (VARIANTS / f"{src.stem}.dark.svg").write_text(dark, encoding="utf-8")
 
 
 def render(md: str) -> str:
@@ -68,7 +101,14 @@ def main() -> None:
     md = (ROOT / "README.md").read_text(encoding="utf-8")
     html = render(md)
     # Point at the working copy so local regeneration is what you see.
-    html = RAW.sub(lambda m: "../../" + m.group(1), html)
+    variants()
+    # Point every asset at its baked light copy, and remember the dark one so
+    # the toggle can swap both the page and the artwork together.
+    html = RAW.sub(
+        lambda m: f'.preview-assets/{Path(m.group(1)).stem}.light.svg" '
+                  f'data-dark=".preview-assets/{Path(m.group(1)).stem}.dark.svg" '
+                  f'data-light=".preview-assets/{Path(m.group(1)).stem}.light.svg',
+        html)
 
     OUT.write_text(
         "<!doctype html><html><head><meta charset='utf-8'>"
@@ -76,10 +116,11 @@ def main() -> None:
         "<div class='bar'><b>README preview — local assets</b>"
         "<button id='t'>page theme</button><button id='r'>reload</button></div>"
         "<div class='page'><div class='md'>" + html + "</div></div>"
-        "<p class='note'>The page theme button restyles this page only. The SVGs "
-        "follow your <em>system</em> appearance, because that is what "
-        "prefers-color-scheme reads — switch macOS light/dark and reload to check "
-        "them both.</p>"
+        "<p class='note'>The theme button switches the page <em>and</em> the "
+        "artwork together. Each SVG is baked into an explicitly light and dark "
+        "copy, because prefers-color-scheme reads your OS and no page-level "
+        "toggle can reach it — which is exactly how a preview ends up showing a "
+        "dark graph on a white page.</p>"
         "<script>" + JS + "</script></body></html>",
         encoding="utf-8",
     )
