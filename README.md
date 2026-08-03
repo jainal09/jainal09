@@ -4,11 +4,6 @@
 
 <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner.svg" alt="jainal09 — software engineer, distributed systems" width="100%" />
 
-## Contributions
-
-<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions.svg" alt="contribution graph" width="100%" />
-
-## About
 
 MS in Software Engineering from [Northeastern University, Boston](https://www.northeastern.edu/graduate/program/master-of-science-in-software-engineering-systems-18774/). I work on the parts of a system that have to hold when the load stops cooperating — event-driven backends, high-throughput services, and the brokers underneath them. Currently deep in Kubernetes, Spring Cloud and reactive programming.
 
@@ -18,13 +13,32 @@ That is the slice I get asked about most, not the whole of it — a large privat
 
 ⚡ I debug distributed systems for fun. Yes, I need better hobbies.
 
-## Listening
+---
 
-<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music.svg" alt="what I am listening to" width="100%" />
+## Contributions
 
-## Numbers
+### Commit Frequency
 
-<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/trophies.svg" alt="profile numbers" width="100%" />
+<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions.svg" alt="contribution graph" width="100%" />
+
+### Opensource Projects Contributed
+
+<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster.svg" alt="message flow through a NATS cluster" width="100%" />
+
+I fix the tools I build on. Code I've written ships in NATS Server, NATS NUI and gRPC UI.
+
+<p align="center">
+  <a href="https://github.com/nats-io/nats-server/pull/8420"><img src="https://img.shields.io/badge/NATS_Server-27AAE1?style=for-the-badge&logo=natsdotio&logoColor=white" alt="NATS Server" /></a>
+  <a href="https://github.com/nats-nui/nui/pull/126"><img src="https://img.shields.io/badge/NATS_NUI-27AAE1?style=for-the-badge&logo=natsdotio&logoColor=white" alt="NATS NUI" /></a>
+  <a href="https://github.com/celery/celery/pull/5792"><img src="https://img.shields.io/badge/Celery-37814A?style=for-the-badge&logo=celery&logoColor=white" alt="Celery" /></a>
+  <a href="https://github.com/hoppscotch/hoppscotch/pull/1593"><img src="https://img.shields.io/badge/Hoppscotch-31C48D?style=for-the-badge&logo=hoppscotch&logoColor=white" alt="Hoppscotch" /></a>
+  <a href="https://github.com/fullstorydev/grpcui/pull/398"><img src="https://img.shields.io/badge/gRPC_UI-2D3748?style=for-the-badge&logo=grpc&logoColor=white" alt="gRPC UI" /></a>
+</p>
+
+> **"preserve dots in cached message types and survive external cache clears. Thanks @jainal09 for the contribution!"**
+> — [NATS NUI v0.9.3 release notes](https://github.com/nats-nui/nui/releases/tag/v0.9.3)
+
+Benchmarking NATS against Kafka through a tool I made - [knack](https://github.com/jainal09/knack) turned up three defects that belonged to NATS rather than to my benchmark — a startup notice that contradicted the server's own TLS configuration, a cache that mangled fully-qualified protobuf type names, and no way to cap send rate in the bench tooling. All three merged; two shipped in **nats-server 2.14.4** and **nui 0.9.3**.
 
 ---
 
@@ -58,24 +72,9 @@ Production-grade benchmarking across 9 categories — generates 20+ charts, cros
 
 ---
 
-## Open Source
+## Listening
 
-<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster.svg" alt="message flow through a NATS cluster" width="100%" />
-
-I fix the tools I build on. Code I've written ships in NATS Server, NATS NUI and gRPC UI.
-
-<p align="center">
-  <a href="https://github.com/nats-io/nats-server/pull/8420"><img src="https://img.shields.io/badge/NATS_Server-27AAE1?style=for-the-badge&logo=natsdotio&logoColor=white" alt="NATS Server" /></a>
-  <a href="https://github.com/nats-nui/nui/pull/126"><img src="https://img.shields.io/badge/NATS_NUI-27AAE1?style=for-the-badge&logo=natsdotio&logoColor=white" alt="NATS NUI" /></a>
-  <a href="https://github.com/celery/celery/pull/5792"><img src="https://img.shields.io/badge/Celery-37814A?style=for-the-badge&logo=celery&logoColor=white" alt="Celery" /></a>
-  <a href="https://github.com/hoppscotch/hoppscotch/pull/1593"><img src="https://img.shields.io/badge/Hoppscotch-31C48D?style=for-the-badge&logo=hoppscotch&logoColor=white" alt="Hoppscotch" /></a>
-  <a href="https://github.com/fullstorydev/grpcui/pull/398"><img src="https://img.shields.io/badge/gRPC_UI-2D3748?style=for-the-badge&logo=grpc&logoColor=white" alt="gRPC UI" /></a>
-</p>
-
-> **"preserve dots in cached message types and survive external cache clears. Thanks @jainal09 for the contribution!"**
-> — [NATS NUI v0.9.3 release notes](https://github.com/nats-nui/nui/releases/tag/v0.9.3)
-
-Benchmarking NATS against Kafka for [knack](https://github.com/jainal09/knack) turned up three defects that belonged to NATS rather than to my benchmark — a startup notice that contradicted the server's own TLS configuration, a cache that mangled fully-qualified protobuf type names, and no way to cap send rate in the bench tooling. All three merged; two shipped in **nats-server 2.14.4** and **nui 0.9.3**.
+<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music.svg" alt="what I am listening to" width="100%" />
 
 ---
 
