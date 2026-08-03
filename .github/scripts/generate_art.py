@@ -32,13 +32,23 @@ def svg_open(w: int, h: int) -> str:
     )
 
 
+def esc(s: str) -> str:
+    """XML-escape. Every string here is escaped at the single point it becomes
+    markup, rather than at each call site -- track and artist names are the one
+    input I do not control, and a bare & in "Jonathan & Friends" does not
+    degrade, it makes the whole file unparseable.
+    """
+    return (str(s).replace("&", "&amp;").replace("<", "&lt;")
+            .replace(">", "&gt;").replace('"', "&quot;"))
+
+
 def text(x, y, body, fill=DIM, size=13, weight="normal") -> str:
     # Left-anchored at an explicit x throughout. text-anchor="end" puts the
     # right edge of the string at the mercy of whichever monospace face the
     # viewer resolves, and an overrun here is clipped by the viewBox.
     return (
         f'<text x="{x}" y="{y}" fill="{fill}" font-size="{size}" '
-        f'font-weight="{weight}">{body}</text>'
+        f'font-weight="{weight}">{esc(body)}</text>'
     )
 
 
@@ -251,21 +261,24 @@ def fetch_stats() -> dict:
 
 # ------------------------------------------------------------------ music ---
 
-MW, MH = 980, 258
+MW = 980
 COLS, ROWS = 32, 7
 CELL_W, CELL_H, CELL_GX, CELL_GY = 20, 10, 6, 4
 LED_X = (MW - (COLS * CELL_W + (COLS - 1) * CELL_GX)) // 2
 LED_Y = 26
-STEPS = 16                      # frames in the level loop
-SCREEN, LIT, UNLIT = "#0a0a0a", "#f0f0f0", "#2a2a2a"
+STEPS = 16
+SCREEN, LIT, UNLIT, MUTED = "#0a0a0a", "#f0f0f0", "#2a2a2a", "#8a8a8a"
+
+RANGES = [("all time", "long_term"), ("last 6 months", "medium_term"),
+          ("last 4 weeks", "short_term")]
+COL_W, COL_GAP, ART, ROW_H = 300, 20, 34, 46
 
 
 def _levels(col: int) -> list[int]:
-    """A deterministic level sequence per column.
+    """Deterministic level sequence per column.
 
-    Deterministic on purpose: this file is regenerated daily, and randomising
-    the animation each run would produce a diff every day and churn the commit
-    history for nothing.
+    Deterministic on purpose: this file regenerates daily, and randomising the
+    animation would produce a diff every run and churn history for nothing.
     """
     seq, x = [], (col * 2654435761) & 0xFFFFFFFF
     for _ in range(STEPS):
@@ -274,12 +287,32 @@ def _levels(col: int) -> list[int]:
     return seq
 
 
-def music(track: dict | None) -> str:
-    s = [svg_open(MW, MH)]
-    s.append(f'<rect x="0" y="0" width="{MW}" height="{MH}" rx="10" fill="{SCREEN}"/>')
+def _art(uri: str | None, x: int, y: int, size: int) -> str:
+    """Album art must be inlined as a data: URI.
 
-    # A black screen regardless of the reader's theme -- it is a device sitting
-    # on the page, not a panel that failed to pick up the page background.
+    An SVG loaded through <img> runs under a CSP of img-src data: -- a remote
+    <image href="https://..."> renders as nothing at all. So the bytes travel
+    inside the file or they do not arrive.
+    """
+    if not uri:
+        return (f'<rect x="{x}" y="{y}" width="{size}" height="{size}" rx="3" '
+                f'fill="{UNLIT}"/>')
+    return (f'<image x="{x}" y="{y}" width="{size}" height="{size}" '
+            f'href="{uri}" xlink:href="{uri}" preserveAspectRatio="xMidYMid slice"/>')
+
+
+def music(data: dict | None) -> str:
+    tops = (data or {}).get("tops") or {}
+    rows = max([len(tops.get(k, [])) for _, k in RANGES] + [0])
+    head = LED_Y + ROWS * (CELL_H + CELL_GY) + 18
+    cols_y = head + 118
+    height = cols_y + 24 + rows * ROW_H + 34 if rows else head + 116
+
+    s = [svg_open(MW, height)]
+    s.append(f'<rect x="0" y="0" width="{MW}" height="{height}" rx="10" fill="{SCREEN}"/>')
+
+    # A black screen on both themes deliberately: a device on the page, not a
+    # panel that failed to pick up the background.
     for c in range(COLS):
         seq = _levels(c)
         x = LED_X + c * (CELL_W + CELL_GX)
@@ -290,41 +323,48 @@ def music(track: dict | None) -> str:
             s.append(
                 f'<rect x="{x}" y="{y}" width="{CELL_W}" height="{CELL_H}" rx="1.5" '
                 f'fill="{LIT}" opacity="0.14">'
-                # discrete: LEDs snap between states, they do not cross-fade
                 f'<animate attributeName="opacity" values="{vals}" dur="{dur}s" '
                 f'calcMode="discrete" repeatCount="indefinite"/></rect>'
             )
 
-    base = LED_Y + ROWS * (CELL_H + CELL_GY) + 18
-    if track:
-        title, artist = track["title"], track["artist"]
-        pct, label = track["pct"], track["label"]
+    now = (data or {}).get("now")
+    if now:
+        title, artist, pct, label = now["title"], now["artist"], now["pct"], now["label"]
         quirk = "you may now appreciate my taste in music"
+        art = now.get("art")
     else:
-        # Whoever is reading this cannot fix it, so tell them what happened
-        # rather than leaving instructions to myself on a public page.
-        title, artist, pct, label = "— not connected —", "", 0.0, ""
+        title, artist, pct, label, art = "— not connected —", "", 0.0, "", None
         quirk = "looks like my OAuth token expired. it does that."
 
-    s.append(text(LED_X, base + 12, title[:46], LIT, 15, "bold"))
-    s.append(text(LED_X, base + 34, artist[:56], "#8a8a8a", 12))
+    s.append(text(LED_X, head + 4, now and "now playing" or "status", MUTED, 11))
+    s.append(_art(art, LED_X, head + 14, 56))
+    s.append(text(LED_X + 70, head + 36, title[:44], LIT, 15, "bold"))
+    s.append(text(LED_X + 70, head + 58, artist[:52], MUTED, 12))
 
-    # Terminal-style block meter rather than a rounded bar.
-    blocks, bx = 46, LED_X
+    blocks, bx, by = 46, LED_X + 70, head + 72
     filled = round(pct * blocks)
     for i in range(blocks):
-        s.append(
-            f'<rect x="{bx + i * 13}" y="{base + 48}" width="9" height="9" '
-            f'fill="{LIT if i < filled else UNLIT}"/>'
-        )
+        s.append(f'<rect x="{bx + i * 13}" y="{by}" width="9" height="9" '
+                 f'fill="{LIT if i < filled else UNLIT}"/>')
     if label:
-        s.append(text(bx + blocks * 13 + 12, base + 57, label, "#8a8a8a", 11))
-    s.append(text(LED_X, base + 80, quirk, "#5a5a5a", 11))
+        s.append(text(bx + blocks * 13 + 12, by + 9, label, MUTED, 11))
+    s.append(text(LED_X, head + 100, quirk, "#5a5a5a", 11))
+
+    if rows:
+        cx0 = (MW - (3 * COL_W + 2 * COL_GAP)) // 2
+        for ci, (heading, key) in enumerate(RANGES):
+            cx = cx0 + ci * (COL_W + COL_GAP)
+            s.append(text(cx, cols_y, heading, MUTED, 11))
+            for ri, tr in enumerate(tops.get(key, [])):
+                y = cols_y + 18 + ri * ROW_H
+                s.append(_art(tr.get("art"), cx, y, ART))
+                s.append(text(cx + ART + 12, y + 15, tr["title"][:24], LIT, 12))
+                s.append(text(cx + ART + 12, y + 30, tr["artist"][:26], MUTED, 11))
     return "\n".join(s) + "\n</svg>"
 
 
 def fetch_spotify() -> dict | None:
-    """Currently playing, else most recent. None when unconfigured."""
+    """Now playing plus top tracks across three windows. None when unconfigured."""
     import base64 as b64, json, os, urllib.parse, urllib.request
 
     cid = os.environ.get("SPOTIFY_CLIENT_ID")
@@ -335,15 +375,14 @@ def fetch_spotify() -> dict | None:
 
     def api(url, data=None, headers=None):
         req = urllib.request.Request(url, data=data, headers=headers or {})
-        with urllib.request.urlopen(req, timeout=20) as r:
+        with urllib.request.urlopen(req, timeout=25) as r:
             body = r.read()
             return json.loads(body) if body else {}
 
     auth = b64.b64encode(f"{cid}:{sec}".encode()).decode()
-    # Spotify issues refresh tokens with a 180 day lifetime, so this WILL fail
-    # eventually. Degrade to the "not connected" panel instead of raising --
-    # otherwise an expired music token stops cluster/stack/trophies rendering
-    # too, and the whole page goes stale over one dead credential.
+    # Refresh tokens carry a 180 day lifetime, so this WILL fail eventually.
+    # Degrade rather than raise -- otherwise one dead music credential stops
+    # cluster, stack and trophies rendering too.
     try:
         tok = api(
             "https://accounts.spotify.com/api/token",
@@ -356,8 +395,6 @@ def fetch_spotify() -> dict | None:
     except Exception as exc:
         print(f"::warning::Spotify token refresh failed ({exc}). "
               "Re-run .github/scripts/spotify_auth.py and update the secret.")
-        # Surface it as a workflow output so the job can raise an issue. A
-        # warning in a log is a silent failure in practice.
         out = os.environ.get("GITHUB_OUTPUT")
         if out:
             with open(out, "a", encoding="utf-8") as fh:
@@ -365,39 +402,66 @@ def fetch_spotify() -> dict | None:
         return None
 
     if tok.get("refresh_token") and tok["refresh_token"] != ref:
-        # Never echo the token itself -- Actions logs are public on this repo.
         print("::warning::Spotify returned a rotated refresh token. Re-run "
-              "spotify_auth.py and update SPOTIFY_REFRESH_TOKEN before the old "
-              "one lapses.")
+              "spotify_auth.py and update SPOTIFY_REFRESH_TOKEN.")
 
     h = {"Authorization": f"Bearer {tok['access_token']}"}
+    cache: dict[str, str] = {}
 
+    def art(images: list) -> str | None:
+        """Smallest available cover, inlined. Cached: the same album turns up
+        across several windows and re-encoding it would bloat the file."""
+        if not images:
+            return None
+        url = sorted(images, key=lambda i: i.get("width") or 999)[0]["url"]
+        if url not in cache:
+            try:
+                with urllib.request.urlopen(url, timeout=20) as r:
+                    raw = r.read()
+                cache[url] = "data:image/jpeg;base64," + b64.b64encode(raw).decode()
+            except Exception:
+                return None
+        return cache[url]
+
+    def track(it: dict) -> dict:
+        return {"title": it["name"],
+                "artist": ", ".join(a["name"] for a in it["artists"]),
+                "art": art(it.get("album", {}).get("images", []))}
+
+    now = None
     try:
-        now = api("https://api.spotify.com/v1/me/player/currently-playing", headers=h)
+        cur = api("https://api.spotify.com/v1/me/player/currently-playing", headers=h)
     except Exception:
-        now = {}
-    if now.get("item"):
-        it, prog = now["item"], now.get("progress_ms", 0)
+        cur = {}
+    if cur.get("item"):
+        it, prog = cur["item"], cur.get("progress_ms", 0)
         dur = it["duration_ms"]
-        return {
-            "title": it["name"],
-            "artist": ", ".join(a["name"] for a in it["artists"]),
+        now = track(it) | {
             "pct": min(1.0, prog / dur) if dur else 0.0,
             "label": f"{prog//60000}:{prog//1000%60:02d} / {dur//60000}:{dur//1000%60:02d}",
         }
+    else:
+        try:
+            rec = api("https://api.spotify.com/v1/me/player/recently-played?limit=1",
+                      headers=h).get("items", [])
+            if rec:
+                now = track(rec[0]["track"]) | {"pct": 1.0, "label": "last played"}
+        except Exception:
+            pass
 
-    recent = api(
-        "https://api.spotify.com/v1/me/player/recently-played?limit=1", headers=h
-    ).get("items", [])
-    if not recent:
-        return None
-    it = recent[0]["track"]
-    return {
-        "title": it["name"],
-        "artist": ", ".join(a["name"] for a in it["artists"]),
-        "pct": 1.0,
-        "label": "last played",
-    }
+    tops: dict[str, list] = {}
+    for _, key in RANGES:
+        try:
+            items = api(
+                f"https://api.spotify.com/v1/me/top/tracks?limit=5&time_range={key}",
+                headers=h).get("items", [])
+            tops[key] = [track(i) for i in items]
+        except Exception as exc:
+            # A brand new account has no history for long_term. Not an error.
+            print(f"::warning::top tracks {key} unavailable ({exc})")
+            tops[key] = []
+
+    return {"now": now, "tops": tops}
 
 
 def main() -> None:

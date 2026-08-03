@@ -29,7 +29,7 @@ import webbrowser
 
 PORT = 8888
 REDIRECT = f"http://127.0.0.1:{PORT}/callback"
-SCOPES = "user-read-currently-playing user-read-recently-played"
+SCOPES = "user-read-currently-playing user-read-recently-played user-top-read"
 
 _code: str | None = None
 _state_sent = secrets.token_urlsafe(16)
