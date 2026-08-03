@@ -1,0 +1,21 @@
+.github/scripts/preview.py
+  s_dadda1ac265589::t_0fa07bda6529b0 1-91
+.gitignore
+  s_dadda1ac265589::t_7a521efc11dc96 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "0981841215a239059321c00c7209f126db60b389",
+  "prompts": {},
+  "sessions": {
+    "s_dadda1ac265589": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bc13c4f6-7af9-407c-b6e6-ce1f0bcf23e1",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Jainal Gosaliya <jainal09gosalia@gmail.com>"
+    }
+  }
+}
