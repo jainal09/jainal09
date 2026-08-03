@@ -13,7 +13,7 @@ That is the slice I get asked about most, not the whole of it — a large privat
 
 ⚡ I debug distributed systems for fun. Yes, I need better hobbies.
 
----
+&nbsp;
 
 ## Contributions
 
@@ -40,7 +40,7 @@ I fix the tools I build on. Code I've written ships in NATS Server, NATS NUI and
 
 Benchmarking NATS against Kafka through a tool I made - [knack](https://github.com/jainal09/knack) turned up three defects that belonged to NATS rather than to my benchmark — a startup notice that contradicted the server's own TLS configuration, a cache that mangled fully-qualified protobuf type names, and no way to cap send rate in the bench tooling. All three merged; two shipped in **nats-server 2.14.4** and **nui 0.9.3**.
 
----
+&nbsp;
 
 ## Featured Projects
 
@@ -70,19 +70,18 @@ Production-grade benchmarking across 9 categories — generates 20+ charts, cros
 
 </td></tr></table>
 
----
+&nbsp;
 
 ## Listening
 
 <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music.svg" alt="what I am listening to" width="100%" />
 
----
 
 ## Connect
 
 [![Substack](https://img.shields.io/badge/Scale_Bites-FF6719?style=for-the-badge&logo=substack&logoColor=white)](https://scalebites.substack.com/) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jainal09) [![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/SysSniper) [![Medium](https://img.shields.io/badge/Medium-000000?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@jainal) [![Dev.to](https://img.shields.io/badge/Dev.to-0A0A0A?style=for-the-badge&logo=devdotto&logoColor=white)](https://dev.to/jainal09) [![Stack Overflow](https://img.shields.io/badge/Stack_Overflow-F58025?style=for-the-badge&logo=stackoverflow&logoColor=white)](https://stackoverflow.com/users/10401497/jainal-gosaliya) [![ORCID](https://img.shields.io/badge/ORCID-A6CE39?style=for-the-badge&logo=orcid&logoColor=white)](https://orcid.org/0000-0002-6328-8836)
 
----
+&nbsp;
 
 ## Languages and Tools
 
