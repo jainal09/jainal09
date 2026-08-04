@@ -1,0 +1,35 @@
+assets/cluster-mobile.svg
+  s_1c1a1d33023178::t_492dc4ef5ba82f 2-3,6-17,24,27-33,35,37
+  s_1c1a1d33023178::t_0a006624eda57f 1,18-23,34,36
+  s_1c1a1d33023178::t_ff2f4bbe5db47a 4-5,25-26
+assets/contributions-mobile.svg
+  s_1c1a1d33023178::t_fd7e71238de781 1-25,27-28
+  s_1c1a1d33023178::t_a38caaa0107c12 26
+assets/music-mobile.svg
+  s_1c1a1d33023178::t_492dc4ef5ba82f 1-50
+assets/banner-mobile.svg
+  s_1c1a1d33023178::t_0a006624eda57f 13-14
+  s_1c1a1d33023178::t_ff2f4bbe5db47a 1,15-20
+  s_1c1a1d33023178::t_492dc4ef5ba82f 2-12,21
+assets/stack-mobile.svg
+  s_1c1a1d33023178::t_492dc4ef5ba82f 1-40
+README.md
+  s_1c1a1d33023178::t_d11720ddabd7bb 106,115
+  s_1c1a1d33023178::t_3e79aa5e57daa2 5-8,13-16,28-31,35-38,89-92,103-105,107-110,112-114,116-119
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "d358724015be81e5281a036894a96b6907b8901d",
+  "prompts": {},
+  "sessions": {
+    "s_1c1a1d33023178": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fce22-b90a-7ff3-8b3e-ae5f51502a29",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Jainal Gosaliya <jainal09gosalia@gmail.com>"
+    }
+  }
+}
