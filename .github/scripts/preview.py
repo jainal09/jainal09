@@ -56,6 +56,8 @@ function paint(dark){
   document.body.classList.toggle('dark', dark);
   for(const i of document.querySelectorAll('img[data-dark]'))
     i.src = (dark ? i.dataset.dark : i.dataset.light) + '?v=' + Date.now();
+  for(const s of document.querySelectorAll('source[data-dark]'))
+    s.srcset = (dark ? s.dataset.dark : s.dataset.light) + '?v=' + Date.now();
 }
 let dark = matchMedia('(prefers-color-scheme: dark)').matches;
 document.getElementById('t').onclick=()=>{dark=!dark;paint(dark)};
@@ -64,7 +66,36 @@ paint(dark);
 """
 
 
-MEDIA = re.compile(r"@media \(prefers-color-scheme: dark\)\{(.*?)\}\s*\}", re.S)
+MEDIA_START = "@media (prefers-color-scheme: dark){"
+
+
+def theme_variants(body: str) -> tuple[str, str]:
+    """Return explicit light/dark SVGs from one internal media query.
+
+    CSS rules inside the media block contain their own braces, so a regular
+    expression cannot reliably identify the matching close. Scan brace depth
+    instead, then remove the block for light and unwrap it for dark.
+    """
+    start = body.find(MEDIA_START)
+    if start < 0:
+        return body, body
+    opening = body.find("{", start)
+    depth = 0
+    closing = None
+    for pos in range(opening, len(body)):
+        if body[pos] == "{":
+            depth += 1
+        elif body[pos] == "}":
+            depth -= 1
+            if depth == 0:
+                closing = pos
+                break
+    if closing is None:
+        raise ValueError("unclosed prefers-color-scheme block")
+    dark_rules = body[opening + 1:closing]
+    light = body[:start] + body[closing + 1:]
+    dark = body[:start] + dark_rules + body[closing + 1:]
+    return light, dark
 
 
 def variants() -> None:
@@ -79,12 +110,7 @@ def variants() -> None:
     VARIANTS.mkdir(exist_ok=True)
     for src in sorted((ROOT / "assets").glob("*.svg")):
         body = src.read_text(encoding="utf-8")
-        m = MEDIA.search(body)
-        if m:
-            light = MEDIA.sub("}", body)              # base rules are the light set
-            dark = body.replace("</style>", m.group(1) + "</style>")
-        else:
-            light = dark = body                       # no media query, same either way
+        light, dark = theme_variants(body)
         (VARIANTS / f"{src.stem}.light.svg").write_text(light, encoding="utf-8")
         (VARIANTS / f"{src.stem}.dark.svg").write_text(dark, encoding="utf-8")
 

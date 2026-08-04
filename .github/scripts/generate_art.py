@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-"""Render the profile's two hand-drawn SVGs.
+"""Render the profile's desktop and mobile SVGs.
 
-Both share one palette so the page reads as designed rather than assembled.
-Every colour is a mid-tone that holds on GitHub's light and dark themes, and
-neither file paints a background -- so there is no prefers-color-scheme swap
-to fail, and no theme it fails on.
-
-  cluster.svg  message flow through a NATS cluster (Open Source)
-  stack.svg    a request descending the layers I work in (About)
+Desktop and mobile variants consume the same live data and share one palette,
+so responsive layout changes do not fork the design system or leave scheduled
+renders updating only half of the profile. Theme-aware files carry their own
+``prefers-color-scheme`` rules for GitHub's light and dark canvases.
 """
 
 from __future__ import annotations
@@ -42,13 +39,15 @@ def esc(s: str) -> str:
             .replace(">", "&gt;").replace('"', "&quot;"))
 
 
-def text(x, y, body, fill=DIM, size=13, weight="normal", cls=None) -> str:
-    # Left-anchored at an explicit x throughout. text-anchor="end" puts the
-    # right edge of the string at the mercy of whichever monospace face the
-    # viewer resolves, and an overrun here is clipped by the viewBox.
+def text(x, y, body, fill=DIM, size=13, weight="normal", cls=None,
+         anchor=None, clip=None) -> str:
+    # Left-anchored by default. Centred diagram headings and compact mobile
+    # status labels opt into an anchor where the available width is bounded.
     return (
         f'<text x="{x}" y="{y}"'
         + (f' class="{cls}"' if cls else f' fill="{fill}"')
+        + (f' text-anchor="{anchor}"' if anchor else "")
+        + (f' clip-path="url(#{clip})"' if clip else "")
         + f' font-size="{size}" font-weight="{weight}">{esc(body)}</text>'
     )
 
@@ -108,6 +107,65 @@ def cluster() -> str:
         text(52, 272, "5.0M msg/s", GREEN, 15, "bold"),
         text(160, 272, "measured by knack on constrained hardware", DIM, 12),
         text(520, 272, "shipped: nats-server 2.14.4 · nui 0.9.3", BLUE, 12),
+    ]
+    return "\n".join(s) + "\n</svg>"
+
+
+def cluster_mobile() -> str:
+    """The same topology, reflowed vertically so labels stay readable."""
+    w, h = 390, 456
+    pubs = [(110, 58), (280, 58)]
+    core = [(130, 165), (260, 165), (195, 245)]
+    subs = [(110, 335), (280, 335)]
+    links = [
+        (pubs[0], core[0]), (pubs[1], core[1]),
+        (core[0], core[1]), (core[0], core[2]), (core[1], core[2]),
+        (core[2], subs[0]), (core[2], subs[1]),
+    ]
+    flows = [
+        (pubs[0], core[0], 0.0), (pubs[1], core[1], 1.1),
+        (core[0], core[2], 0.45), (core[1], core[2], 1.55),
+        (core[2], subs[0], 0.9), (core[2], subs[1], 1.9),
+    ]
+    style = """<style>
+  .background{fill:#ffffff}.line{stroke:#8b949e}.muted{fill:#59636e}.blue{fill:#4c8eda}
+  @media (prefers-color-scheme: dark){.background{fill:#0d1117}.muted{fill:#8b949e}}
+</style>"""
+    s = [svg_open(w, h), style]
+    s += [
+        text(195, 24, "publishers", None, 14, cls="muted", anchor="middle"),
+        text(195, 125, "NATS cluster", GREEN, 14, anchor="middle"),
+    ]
+    for (x1, y1), (x2, y2) in links:
+        s.append(
+            f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" '
+            f'class="line" stroke-width="1.5" opacity="0.45"/>'
+        )
+    for i, ((x1, y1), (x2, y2), delay) in enumerate(flows):
+        s.append(f'<path id="mf{i}" d="M{x1},{y1} L{x2},{y2}" stroke="none"/>')
+        s.append(
+            f'<circle r="4" fill="{GREEN}" opacity="0">'
+            f'<animateMotion dur="2.4s" begin="{delay}s" repeatCount="indefinite">'
+            f'<mpath href="#mf{i}" xlink:href="#mf{i}"/></animateMotion>'
+            f'<animate attributeName="opacity" values="0;1;1;0" dur="2.4s" '
+            f'begin="{delay}s" repeatCount="indefinite"/></circle>'
+        )
+    # The label masks the two diagonal links; otherwise they cut through the
+    # word on a narrow canvas. The mask follows the page theme.
+    s.append('<rect x="137" y="288" width="116" height="25" rx="4" class="background"/>')
+    s.append(text(195, 305, "subscribers", None, 14, cls="muted", anchor="middle"))
+    for x, y in pubs + subs:
+        s.append(f'<circle cx="{x}" cy="{y}" r="10" stroke="{BLUE}" stroke-width="2.5"/>')
+    for i, (x, y) in enumerate(core):
+        s.append(
+            f'<circle cx="{x}" cy="{y}" r="14" stroke="{GREEN}" stroke-width="2.5">'
+            f'<animate attributeName="r" values="14;17;14" dur="3s" '
+            f'begin="{round(i * 0.7, 2)}s" repeatCount="indefinite"/></circle>'
+        )
+    s += [
+        text(24, 388, "5.0M msg/s", GREEN, 18, "bold"),
+        text(24, 412, "measured by knack on constrained hardware", None, 13, cls="muted"),
+        text(24, 440, "shipped: nats-server 2.14.4 · nui 0.9.3", None, 13, cls="blue"),
     ]
     return "\n".join(s) + "\n</svg>"
 
@@ -173,6 +231,44 @@ def stack() -> str:
     )
 
     s.append(text(BAND_X, 24, "a request, on the way down", DIM, 11))
+    return "\n".join(s) + "\n</svg>"
+
+
+def stack_mobile() -> str:
+    """Stack labels and technologies within each row instead of shrinking it."""
+    w, h = 390, 374
+    rail_x, band_x, top = 20, 48, 30
+    band_w, band_h, gap = 324, 58, 10
+    style = """<style>
+  .rail,.card{stroke:#8b949e}.label{fill:#4c8eda}.detail,.caption{fill:#59636e}
+  @media (prefers-color-scheme: dark){.detail,.caption{fill:#8b949e}}
+</style>"""
+    s = [svg_open(w, h), style]
+    s.append(text(band_x, 18, "a request, on the way down", None, 13, cls="caption"))
+    s.append(f'<line x1="{rail_x}" y1="{top}" x2="{rail_x}" y2="360" '
+             f'class="rail" stroke-width="1" opacity="0.35"/>')
+    for i, (layer, tech) in enumerate(LAYERS):
+        y = top + i * (band_h + gap)
+        begin = round(i * (CYCLE / len(LAYERS)), 2)
+        s.append(
+            f'<rect x="{band_x}" y="{y}" width="{band_w}" height="{band_h}" rx="7" '
+            f'class="card" stroke-width="1" opacity="0.35">'
+            f'<animate attributeName="opacity" values="0.35;0.9;0.35" '
+            f'dur="{CYCLE}s" begin="{begin}s" repeatCount="indefinite"/></rect>'
+        )
+        s.append(
+            f'<circle cx="{rail_x}" cy="{y + band_h // 2}" r="5" fill="{GREEN}" '
+            f'opacity="0.3"><animate attributeName="opacity" values="0.3;1;0.3" '
+            f'dur="{CYCLE}s" begin="{begin}s" repeatCount="indefinite"/></circle>'
+        )
+        s.append(text(band_x + 18, y + 24, layer, None, 15, "bold", cls="label"))
+        s.append(text(band_x + 18, y + 46, tech, None, 14, cls="detail"))
+    s.append(
+        f'<circle cx="{rail_x}" r="6" fill="{GREEN}">'
+        f'<animate attributeName="cy" values="{top};360" dur="{CYCLE}s" '
+        f'repeatCount="indefinite"/><animate attributeName="opacity" '
+        f'values="0;1;1;0" dur="{CYCLE}s" repeatCount="indefinite"/></circle>'
+    )
     return "\n".join(s) + "\n</svg>"
 
 
@@ -375,6 +471,73 @@ def music(data: dict | None) -> str:
     return "\n".join(s) + "\n</svg>"
 
 
+def music_mobile(data: dict | None) -> str:
+    """The desktop player reflowed into one album-art list per time range."""
+    w, cols = 390, 16
+    cell_w, cell_h, gap_x, gap_y = 17, 8, 5, 4
+    led_x, led_y = 20, 24
+    tops = (data or {}).get("tops") or {}
+
+    sections = []
+    label_y = 290
+    for heading, key in RANGES:
+        tracks = tops.get(key, [])[:3]
+        if not tracks:
+            continue
+        base_y = label_y + 14
+        sections.append((heading, tracks, label_y, base_y))
+        label_y = base_y + len(tracks) * 64 + 18
+    height = max(282, label_y - 14)
+
+    s = [svg_open(w, height), SCREEN_STYLE]
+    s.append(f'<rect width="{w}" height="{height}" rx="10" class="bg"/>')
+
+    # Same deterministic pixel equalizer as desktop, at half the columns.
+    for c in range(cols):
+        seq = _levels(c)
+        x = led_x + c * (cell_w + gap_x)
+        dur = round(1.5 + (c % 5) * 0.17, 2)
+        for r in range(ROWS):
+            y = led_y + (ROWS - 1 - r) * (cell_h + gap_y)
+            vals = ";".join("1" if level > r else "0.14" for level in seq)
+            s.append(
+                f'<rect x="{x}" y="{y}" width="{cell_w}" height="{cell_h}" rx="1.5" '
+                f'class="lit" opacity="0.14"><animate attributeName="opacity" '
+                f'values="{vals}" dur="{dur}s" calcMode="discrete" '
+                f'repeatCount="indefinite"/></rect>'
+            )
+
+    now = (data or {}).get("now")
+    if now:
+        title, artist = now["title"], now["artist"]
+        pct, label, art = now["pct"], now["label"], now.get("art")
+        quirk = "you may now appreciate my taste in music"
+    else:
+        title, artist, pct, label, art = "— not connected —", "", 0.0, "", None
+        quirk = "looks like my OAuth token expired. it does that."
+
+    s.append(text(20, 134, now and "now playing" or "status", None, 13, cls="mut"))
+    s.append(_art(art, 20, 148, 64))
+    s.append(text(104, 173, title[:28], None, 17, "bold", cls="lit"))
+    s.append(text(104, 197, artist[:38], None, 13, cls="mut"))
+    filled = round(pct * 18)
+    for i in range(18):
+        s.append(f'<rect x="{104 + i * 13}" y="214" width="8" height="8" rx="1" '
+                 f'class="{"lit" if i < filled else "unlit"}"/>')
+    if label:
+        s.append(text(338, 238, label, None, 11, cls="mut", anchor="end"))
+    s.append(text(20, 258, quirk, None, 12, cls="quirk"))
+
+    for heading, tracks, heading_y, base_y in sections:
+        s.append(text(20, heading_y, heading, None, 13, cls="mut"))
+        for i, track in enumerate(tracks):
+            y = base_y + i * 64
+            s.append(_art(track.get("art"), 20, y, 50))
+            s.append(text(88, y + 21, track["title"][:32], None, 16, cls="lit"))
+            s.append(text(88, y + 42, track["artist"][:38], None, 13, cls="mut"))
+    return "\n".join(s) + "\n</svg>"
+
+
 def fetch_spotify() -> dict | None:
     """Now playing plus top tracks across three windows. None when unconfigured."""
     import base64 as b64, json, os, urllib.parse, urllib.request
@@ -547,6 +710,39 @@ def banner() -> str:
     return "\n".join(s) + "\n</svg>"
 
 
+def banner_mobile() -> str:
+    """The same terminal session with long output wrapped before animation."""
+    w, h, x = 390, 226, 18
+    lines = [
+        ("jainal09@github:~$ whoami", "bcmd", 53, 0.20, 240, 0.55),
+        ("Software Engineer", "btxt", 79, 1.30, 165, 0.45),
+        ("distributed systems · event-driven", "btxt", 101, 1.95, 315, 1.10),
+        ("backends", "btxt", 123, 3.05, 75, 0.28),
+        ("jainal09@github:~$ cat focus.txt", "bcmd", 153, 3.65, 300, 0.75),
+        ("Kafka · NATS · Kubernetes", "btxt", 179, 4.60, 235, 0.65),
+        ("things that stay up under load", "btxt", 203, 5.45, 280, 0.85),
+    ]
+    s = [svg_open(w, h), BANNER_STYLE]
+    for i, colour in enumerate(("#f85149", "#d29922", "#3fb950")):
+        s.append(f'<circle cx="{x + i * 16}" cy="16" r="4.5" fill="{colour}"/>')
+    s.append(f'<line x1="{x}" y1="30" x2="{w - x}" y2="30" class="bchrome" '
+             f'stroke="currentColor" stroke-width="1" opacity="0.65"/>')
+    for i, (body, cls, y, begin, reveal, dur) in enumerate(lines):
+        s.append(
+            f'<clipPath id="mt{i}"><rect x="{x}" y="{y - 17}" width="0" height="22">'
+            f'<animate attributeName="width" from="0" to="{reveal}" dur="{dur}s" '
+            f'begin="{begin}s" fill="freeze"/></rect></clipPath>'
+        )
+        s.append(text(x, y, body, None, 15, cls=cls, clip=f"mt{i}"))
+    s.append(
+        '<rect x="290" y="188" width="8" height="18" class="bcur" opacity="0">'
+        '<animate attributeName="opacity" values="0;0;1;0;1;0;1" '
+        'keyTimes="0;0.77;0.82;0.88;0.93;0.97;1" dur="8.2s" '
+        'repeatCount="indefinite"/></rect>'
+    )
+    return "\n".join(s) + "\n</svg>"
+
+
 # ---------------------------------------------------------- contributions ---
 
 CONTRIB_W = 980
@@ -637,6 +833,43 @@ def contributions(cal: dict) -> str:
     return "\n".join(s) + "\n</svg>"
 
 
+def contributions_mobile(cal: dict) -> str:
+    """The most recent 16 weeks at a touch-readable cell size."""
+    weeks = cal["weeks"][-16:]
+    all_days = [d for week in cal["weeks"] for d in week["contributionDays"]]
+    peak = max((d["contributionCount"] for d in all_days), default=0)
+
+    longest = run = 0
+    for day in all_days:
+        run = run + 1 if day["contributionCount"] > 0 else 0
+        longest = max(longest, run)
+    s = [svg_open(390, 250), CONTRIB_STYLE,
+         '<defs><rect id="mobile-cell" width="16" height="16" rx="3"/></defs>']
+    seen = set()
+    for wi, week in enumerate(weeks):
+        first = week["contributionDays"][0]["date"]
+        month, day = int(first[5:7]), int(first[8:10])
+        if (wi == 0 or day <= 7) and month not in seen:
+            seen.add(month)
+            s.append(text(42 + wi * 20, 24, MONTHS[month - 1], None, 12, cls="clab"))
+    for label, row in (("Mon", 1), ("Wed", 3), ("Fri", 5)):
+        s.append(text(4, 36 + row * 20 + 12, label, None, 11, cls="clab"))
+    for wi, week in enumerate(weeks):
+        for day in week["contributionDays"]:
+            x, y = 42 + wi * 20, 36 + day["weekday"] * 20
+            level = _level(day["contributionCount"], peak)
+            s.append(f'<use href="#mobile-cell" xlink:href="#mobile-cell" '
+                     f'x="{x}" y="{y}" class="c{level}"/>')
+
+    s += [
+        text(42, 207, f'{cal["totalContributions"]:,}', None, 18, "bold", cls="cnum"),
+        text(105, 207, "contributions this year", None, 13, cls="clab"),
+        text(42, 234, f"{longest}", None, 18, "bold", cls="cnum"),
+        text(72, 234, "day longest streak", None, 13, cls="clab"),
+    ]
+    return "\n".join(s) + "\n</svg>"
+
+
 def fetch_calendar() -> dict:
     import json, os, subprocess, urllib.request
     q = """{ user(login:"jainal09"){ contributionsCollection{ contributionCalendar{
@@ -656,8 +889,17 @@ def fetch_calendar() -> dict:
 
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    pieces = (("banner", banner()), ("contributions", contributions(fetch_calendar())), ("cluster", cluster()), ("stack", stack()),
-              ("trophies", trophies(fetch_stats())), ("music", music(fetch_spotify())))
+    calendar = fetch_calendar()
+    spotify = fetch_spotify()
+    pieces = (
+        ("banner", banner()), ("banner-mobile", banner_mobile()),
+        ("contributions", contributions(calendar)),
+        ("contributions-mobile", contributions_mobile(calendar)),
+        ("cluster", cluster()), ("cluster-mobile", cluster_mobile()),
+        ("stack", stack()), ("stack-mobile", stack_mobile()),
+        ("trophies", trophies(fetch_stats())),
+        ("music", music(spotify)), ("music-mobile", music_mobile(spotify)),
+    )
     for name, body in pieces:
         path = OUT_DIR / f"{name}.svg"
         path.write_text(body, encoding="utf-8")

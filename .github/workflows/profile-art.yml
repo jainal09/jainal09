@@ -2,9 +2,9 @@ name: Profile Art
 
 on:
   schedule:
-    # trophies.svg carries live counts, so it genuinely goes stale. cluster.svg
-    # and stack.svg are static and regenerate to identical bytes -- the commit
-    # step below only pushes when something actually moved.
+    # Counts, contributions and Spotify data genuinely go stale. Static art
+    # regenerates to identical bytes, and mobile variants consume the same
+    # payloads as desktop in this run.
     - cron: "0 4 * * *"
   workflow_dispatch:
   push:
@@ -64,7 +64,7 @@ jobs:
 
           Everything else on the profile keeps rendering meanwhile.'
 
-      - name: Commit if the numbers moved
+      - name: Commit if rendered assets moved
         run: |
           set -euo pipefail
           if git diff --quiet --exit-code -- assets; then
