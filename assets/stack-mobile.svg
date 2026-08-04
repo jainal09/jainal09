@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="374" viewBox="0 0 390 374" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" fill="none">
+<title>A request descending through the layers Jainal works in</title>
+<style>
+  .rail,.card{stroke:#8b949e}.label{fill:#4c8eda}.detail,.caption{fill:#59636e}
+  @media (prefers-color-scheme: dark){.detail,.caption{fill:#8b949e}}
+</style>
+<text x="48" y="18" class="caption" font-size="13">a request, on the way down</text>
+<line x1="20" y1="30" x2="20" y2="360" class="rail" stroke-width="1" opacity="0.35"/>
+<g>
+  <rect x="48" y="30" width="324" height="58" rx="7" class="card" stroke-width="1" opacity="0.35"><animate attributeName="opacity" values="0.35;0.9;0.35" dur="5.2s" begin="0s" repeatCount="indefinite"/></rect>
+  <circle cx="20" cy="59" r="5" fill="#3fb950" opacity="0.3"><animate attributeName="opacity" values="0.3;1;0.3" dur="5.2s" begin="0s" repeatCount="indefinite"/></circle>
+  <text x="66" y="54" class="label" font-size="15" font-weight="bold">clients</text>
+  <text x="66" y="76" class="detail" font-size="14">Swift · TypeScript · React</text>
+</g>
+<g>
+  <rect x="48" y="98" width="324" height="58" rx="7" class="card" stroke-width="1" opacity="0.35"><animate attributeName="opacity" values="0.35;0.9;0.35" dur="5.2s" begin="1.04s" repeatCount="indefinite"/></rect>
+  <circle cx="20" cy="127" r="5" fill="#3fb950" opacity="0.3"><animate attributeName="opacity" values="0.3;1;0.3" dur="5.2s" begin="1.04s" repeatCount="indefinite"/></circle>
+  <text x="66" y="122" class="label" font-size="15" font-weight="bold">edge</text>
+  <text x="66" y="144" class="detail" font-size="14">FastAPI · Spring Boot</text>
+</g>
+<g>
+  <rect x="48" y="166" width="324" height="58" rx="7" class="card" stroke-width="1" opacity="0.35"><animate attributeName="opacity" values="0.35;0.9;0.35" dur="5.2s" begin="2.08s" repeatCount="indefinite"/></rect>
+  <circle cx="20" cy="195" r="5" fill="#3fb950" opacity="0.3"><animate attributeName="opacity" values="0.3;1;0.3" dur="5.2s" begin="2.08s" repeatCount="indefinite"/></circle>
+  <text x="66" y="190" class="label" font-size="15" font-weight="bold">broker</text>
+  <text x="66" y="212" class="detail" font-size="14">Kafka · NATS JetStream</text>
+</g>
+<g>
+  <rect x="48" y="234" width="324" height="58" rx="7" class="card" stroke-width="1" opacity="0.35"><animate attributeName="opacity" values="0.35;0.9;0.35" dur="5.2s" begin="3.12s" repeatCount="indefinite"/></rect>
+  <circle cx="20" cy="263" r="5" fill="#3fb950" opacity="0.3"><animate attributeName="opacity" values="0.3;1;0.3" dur="5.2s" begin="3.12s" repeatCount="indefinite"/></circle>
+  <text x="66" y="258" class="label" font-size="15" font-weight="bold">workers</text>
+  <text x="66" y="280" class="detail" font-size="14">Celery · consumers</text>
+</g>
+<g>
+  <rect x="48" y="302" width="324" height="58" rx="7" class="card" stroke-width="1" opacity="0.35"><animate attributeName="opacity" values="0.35;0.9;0.35" dur="5.2s" begin="4.16s" repeatCount="indefinite"/></rect>
+  <circle cx="20" cy="331" r="5" fill="#3fb950" opacity="0.3"><animate attributeName="opacity" values="0.3;1;0.3" dur="5.2s" begin="4.16s" repeatCount="indefinite"/></circle>
+  <text x="66" y="326" class="label" font-size="15" font-weight="bold">state</text>
+  <text x="66" y="348" class="detail" font-size="14">Postgres · Redis</text>
+</g>
+<circle cx="20" r="6" fill="#3fb950"><animate attributeName="cy" values="30;360" dur="5.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" dur="5.2s" repeatCount="indefinite"/></circle>
+</svg>

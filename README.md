@@ -2,12 +2,18 @@
 
 <p align="center"> <img src="https://komarev.com/ghpvc/?username=jainal09&label=Profile%20views&color=0e75b6&style=flat" alt="jainal09" /> </p>
 
-<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner.svg" alt="jainal09 — software engineer, distributed systems" width="100%" />
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner-mobile.svg">
+  <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner.svg" alt="jainal09 — software engineer, distributed systems" width="100%" />
+</picture>
 
 
 MS in Software Engineering from [Northeastern University, Boston](https://www.northeastern.edu/graduate/program/master-of-science-in-software-engineering-systems-18774/). I work on the parts of a system that have to hold when the load stops cooperating — event-driven backends, high-throughput services, and the brokers underneath them. Currently deep in Kubernetes, Spring Cloud and reactive programming.
 
-<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack.svg" alt="a request descending the layers I work in" width="100%" />
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack-mobile.svg">
+  <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack.svg" alt="a request descending the layers I work in" width="100%" />
+</picture>
 
 That is the slice I get asked about most, not the whole of it — a large private Swift codebase and a pile of C++ do not fit in five bands. I write about how the pieces fit together on [Scale Bites](https://scalebites.substack.com/) — also on [Medium](https://medium.com/@jainal) and [LinkedIn](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7169831353377619968).
 
@@ -19,11 +25,17 @@ That is the slice I get asked about most, not the whole of it — a large privat
 
 ### Commit Frequency
 
-<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions.svg" alt="contribution graph" width="100%" />
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions-mobile.svg">
+  <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions.svg" alt="contribution graph" width="100%" />
+</picture>
 
 ### Opensource Projects Contributed
 
-<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster.svg" alt="message flow through a NATS cluster" width="100%" />
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster-mobile.svg">
+  <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster.svg" alt="message flow through a NATS cluster" width="100%" />
+</picture>
 
 I fix the tools I build on. Code I've written ships in NATS Server, NATS NUI and gRPC UI.
 
@@ -74,7 +86,10 @@ Production-grade benchmarking across 9 categories — generates 20+ charts, cros
 
 ## Listening
 
-<img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music.svg" alt="what I am listening to" width="100%" />
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music-mobile.svg">
+  <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music.svg" alt="what I am listening to" width="100%" />
+</picture>
 
 
 ## Connect
@@ -85,6 +100,20 @@ Production-grade benchmarking across 9 categories — generates 20+ charts, cros
 
 ## Languages and Tools
 
-<p align="left"> <a href="https://skillicons.dev"> <img src="https://skillicons.dev/icons?i=python,java,go,rust,c,cpp,cs,js,ts,html,css,django,fastapi,flask,spring,react,nextjs,vue,nodejs,express,dotnet,graphql,kafka&perline=15" /> </a> </p>
+<p align="left">
+  <a href="https://skillicons.dev">
+    <picture>
+      <source media="(max-width: 600px)" srcset="https://skillicons.dev/icons?i=python%2Cjava%2Cgo%2Crust%2Cc%2Ccpp%2Ccs%2Cjs%2Cts%2Chtml%2Ccss%2Cdjango%2Cfastapi%2Cflask%2Cspring%2Creact%2Cnextjs%2Cvue%2Cnodejs%2Cexpress%2Cdotnet%2Cgraphql%2Ckafka&amp;perline=7">
+      <img src="https://skillicons.dev/icons?i=python,java,go,rust,c,cpp,cs,js,ts,html,css,django,fastapi,flask,spring,react,nextjs,vue,nodejs,express,dotnet,graphql,kafka&amp;perline=15" alt="Languages and application frameworks" />
+    </picture>
+  </a>
+</p>
 
-<p align="left"> <a href="https://skillicons.dev"> <img src="https://skillicons.dev/icons?i=rabbitmq,docker,kubernetes,aws,azure,gcp,nginx,jenkins,grafana,elasticsearch,postgres,mysql,mongodb,redis,sqlite,firebase,git,linux,bash,selenium,tensorflow,pytorch,opencv,figma,postman,arduino,heroku&perline=15" /> </a> </p>
+<p align="left">
+  <a href="https://skillicons.dev">
+    <picture>
+      <source media="(max-width: 600px)" srcset="https://skillicons.dev/icons?i=rabbitmq%2Cdocker%2Ckubernetes%2Caws%2Cazure%2Cgcp%2Cnginx%2Cjenkins%2Cgrafana%2Celasticsearch%2Cpostgres%2Cmysql%2Cmongodb%2Credis%2Csqlite%2Cfirebase%2Cgit%2Clinux%2Cbash%2Cselenium%2Ctensorflow%2Cpytorch%2Copencv%2Cfigma%2Cpostman%2Carduino%2Cheroku&amp;perline=7">
+      <img src="https://skillicons.dev/icons?i=rabbitmq,docker,kubernetes,aws,azure,gcp,nginx,jenkins,grafana,elasticsearch,postgres,mysql,mongodb,redis,sqlite,firebase,git,linux,bash,selenium,tensorflow,pytorch,opencv,figma,postman,arduino,heroku&amp;perline=15" alt="Infrastructure, data and tooling" />
+    </picture>
+  </a>
+</p>
