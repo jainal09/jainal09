@@ -1,0 +1,22 @@
+.github/scripts/generate_art.py
+  s_1c1a1d33023178::t_f9cb81d606e965 13,715,717,723,726-743,745-749,751-758
+  s_1c1a1d33023178::t_18a1aa11ced891 724-725,744
+assets/banner-mobile.svg
+  s_1c1a1d33023178::t_29e8c638d2e26a 14,16-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "4a11d175242c9730cc25609de7e0a3d31753fc37",
+  "prompts": {},
+  "sessions": {
+    "s_1c1a1d33023178": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fce22-b90a-7ff3-8b3e-ae5f51502a29",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Jainal Gosaliya <jainal09gosalia@gmail.com>"
+    }
+  }
+}
