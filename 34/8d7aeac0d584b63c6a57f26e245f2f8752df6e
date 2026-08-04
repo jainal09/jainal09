@@ -1,0 +1,44 @@
+.github/workflows/profile-art.yml
+  s_1c1a1d33023178::t_f36fb16d8adb83 5-7,67
+.github/scripts/preview.py
+  s_1c1a1d33023178::t_d5de24f15306aa 59-60,69-98,113
+assets/banner-mobile.svg
+  s_1c1a1d33023178::t_5a590090704a98 14-28
+  s_1c1a1d33023178::t_ad624af81854b0 1,3-4,6-7,13,29
+assets/music-mobile.svg
+  s_1c1a1d33023178::t_f09860f958b2da 1,3-8,10-172
+  s_1c1a1d33023178::t_82a38c903c22a7 173-177
+.github/scripts/generate_art.py
+  s_1c1a1d33023178::t_f099d88c64ab9f 44-45
+  s_1c1a1d33023178::t_86dd7aaff689c1 42,49,136-137,156
+  s_1c1a1d33023178::t_356173689e5d3a 892-902
+  s_1c1a1d33023178::t_9e798ae001dfcd 713-735,737-745
+  s_1c1a1d33023178::t_c7626c88e379a3 43,50,736
+  s_1c1a1d33023178::t_5073e26575c40e 2,4-7
+  s_1c1a1d33023178::t_7174e4ee6ec8bc 836-872
+  s_1c1a1d33023178::t_7af0260f817958 237-274
+  s_1c1a1d33023178::t_e60e3fabe60111 474-540
+  s_1c1a1d33023178::t_204d6678803dd9 114-135,138-155,157-172
+assets/cluster-mobile.svg
+  s_1c1a1d33023178::t_a4b0c7d406d0bc 3-4,6-26,28-35,37-39
+assets/contributions-mobile.svg
+  s_1c1a1d33023178::t_f907bcbd5dcbcc 1,3-8,10-131
+assets/stack-mobile.svg
+  s_1c1a1d33023178::t_5135806944679b 1,6,8-27,29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "348d7aeac0d584b63c6a57f26e245f2f8752df6e",
+  "prompts": {},
+  "sessions": {
+    "s_1c1a1d33023178": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fce22-b90a-7ff3-8b3e-ae5f51502a29",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Jainal Gosaliya <jainal09gosalia@gmail.com>"
+    }
+  }
+}
