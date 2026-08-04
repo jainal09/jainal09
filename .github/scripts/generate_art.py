@@ -10,6 +10,7 @@ renders updating only half of the profile. Theme-aware files carry their own
 from __future__ import annotations
 
 from pathlib import Path
+from textwrap import wrap
 
 OUT_DIR = Path("assets")
 
@@ -711,34 +712,50 @@ def banner() -> str:
 
 
 def banner_mobile() -> str:
-    """The same terminal session with long output wrapped before animation."""
+    """The desktop terminal session, word-wrapped for the narrow canvas."""
     w, h, x = 390, 226, 18
-    lines = [
-        ("jainal09@github:~$ whoami", "bcmd", 53, 0.20, 240, 0.55),
-        ("Software Engineer", "btxt", 79, 1.30, 165, 0.45),
-        ("distributed systems · event-driven", "btxt", 101, 1.95, 315, 1.10),
-        ("backends", "btxt", 123, 3.05, 75, 0.28),
-        ("jainal09@github:~$ cat focus.txt", "bcmd", 153, 3.65, 300, 0.75),
-        ("Kafka · NATS · Kubernetes", "btxt", 179, 4.60, 235, 0.65),
-        ("things that stay up under load", "btxt", 203, 5.45, 280, 0.85),
-    ]
+    first_rows = (53, 79, 131, 157)
     s = [svg_open(w, h), BANNER_STYLE]
     for i, colour in enumerate(("#f85149", "#d29922", "#3fb950")):
         s.append(f'<circle cx="{x + i * 16}" cy="16" r="4.5" fill="{colour}"/>')
     s.append(f'<line x1="{x}" y1="30" x2="{w - x}" y2="30" class="bchrome" '
              f'stroke="currentColor" stroke-width="1" opacity="0.65"/>')
-    for i, (body, cls, y, begin, reveal, dur) in enumerate(lines):
-        s.append(
-            f'<clipPath id="mt{i}"><rect x="{x}" y="{y - 17}" width="0" height="22">'
-            f'<animate attributeName="width" from="0" to="{reveal}" dur="{dur}s" '
-            f'begin="{begin}s" fill="freeze"/></rect></clipPath>'
-        )
-        s.append(text(x, y, body, None, 15, cls=cls, clip=f"mt{i}"))
+    row = 0
+    for line_index, ((body, cls, begin), first_y) in enumerate(
+            zip(BANNER_LINES, first_rows, strict=True)):
+        consumed = 0
+        parts = wrap(body, width=37, break_long_words=False,
+                     break_on_hyphens=False)
+        for part_index, part in enumerate(parts):
+            y = first_y + part_index * 22
+            part_begin = round(begin + consumed * 0.021, 2)
+            dur = round(len(part) * 0.021, 2)
+            reveal = int(len(part) * BSIZE * 0.75)
+            s.append(
+                f'<clipPath id="mt{row}"><rect x="{x}" y="{y - 17}" '
+                f'width="0" height="22"><animate attributeName="width" '
+                f'from="0" to="{reveal}" dur="{dur}s" begin="{part_begin}s" '
+                f'fill="freeze"/></rect></clipPath>'
+            )
+            s.append(text(x, y, part, None, BSIZE, cls=cls, clip=f"mt{row}"))
+            consumed += len(part) + 1  # Include the wrapped space in the cadence.
+            row += 1
+
+        if line_index == len(BANNER_LINES) - 1:
+            cursor_x = x + int(len(parts[-1]) * BSIZE * 0.6) + 8
+            cursor_y = first_y + (len(parts) - 1) * 22
+            last_end = begin + len(body) * 0.021
+
+    cycle = last_end + 3
     s.append(
-        '<rect x="290" y="188" width="8" height="18" class="bcur" opacity="0">'
-        '<animate attributeName="opacity" values="0;0;1;0;1;0;1" '
-        'keyTimes="0;0.77;0.82;0.88;0.93;0.97;1" dur="8.2s" '
-        'repeatCount="indefinite"/></rect>'
+        f'<rect x="{cursor_x}" y="{cursor_y - 15}" width="8" height="18" '
+        f'class="bcur" opacity="0"><animate attributeName="opacity" '
+        f'values="0;0;1;0;1;0;1" keyTimes="0;{round(last_end / cycle, 3)};'
+        f'{round((last_end + 0.4) / cycle, 3)};'
+        f'{round((last_end + 0.9) / cycle, 3)};'
+        f'{round((last_end + 1.4) / cycle, 3)};'
+        f'{round((last_end + 1.9) / cycle, 3)};1" dur="{round(cycle, 2)}s" '
+        f'repeatCount="indefinite"/></rect>'
     )
     return "\n".join(s) + "\n</svg>"
 
