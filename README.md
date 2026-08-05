@@ -16,7 +16,7 @@
 </a>
 
 
-MS in Software Engineering from [Northeastern University, Boston](https://www.northeastern.edu/graduate/program/master-of-science-in-software-engineering-systems-18774/). I work on the parts of a system that have to hold when the load stops cooperating — event-driven backends, high-throughput services, and the brokers underneath them. Currently deep in Kubernetes, Spring Cloud and reactive programming.
+I design and build distributed systems that stay dependable when the load stops cooperating — event-driven backends, high-throughput services, and the brokers underneath them. My current work goes deep on Kubernetes, Spring Cloud, and reactive programming. I hold an MS in Software Engineering from [Northeastern University, Boston](https://www.northeastern.edu/graduate/program/master-of-science-in-software-engineering-systems-18774/).
 
 <a href="#gh-dark-mode-only">
   <picture>
