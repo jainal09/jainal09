@@ -33,7 +33,7 @@ I design and build distributed systems that stay dependable when the load stops 
 
 That is the slice I get asked about most, not the whole of it — a large private Swift codebase and a pile of C++ do not fit in five bands. I write about how the pieces fit together on [Scale Bites](https://scalebites.substack.com/) — also on [Medium](https://medium.com/@jainal) and [LinkedIn](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7169831353377619968).
 
-⚡ I debug distributed systems for fun. Yes, I need better hobbies.
+⚡ I chase race conditions for fun. Yes, I need better hobbies.
 
 &nbsp;
 
