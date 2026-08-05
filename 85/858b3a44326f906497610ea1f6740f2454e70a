@@ -1,0 +1,19 @@
+README.md
+  s_1c1a1d33023178::t_df14678c17692e 5-16,21-32,44-55,59-70,174-185
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "85858b3a44326f906497610ea1f6740f2454e70a",
+  "prompts": {},
+  "sessions": {
+    "s_1c1a1d33023178": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fce22-b90a-7ff3-8b3e-ae5f51502a29",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Jainal Gosaliya <jainal09gosalia@gmail.com>"
+    }
+  }
+}
