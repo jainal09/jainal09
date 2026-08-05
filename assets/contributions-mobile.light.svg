@@ -120,8 +120,9 @@
 <use href="#mobile-cell" xlink:href="#mobile-cell" x="322" y="156" class="c1"/>
 <use href="#mobile-cell" xlink:href="#mobile-cell" x="342" y="36" class="c4"/>
 <use href="#mobile-cell" xlink:href="#mobile-cell" x="342" y="56" class="c3"/>
-<use href="#mobile-cell" xlink:href="#mobile-cell" x="342" y="76" class="c1"/>
-<text x="42" y="207" class="cnum" font-size="18" font-weight="bold">1,617</text>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="342" y="76" class="c2"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="342" y="96" class="c0"/>
+<text x="42" y="207" class="cnum" font-size="18" font-weight="bold">1,620</text>
 <text x="105" y="207" class="clab" font-size="13" font-weight="normal">contributions this year</text>
 <text x="42" y="234" class="cnum" font-size="18" font-weight="bold">83</text>
 <text x="72" y="234" class="clab" font-size="13" font-weight="normal">day longest streak</text>
