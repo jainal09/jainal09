@@ -16,7 +16,7 @@ OUT_DIR = Path("assets")
 THEMED_ASSETS = {
     "banner", "banner-mobile", "stack", "stack-mobile",
     "contributions", "contributions-mobile", "cluster", "cluster-mobile",
-    "music", "music-mobile",
+    "projects", "projects-mobile", "music", "music-mobile",
 }
 MEDIA_START = "@media (prefers-color-scheme: dark){"
 
@@ -302,6 +302,140 @@ def stack_mobile() -> str:
         f'repeatCount="indefinite"/><animate attributeName="opacity" '
         f'values="0;1;1;0" dur="{CYCLE}s" repeatCount="indefinite"/></circle>'
     )
+    return "\n".join(s) + "\n</svg>"
+
+
+# --------------------------------------------------------------- projects ---
+
+PROJECTS = (
+    {
+        "name": "envdrift",
+        "meta": "Python 3.11+ · MIT · MkDocs",
+        "tagline": "Prevent environment variable drift across teams.",
+        "description": (
+            "Sync encrypted .env files using your existing cloud vault — no "
+            "hosted service, no third-party trust, no more 'it works on my machine.'"
+        ),
+        "metric": "~3.9k downloads/month · 96 releases in 8 months · 94.7% coverage",
+        "tags": ("Pydantic", "pre-commit", "dotenvx", "Azure Key Vault", "AWS Secrets Manager"),
+    },
+    {
+        "name": "knack",
+        "meta": "Python 3.11+ · Docker · MIT",
+        "tagline": "Kafka + NATS benchmark suite for constrained hardware.",
+        "description": (
+            "Production-grade benchmarking across 9 categories — generates 20+ "
+            "charts, cross-scenario comparisons, and automated recommendations."
+        ),
+        "metric": "9 categories · 20+ charts",
+        "tags": ("Kafka", "NATS JetStream", "Docker", "Benchmarking", "Observability"),
+    },
+    {
+        "name": "drill",
+        "meta": "Bash + Zsh · Neovim 0.9+ · MIT",
+        "tagline": "The LeetCode editor, living in your terminal.",
+        "description": (
+            "A frictionless coding gym with zero autocomplete, LSP, or AI — just "
+            "a fast editor, a live Python REPL, and the muscle memory interviews actually test."
+        ),
+        "metric": "556 tests · zero autocomplete",
+        "tags": ("Deliberate Practice", "Python", "Live REPL", "No Autocomplete"),
+    },
+    {
+        "name": "Pyro",
+        "meta": "Python 3.11 · Docker Compose · Apache 2.0",
+        "tagline": "Chat with the entire Python 3.12 documentation.",
+        "description": (
+            "A full-stack RAG chatbot with a FastAPI backend, Weaviate vector "
+            "search, Streamlit chat UI, and Azure OpenAI-powered answers."
+        ),
+        "metric": "Python 3.12 docs · full-stack RAG",
+        "tags": ("FastAPI", "Weaviate", "LangChain", "Streamlit", "Azure OpenAI", "RAG"),
+    },
+)
+
+PROJECT_STYLE = """<style>
+  .project-canvas,.project-card{fill:#ffffff}.project-card{stroke:#d0d7de}
+  .project-primary{fill:#1f2328}.project-muted{fill:#59636e}
+  .project-pill{fill:#f6f8fa;stroke:#d0d7de}
+  @media (prefers-color-scheme: dark){.project-canvas,.project-card{fill:#0d1117}.project-card{stroke:#30363d}.project-primary{fill:#e6edf3}.project-muted{fill:#8b949e}.project-pill{fill:#161b22;stroke:#30363d}}
+</style>"""
+
+
+def _project_lines(body: str, width: int) -> list[str]:
+    return wrap(body, width=width, break_long_words=False, break_on_hyphens=False)
+
+
+def _project_pills(x: int, y: int, max_width: int, labels: tuple[str, ...]) -> list[str]:
+    out = []
+    cursor_x, cursor_y = x, y
+    for label in labels:
+        pill_width = len(label) * 7 + 20
+        if cursor_x > x and cursor_x + pill_width > x + max_width:
+            cursor_x, cursor_y = x, cursor_y + 30
+        out.append(
+            f'<rect x="{cursor_x}" y="{cursor_y}" width="{pill_width}" height="24" '
+            f'rx="6" class="project-pill" stroke-width="1"/>'
+        )
+        out.append(text(cursor_x + 10, cursor_y + 17, label, None, 12, cls="project-muted"))
+        cursor_x += pill_width + 8
+    return out
+
+
+def _project_card(x: int, y: int, width: int, height: int, index: int,
+                  project: dict, mobile: bool) -> list[str]:
+    pad = 22 if mobile else 24
+    inner = width - 2 * pad
+    # SVG text does not wrap itself. Keep the estimate conservative so a
+    # monospace line cannot bleed into the neighbouring desktop card or past
+    # the phone edge after GitHub scales the image.
+    line_chars = 32 if mobile else 42
+    out = [
+        f'<rect x="{x}" y="{y}" width="{width}" height="{height}" rx="12" '
+        f'class="project-card" stroke-width="1.5"/>',
+        text(x + pad, y + 40, f"{index:02d}", GREEN, 16, "bold"),
+        text(x + pad + 38, y + 40, project["name"], BLUE, 22, "bold"),
+        text(x + pad, y + 66, project["meta"], None, 10 if mobile else 12,
+             cls="project-muted"),
+    ]
+    cursor_y = y + 101
+    for line in _project_lines(project["tagline"], line_chars):
+        out.append(text(x + pad, cursor_y, line, None, 16, "bold", cls="project-primary"))
+        cursor_y += 21
+    cursor_y += 9
+    for line in _project_lines(project["description"], line_chars):
+        out.append(text(x + pad, cursor_y, line, None, 13, cls="project-muted"))
+        cursor_y += 19
+    cursor_y += 8
+    for line in _project_lines(project["metric"], line_chars):
+        out.append(text(x + pad, cursor_y, line, GREEN, 13, "bold"))
+        cursor_y += 18
+    out.extend(_project_pills(x + pad, y + height - 66, inner, project["tags"]))
+    return out
+
+
+def projects() -> str:
+    """A desktop 2x2 grid that keeps the original scan-friendly composition."""
+    width, height = 980, 728
+    card_width, card_height = 464, 336
+    s = [svg_open(width, height), PROJECT_STYLE,
+         f'<rect width="{width}" height="{height}" class="project-canvas"/>']
+    for i, project in enumerate(PROJECTS):
+        x = 16 + (i % 2) * (card_width + 20)
+        y = 18 + (i // 2) * (card_height + 20)
+        s.extend(_project_card(x, y, card_width, card_height, i + 1, project, False))
+    return "\n".join(s) + "\n</svg>"
+
+
+def projects_mobile() -> str:
+    """One full-width project per row; GitHub cannot reflow HTML table cells."""
+    width, card_height, gap = 390, 366, 16
+    height = 24 + len(PROJECTS) * card_height + (len(PROJECTS) - 1) * gap
+    s = [svg_open(width, height), PROJECT_STYLE,
+         f'<rect width="{width}" height="{height}" class="project-canvas"/>']
+    for i, project in enumerate(PROJECTS):
+        y = 12 + i * (card_height + gap)
+        s.extend(_project_card(16, y, 358, card_height, i + 1, project, True))
     return "\n".join(s) + "\n</svg>"
 
 
@@ -946,6 +1080,7 @@ def main() -> None:
         ("contributions-mobile", contributions_mobile(calendar)),
         ("cluster", cluster()), ("cluster-mobile", cluster_mobile()),
         ("stack", stack()), ("stack-mobile", stack_mobile()),
+        ("projects", projects()), ("projects-mobile", projects_mobile()),
         ("trophies", trophies(fetch_stats())),
         ("music", music(spotify)), ("music-mobile", music_mobile(spotify)),
     )

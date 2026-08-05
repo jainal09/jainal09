@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="980" height="728" viewBox="0 0 980 728" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" fill="none">
+<style>
+  .project-canvas,.project-card{fill:#ffffff}.project-card{stroke:#d0d7de}
+  .project-primary{fill:#1f2328}.project-muted{fill:#59636e}
+  .project-pill{fill:#f6f8fa;stroke:#d0d7de}
+
+</style>
+<rect width="980" height="728" class="project-canvas"/>
+<rect x="16" y="18" width="464" height="336" rx="12" class="project-card" stroke-width="1.5"/>
+<text x="40" y="58" fill="#3fb950" font-size="16" font-weight="bold">01</text>
+<text x="78" y="58" fill="#4c8eda" font-size="22" font-weight="bold">envdrift</text>
+<text x="40" y="84" class="project-muted" font-size="12" font-weight="normal">Python 3.11+ · MIT · MkDocs</text>
+<text x="40" y="119" class="project-primary" font-size="16" font-weight="bold">Prevent environment variable drift across</text>
+<text x="40" y="140" class="project-primary" font-size="16" font-weight="bold">teams.</text>
+<text x="40" y="170" class="project-muted" font-size="13" font-weight="normal">Sync encrypted .env files using your</text>
+<text x="40" y="189" class="project-muted" font-size="13" font-weight="normal">existing cloud vault — no hosted service,</text>
+<text x="40" y="208" class="project-muted" font-size="13" font-weight="normal">no third-party trust, no more 'it works on</text>
+<text x="40" y="227" class="project-muted" font-size="13" font-weight="normal">my machine.'</text>
+<text x="40" y="254" fill="#3fb950" font-size="13" font-weight="bold">~3.9k downloads/month · 96 releases in 8</text>
+<text x="40" y="272" fill="#3fb950" font-size="13" font-weight="bold">months · 94.7% coverage</text>
+<rect x="40" y="288" width="76" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="50" y="305" class="project-muted" font-size="12" font-weight="normal">Pydantic</text>
+<rect x="124" y="288" width="90" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="134" y="305" class="project-muted" font-size="12" font-weight="normal">pre-commit</text>
+<rect x="222" y="288" width="69" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="232" y="305" class="project-muted" font-size="12" font-weight="normal">dotenvx</text>
+<rect x="299" y="288" width="125" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="309" y="305" class="project-muted" font-size="12" font-weight="normal">Azure Key Vault</text>
+<rect x="40" y="318" width="153" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="50" y="335" class="project-muted" font-size="12" font-weight="normal">AWS Secrets Manager</text>
+<rect x="500" y="18" width="464" height="336" rx="12" class="project-card" stroke-width="1.5"/>
+<text x="524" y="58" fill="#3fb950" font-size="16" font-weight="bold">02</text>
+<text x="562" y="58" fill="#4c8eda" font-size="22" font-weight="bold">knack</text>
+<text x="524" y="84" class="project-muted" font-size="12" font-weight="normal">Python 3.11+ · Docker · MIT</text>
+<text x="524" y="119" class="project-primary" font-size="16" font-weight="bold">Kafka + NATS benchmark suite for</text>
+<text x="524" y="140" class="project-primary" font-size="16" font-weight="bold">constrained hardware.</text>
+<text x="524" y="170" class="project-muted" font-size="13" font-weight="normal">Production-grade benchmarking across 9</text>
+<text x="524" y="189" class="project-muted" font-size="13" font-weight="normal">categories — generates 20+ charts,</text>
+<text x="524" y="208" class="project-muted" font-size="13" font-weight="normal">cross-scenario comparisons, and automated</text>
+<text x="524" y="227" class="project-muted" font-size="13" font-weight="normal">recommendations.</text>
+<text x="524" y="254" fill="#3fb950" font-size="13" font-weight="bold">9 categories · 20+ charts</text>
+<rect x="524" y="288" width="55" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="534" y="305" class="project-muted" font-size="12" font-weight="normal">Kafka</text>
+<rect x="587" y="288" width="118" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="597" y="305" class="project-muted" font-size="12" font-weight="normal">NATS JetStream</text>
+<rect x="713" y="288" width="62" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="723" y="305" class="project-muted" font-size="12" font-weight="normal">Docker</text>
+<rect x="783" y="288" width="104" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="793" y="305" class="project-muted" font-size="12" font-weight="normal">Benchmarking</text>
+<rect x="524" y="318" width="111" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="534" y="335" class="project-muted" font-size="12" font-weight="normal">Observability</text>
+<rect x="16" y="374" width="464" height="336" rx="12" class="project-card" stroke-width="1.5"/>
+<text x="40" y="414" fill="#3fb950" font-size="16" font-weight="bold">03</text>
+<text x="78" y="414" fill="#4c8eda" font-size="22" font-weight="bold">drill</text>
+<text x="40" y="440" class="project-muted" font-size="12" font-weight="normal">Bash + Zsh · Neovim 0.9+ · MIT</text>
+<text x="40" y="475" class="project-primary" font-size="16" font-weight="bold">The LeetCode editor, living in your</text>
+<text x="40" y="496" class="project-primary" font-size="16" font-weight="bold">terminal.</text>
+<text x="40" y="526" class="project-muted" font-size="13" font-weight="normal">A frictionless coding gym with zero</text>
+<text x="40" y="545" class="project-muted" font-size="13" font-weight="normal">autocomplete, LSP, or AI — just a fast</text>
+<text x="40" y="564" class="project-muted" font-size="13" font-weight="normal">editor, a live Python REPL, and the muscle</text>
+<text x="40" y="583" class="project-muted" font-size="13" font-weight="normal">memory interviews actually test.</text>
+<text x="40" y="610" fill="#3fb950" font-size="13" font-weight="bold">556 tests · zero autocomplete</text>
+<rect x="40" y="644" width="153" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="50" y="661" class="project-muted" font-size="12" font-weight="normal">Deliberate Practice</text>
+<rect x="201" y="644" width="62" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="211" y="661" class="project-muted" font-size="12" font-weight="normal">Python</text>
+<rect x="271" y="644" width="83" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="281" y="661" class="project-muted" font-size="12" font-weight="normal">Live REPL</text>
+<rect x="40" y="674" width="125" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="50" y="691" class="project-muted" font-size="12" font-weight="normal">No Autocomplete</text>
+<rect x="500" y="374" width="464" height="336" rx="12" class="project-card" stroke-width="1.5"/>
+<text x="524" y="414" fill="#3fb950" font-size="16" font-weight="bold">04</text>
+<text x="562" y="414" fill="#4c8eda" font-size="22" font-weight="bold">Pyro</text>
+<text x="524" y="440" class="project-muted" font-size="12" font-weight="normal">Python 3.11 · Docker Compose · Apache 2.0</text>
+<text x="524" y="475" class="project-primary" font-size="16" font-weight="bold">Chat with the entire Python 3.12</text>
+<text x="524" y="496" class="project-primary" font-size="16" font-weight="bold">documentation.</text>
+<text x="524" y="526" class="project-muted" font-size="13" font-weight="normal">A full-stack RAG chatbot with a FastAPI</text>
+<text x="524" y="545" class="project-muted" font-size="13" font-weight="normal">backend, Weaviate vector search, Streamlit</text>
+<text x="524" y="564" class="project-muted" font-size="13" font-weight="normal">chat UI, and Azure OpenAI-powered answers.</text>
+<text x="524" y="591" fill="#3fb950" font-size="13" font-weight="bold">Python 3.12 docs · full-stack RAG</text>
+<rect x="524" y="644" width="69" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="534" y="661" class="project-muted" font-size="12" font-weight="normal">FastAPI</text>
+<rect x="601" y="644" width="76" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="611" y="661" class="project-muted" font-size="12" font-weight="normal">Weaviate</text>
+<rect x="685" y="644" width="83" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="695" y="661" class="project-muted" font-size="12" font-weight="normal">LangChain</text>
+<rect x="776" y="644" width="83" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="786" y="661" class="project-muted" font-size="12" font-weight="normal">Streamlit</text>
+<rect x="524" y="674" width="104" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="534" y="691" class="project-muted" font-size="12" font-weight="normal">Azure OpenAI</text>
+<rect x="636" y="674" width="41" height="24" rx="6" class="project-pill" stroke-width="1"/>
+<text x="646" y="691" class="project-muted" font-size="12" font-weight="normal">RAG</text>
+</svg>
