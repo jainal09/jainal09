@@ -3,9 +3,9 @@
 <p align="center"> <img src="https://komarev.com/ghpvc/?username=jainal09&label=Profile%20views&color=0e75b6&style=flat" alt="jainal09" /> </p>
 
 <picture>
-  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner-mobile.dark.svg">
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px) and (hover: none)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner-mobile.dark.svg">
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner.dark.svg">
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner-mobile.light.svg">
+  <source media="(max-width: 600px) and (hover: none)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner-mobile.light.svg">
   <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner.light.svg" alt="jainal09 — software engineer, distributed systems" width="100%" />
 </picture>
 
@@ -13,9 +13,9 @@
 MS in Software Engineering from [Northeastern University, Boston](https://www.northeastern.edu/graduate/program/master-of-science-in-software-engineering-systems-18774/). I work on the parts of a system that have to hold when the load stops cooperating — event-driven backends, high-throughput services, and the brokers underneath them. Currently deep in Kubernetes, Spring Cloud and reactive programming.
 
 <picture>
-  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack-mobile.dark.svg">
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px) and (hover: none)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack-mobile.dark.svg">
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack.dark.svg">
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack-mobile.light.svg">
+  <source media="(max-width: 600px) and (hover: none)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack-mobile.light.svg">
   <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack.light.svg" alt="a request descending the layers I work in" width="100%" />
 </picture>
 
@@ -30,18 +30,18 @@ That is the slice I get asked about most, not the whole of it — a large privat
 ### Commit Frequency
 
 <picture>
-  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions-mobile.dark.svg">
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px) and (hover: none)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions-mobile.dark.svg">
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions.dark.svg">
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions-mobile.light.svg">
+  <source media="(max-width: 600px) and (hover: none)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions-mobile.light.svg">
   <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions.light.svg" alt="contribution graph" width="100%" />
 </picture>
 
 ### Opensource Projects Contributed
 
 <picture>
-  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster-mobile.dark.svg">
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px) and (hover: none)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster-mobile.dark.svg">
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster.dark.svg">
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster-mobile.light.svg">
+  <source media="(max-width: 600px) and (hover: none)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster-mobile.light.svg">
   <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster.light.svg" alt="message flow through a NATS cluster" width="100%" />
 </picture>
 
@@ -95,9 +95,9 @@ Production-grade benchmarking across 9 categories — generates 20+ charts, cros
 ## Listening
 
 <picture>
-  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music-mobile.dark.svg">
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px) and (hover: none)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music-mobile.dark.svg">
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music.dark.svg">
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music-mobile.light.svg">
+  <source media="(max-width: 600px) and (hover: none)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music-mobile.light.svg">
   <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music.light.svg" alt="what I am listening to" width="100%" />
 </picture>
 
