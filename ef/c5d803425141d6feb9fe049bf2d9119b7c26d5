@@ -1,0 +1,64 @@
+.github/scripts/preview.py
+  s_1c1a1d33023178::t_3b7dc3e07062a8 21-22,82-83,90-99,115
+.github/scripts/generate_art.py
+  s_1c1a1d33023178::t_a7a66d02b1312e 16-21,49-69,73-74,956-961
+  s_1c1a1d33023178::t_fec8033bb2d12d 70-72
+README.md
+  s_1c1a1d33023178::t_d6c6e7018ea64c 6-9,16-19,33-36,42-45,98-101
+assets/banner-mobile.dark.svg
+  s_1c1a1d33023178::t_41bbac0b9f259c 1-27
+assets/banner-mobile.light.svg
+  s_1c1a1d33023178::t_724ee470d87ea5 1-24
+assets/banner.dark.svg
+  s_1c1a1d33023178::t_d5b0719215f63c 1-23
+assets/banner.light.svg
+  s_1c1a1d33023178::t_3e6d185e3deb5c 1-20
+assets/cluster-mobile.dark.svg
+  s_1c1a1d33023178::t_bd9018f84ef97d 1-39
+assets/cluster-mobile.light.svg
+  s_1c1a1d33023178::t_58df231e7972d6 1-39
+assets/cluster.dark.svg
+  s_1c1a1d33023178::t_e43cd129046479 1-36
+assets/cluster.light.svg
+  s_1c1a1d33023178::t_9a22d4fcc56b0c 1-36
+assets/contributions-mobile.dark.svg
+  s_1c1a1d33023178::t_862a56d18d73a4 1-131
+assets/contributions-mobile.light.svg
+  s_1c1a1d33023178::t_2249fee9921062 1-128
+assets/contributions.dark.svg
+  s_1c1a1d33023178::t_5cc5480b4e486a 1-405
+assets/contributions.light.svg
+  s_1c1a1d33023178::t_a492a75d2cc664 1-402
+assets/music-mobile.dark.svg
+  s_1c1a1d33023178::t_04de863f36ca48 1-177
+assets/music-mobile.light.svg
+  s_1c1a1d33023178::t_b48a719e1d1a88 1-174
+assets/music.dark.svg
+  s_1c1a1d33023178::t_452c4c09bf265e 1-335
+assets/music.light.svg
+  s_1c1a1d33023178::t_115cbae873f42a 1-332
+assets/stack-mobile.dark.svg
+  s_1c1a1d33023178::t_ecad3ef5817798 1-29
+assets/stack-mobile.light.svg
+  s_1c1a1d33023178::t_692c6a5855f3cf 1-29
+assets/stack.dark.svg
+  s_1c1a1d33023178::t_5f534b29a793d9 1-25
+assets/stack.light.svg
+  s_1c1a1d33023178::t_4f545a6cafcd7a 1-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "efc5d803425141d6feb9fe049bf2d9119b7c26d5",
+  "prompts": {},
+  "sessions": {
+    "s_1c1a1d33023178": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fce22-b90a-7ff3-8b3e-ae5f51502a29",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Jainal Gosaliya <jainal09gosalia@gmail.com>"
+    }
+  }
+}
