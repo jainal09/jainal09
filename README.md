@@ -64,9 +64,16 @@ Benchmarking NATS against Kafka through a tool I made - [knack](https://github.c
 
 ## Featured Projects
 
-<table><tr><td valign="top" width="50%">
+<table>
+<tbody><tr><td valign="top" width="50%">
 
-### 🔐 [envdrift](https://github.com/jainal09/envdrift)
+<p align="center">
+  <a href="https://github.com/jainal09/envdrift">
+    <img src="https://raw.githubusercontent.com/jainal09/envdrift/main/docs/assets/images/env-drift-logo.png" alt="envdrift logo" width="280" />
+  </a>
+</p>
+
+### [envdrift](https://github.com/jainal09/envdrift)
 **Prevent environment variable drift across teams.**
 
 Sync encrypted `.env` files using your existing cloud vault — no hosted service, no third-party trust, no more "it works on my machine."
@@ -79,7 +86,17 @@ Sync encrypted `.env` files using your existing cloud vault — no hosted servic
 
 </td><td valign="top" width="50%">
 
-### ⚡ [knack](https://github.com/jainal09/knack)
+<p align="center">
+  <a href="https://github.com/jainal09/knack">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/knack/main/assets/knack-logo-dark-sm.png" />
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jainal09/knack/main/assets/knack-logo-sm.png" />
+      <img src="https://raw.githubusercontent.com/jainal09/knack/main/assets/knack-logo-sm.png" alt="knack logo" width="200" />
+    </picture>
+  </a>
+</p>
+
+### [knack](https://github.com/jainal09/knack)
 **Kafka + NATS benchmark suite for constrained hardware.**
 
 Production-grade benchmarking across 9 categories — generates 20+ charts, cross-scenario comparisons, and automated recommendations.
@@ -88,7 +105,43 @@ Production-grade benchmarking across 9 categories — generates 20+ charts, cros
 
 `Kafka` `NATS JetStream` `Docker` `Benchmarking` `Observability`
 
-</td></tr></table>
+</td></tr></tbody>
+<tbody><tr><td valign="top" width="50%">
+
+<p align="center">
+  <a href="https://github.com/jainal09/drill">
+    <img src="https://raw.githubusercontent.com/jainal09/drill/main/drill-icon.png" alt="drill logo" width="110" />
+  </a>
+</p>
+
+### [drill](https://github.com/jainal09/drill)
+**The LeetCode editor, living in your terminal.**
+
+A frictionless coding gym with zero autocomplete, LSP, or AI — just a fast editor, a live Python REPL, and the muscle memory interviews actually test.
+
+[![Shell](https://img.shields.io/badge/shell-bash%20%2B%20zsh-blue?style=flat-square)](https://github.com/jainal09/drill) [![Neovim](https://img.shields.io/badge/neovim-0.9%2B-57A143?style=flat-square&logo=neovim&logoColor=white)](https://neovim.io/) [![MIT](https://img.shields.io/badge/license-MIT-yellow?style=flat-square)](https://github.com/jainal09/drill/blob/main/LICENSE)
+
+`Deliberate Practice` `Python` `Live REPL` `No Autocomplete` `556 Tests`
+
+</td><td valign="top" width="50%">
+
+<p align="center">
+  <a href="https://github.com/jainal09/pyro-bot">
+    <img src="https://github.com/jainal09/pyro-bot/assets/34179361/5d494fb4-5721-42f7-b463-cd12e8e3c86c" alt="Pyro bot logo" width="230" />
+  </a>
+</p>
+
+### [Pyro](https://github.com/jainal09/pyro-bot)
+**Chat with the entire Python 3.12 documentation.**
+
+A full-stack RAG chatbot with a FastAPI backend, Weaviate vector search, Streamlit chat UI, and Azure OpenAI-powered answers.
+
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue?style=flat-square)](https://www.python.org/downloads/release/python-3110/) [![Docker](https://img.shields.io/badge/docker-compose-2496ED?style=flat-square&logo=docker&logoColor=white)](https://docs.docker.com/compose/) [![Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-yellow?style=flat-square)](https://github.com/jainal09/pyro-bot/blob/main/LICENSE)
+
+`FastAPI` `Weaviate` `LangChain` `Streamlit` `Azure OpenAI` `RAG`
+
+</td></tr></tbody>
+</table>
 
 &nbsp;
 
