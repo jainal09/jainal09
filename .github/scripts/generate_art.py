@@ -310,6 +310,9 @@ def stack_mobile() -> str:
 PROJECTS = (
     {
         "name": "envdrift",
+        "logo": "envdrift",
+        "logo_width": 300,
+        "logo_height": 60,
         "meta": "Python 3.11+ · MIT · MkDocs",
         "tagline": "Prevent environment variable drift across teams.",
         "description": (
@@ -321,6 +324,9 @@ PROJECTS = (
     },
     {
         "name": "knack",
+        "logo": "knack",
+        "logo_width": 210,
+        "logo_height": 80,
         "meta": "Python 3.11+ · Docker · MIT",
         "tagline": "Kafka + NATS benchmark suite for constrained hardware.",
         "description": (
@@ -332,6 +338,9 @@ PROJECTS = (
     },
     {
         "name": "drill",
+        "logo": "drill",
+        "logo_width": 100,
+        "logo_height": 90,
         "meta": "Bash + Zsh · Neovim 0.9+ · MIT",
         "tagline": "The LeetCode editor, living in your terminal.",
         "description": (
@@ -343,6 +352,9 @@ PROJECTS = (
     },
     {
         "name": "Pyro",
+        "logo": "pyro",
+        "logo_width": 220,
+        "logo_height": 100,
         "meta": "Python 3.11 · Docker Compose · Apache 2.0",
         "tagline": "Chat with the entire Python 3.12 documentation.",
         "description": (
@@ -354,12 +366,63 @@ PROJECTS = (
     },
 )
 
+PROJECT_LOGO_URLS = {
+    "envdrift": (
+        "https://raw.githubusercontent.com/jainal09/envdrift/main/"
+        "docs/assets/images/env-drift-logo.png"
+    ),
+    "knack-light": (
+        "https://raw.githubusercontent.com/jainal09/knack/main/assets/knack-logo-sm.png"
+    ),
+    "knack-dark": (
+        "https://raw.githubusercontent.com/jainal09/knack/main/assets/knack-logo-dark-sm.png"
+    ),
+    "drill": "https://raw.githubusercontent.com/jainal09/drill/main/drill-icon.png",
+    "pyro": (
+        "https://github.com/jainal09/pyro-bot/assets/34179361/"
+        "5d494fb4-5721-42f7-b463-cd12e8e3c86c"
+    ),
+}
+
 PROJECT_STYLE = """<style>
   .project-canvas,.project-card{fill:#ffffff}.project-card{stroke:#d0d7de}
   .project-primary{fill:#1f2328}.project-muted{fill:#59636e}
   .project-pill{fill:#f6f8fa;stroke:#d0d7de}
-  @media (prefers-color-scheme: dark){.project-canvas,.project-card{fill:#0d1117}.project-card{stroke:#30363d}.project-primary{fill:#e6edf3}.project-muted{fill:#8b949e}.project-pill{fill:#161b22;stroke:#30363d}}
+  .project-logo-light{display:block}.project-logo-dark{display:none}
+  .project-pyro-backdrop{display:none}
+  @media (prefers-color-scheme: dark){.project-canvas,.project-card{fill:#0d1117}.project-card{stroke:#30363d}.project-primary{fill:#e6edf3}.project-muted{fill:#8b949e}.project-pill{fill:#161b22;stroke:#30363d}.project-logo-light{display:none}.project-logo-dark{display:block}.project-pyro-backdrop{display:block;fill:#e6edf3}}
 </style>"""
+
+
+def fetch_project_logos() -> dict[str, str]:
+    """Fetch and embed the canonical logos before any generated file is written."""
+    import base64
+    import urllib.request
+
+    logos = {}
+    for name, url in PROJECT_LOGO_URLS.items():
+        request = urllib.request.Request(url, headers={"User-Agent": "jainal09-profile-art"})
+        with urllib.request.urlopen(request, timeout=30) as response:
+            content_type = response.headers.get_content_type()
+            if not content_type.startswith("image/"):
+                raise ValueError(f"project logo {name} returned {content_type}")
+            encoded = base64.b64encode(response.read()).decode("ascii")
+        logos[name] = f"data:{content_type};base64,{encoded}"
+    return logos
+
+
+def project_theme_variants(body: str) -> tuple[str, str]:
+    """Bake one knack wordmark per file; some SVG thumbnailers ignore display:none."""
+    light, dark = theme_variants(body)
+    light = "\n".join(
+        line for line in light.splitlines()
+        if 'class="project-logo-dark"' not in line
+        and 'class="project-pyro-backdrop"' not in line
+    )
+    dark = "\n".join(
+        line for line in dark.splitlines() if 'class="project-logo-light"' not in line
+    )
+    return light, dark
 
 
 def _project_lines(body: str, width: int) -> list[str]:
@@ -383,7 +446,7 @@ def _project_pills(x: int, y: int, max_width: int, labels: tuple[str, ...]) -> l
 
 
 def _project_card(x: int, y: int, width: int, height: int, index: int,
-                  project: dict, mobile: bool) -> list[str]:
+                  project: dict, mobile: bool, logos: dict[str, str]) -> list[str]:
     pad = 22 if mobile else 24
     inner = width - 2 * pad
     # SVG text does not wrap itself. Keep the estimate conservative so a
@@ -393,12 +456,34 @@ def _project_card(x: int, y: int, width: int, height: int, index: int,
     out = [
         f'<rect x="{x}" y="{y}" width="{width}" height="{height}" rx="12" '
         f'class="project-card" stroke-width="1.5"/>',
-        text(x + pad, y + 40, f"{index:02d}", GREEN, 16, "bold"),
-        text(x + pad + 38, y + 40, project["name"], BLUE, 22, "bold"),
-        text(x + pad, y + 66, project["meta"], None, 10 if mobile else 12,
+    ]
+    logo_width = min(project["logo_width"], inner)
+    logo_height = project["logo_height"]
+    logo_x = x + (width - logo_width) // 2
+    logo_y = y + 14 + (100 - logo_height) // 2
+    image = (
+        f'x="{logo_x}" y="{logo_y}" width="{logo_width}" height="{logo_height}" '
+        f'preserveAspectRatio="xMidYMid meet"'
+    )
+    if project["logo"] == "knack":
+        out += [
+            f'<image {image} class="project-logo-light" href="{logos["knack-light"]}"/>',
+            f'<image {image} class="project-logo-dark" href="{logos["knack-dark"]}"/>',
+        ]
+    else:
+        if project["logo"] == "pyro":
+            out.append(
+                f'<rect x="{x + width // 2 - 58}" y="{logo_y + 66}" width="116" '
+                f'height="30" rx="5" class="project-pyro-backdrop"/>'
+            )
+        out.append(f'<image {image} href="{logos[project["logo"]]}"/>')
+    out += [
+        text(x + pad, y + 142, f"{index:02d}", GREEN, 16, "bold"),
+        text(x + pad + 38, y + 142, project["name"], BLUE, 22, "bold"),
+        text(x + pad, y + 168, project["meta"], None, 10 if mobile else 12,
              cls="project-muted"),
     ]
-    cursor_y = y + 101
+    cursor_y = y + 203
     for line in _project_lines(project["tagline"], line_chars):
         out.append(text(x + pad, cursor_y, line, None, 16, "bold", cls="project-primary"))
         cursor_y += 21
@@ -414,28 +499,30 @@ def _project_card(x: int, y: int, width: int, height: int, index: int,
     return out
 
 
-def projects() -> str:
+def projects(logos: dict[str, str]) -> str:
     """A desktop 2x2 grid that keeps the original scan-friendly composition."""
-    width, height = 980, 728
-    card_width, card_height = 464, 336
+    width, height = 980, 956
+    card_width, card_height = 464, 450
     s = [svg_open(width, height), PROJECT_STYLE,
          f'<rect width="{width}" height="{height}" class="project-canvas"/>']
     for i, project in enumerate(PROJECTS):
         x = 16 + (i % 2) * (card_width + 20)
         y = 18 + (i // 2) * (card_height + 20)
-        s.extend(_project_card(x, y, card_width, card_height, i + 1, project, False))
+        s.extend(_project_card(
+            x, y, card_width, card_height, i + 1, project, False, logos
+        ))
     return "\n".join(s) + "\n</svg>"
 
 
-def projects_mobile() -> str:
+def projects_mobile(logos: dict[str, str]) -> str:
     """One full-width project per row; GitHub cannot reflow HTML table cells."""
-    width, card_height, gap = 390, 366, 16
+    width, card_height, gap = 390, 450, 16
     height = 24 + len(PROJECTS) * card_height + (len(PROJECTS) - 1) * gap
     s = [svg_open(width, height), PROJECT_STYLE,
          f'<rect width="{width}" height="{height}" class="project-canvas"/>']
     for i, project in enumerate(PROJECTS):
         y = 12 + i * (card_height + gap)
-        s.extend(_project_card(16, y, 358, card_height, i + 1, project, True))
+        s.extend(_project_card(16, y, 358, card_height, i + 1, project, True, logos))
     return "\n".join(s) + "\n</svg>"
 
 
@@ -1074,13 +1161,15 @@ def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     calendar = fetch_calendar()
     spotify = fetch_spotify()
+    project_logos = fetch_project_logos()
     pieces = (
         ("banner", banner()), ("banner-mobile", banner_mobile()),
         ("contributions", contributions(calendar)),
         ("contributions-mobile", contributions_mobile(calendar)),
         ("cluster", cluster()), ("cluster-mobile", cluster_mobile()),
         ("stack", stack()), ("stack-mobile", stack_mobile()),
-        ("projects", projects()), ("projects-mobile", projects_mobile()),
+        ("projects", projects(project_logos)),
+        ("projects-mobile", projects_mobile(project_logos)),
         ("trophies", trophies(fetch_stats())),
         ("music", music(spotify)), ("music-mobile", music_mobile(spotify)),
     )
@@ -1089,7 +1178,8 @@ def main() -> None:
         path.write_text(body, encoding="utf-8")
         print(f"wrote {path}")
         if name in THEMED_ASSETS:
-            light, dark = theme_variants(body)
+            variants = project_theme_variants if name.startswith("projects") else theme_variants
+            light, dark = variants(body)
             for theme, themed_body in (("light", light), ("dark", dark)):
                 themed_path = OUT_DIR / f"{name}.{theme}.svg"
                 themed_path.write_text(themed_body, encoding="utf-8")
