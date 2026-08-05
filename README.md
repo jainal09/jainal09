@@ -3,16 +3,20 @@
 <p align="center"> <img src="https://komarev.com/ghpvc/?username=jainal09&label=Profile%20views&color=0e75b6&style=flat" alt="jainal09" /> </p>
 
 <picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner-mobile.svg">
-  <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner.svg" alt="jainal09 — software engineer, distributed systems" width="100%" />
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner-mobile.dark.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner.dark.svg">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner-mobile.light.svg">
+  <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/banner.light.svg" alt="jainal09 — software engineer, distributed systems" width="100%" />
 </picture>
 
 
 MS in Software Engineering from [Northeastern University, Boston](https://www.northeastern.edu/graduate/program/master-of-science-in-software-engineering-systems-18774/). I work on the parts of a system that have to hold when the load stops cooperating — event-driven backends, high-throughput services, and the brokers underneath them. Currently deep in Kubernetes, Spring Cloud and reactive programming.
 
 <picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack-mobile.svg">
-  <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack.svg" alt="a request descending the layers I work in" width="100%" />
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack-mobile.dark.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack.dark.svg">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack-mobile.light.svg">
+  <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/stack.light.svg" alt="a request descending the layers I work in" width="100%" />
 </picture>
 
 That is the slice I get asked about most, not the whole of it — a large private Swift codebase and a pile of C++ do not fit in five bands. I write about how the pieces fit together on [Scale Bites](https://scalebites.substack.com/) — also on [Medium](https://medium.com/@jainal) and [LinkedIn](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7169831353377619968).
@@ -26,15 +30,19 @@ That is the slice I get asked about most, not the whole of it — a large privat
 ### Commit Frequency
 
 <picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions-mobile.svg">
-  <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions.svg" alt="contribution graph" width="100%" />
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions-mobile.dark.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions.dark.svg">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions-mobile.light.svg">
+  <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/contributions.light.svg" alt="contribution graph" width="100%" />
 </picture>
 
 ### Opensource Projects Contributed
 
 <picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster-mobile.svg">
-  <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster.svg" alt="message flow through a NATS cluster" width="100%" />
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster-mobile.dark.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster.dark.svg">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster-mobile.light.svg">
+  <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/cluster.light.svg" alt="message flow through a NATS cluster" width="100%" />
 </picture>
 
 I fix the tools I build on. Code I've written ships in NATS Server, NATS NUI and gRPC UI.
@@ -87,8 +95,10 @@ Production-grade benchmarking across 9 categories — generates 20+ charts, cros
 ## Listening
 
 <picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music-mobile.svg">
-  <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music.svg" alt="what I am listening to" width="100%" />
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music-mobile.dark.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music.dark.svg">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music-mobile.light.svg">
+  <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/music.light.svg" alt="what I am listening to" width="100%" />
 </picture>
 
 

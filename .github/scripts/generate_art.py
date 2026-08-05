@@ -13,6 +13,12 @@ from pathlib import Path
 from textwrap import wrap
 
 OUT_DIR = Path("assets")
+THEMED_ASSETS = {
+    "banner", "banner-mobile", "stack", "stack-mobile",
+    "contributions", "contributions-mobile", "cluster", "cluster-mobile",
+    "music", "music-mobile",
+}
+MEDIA_START = "@media (prefers-color-scheme: dark){"
 
 GREEN = "#3fb950"
 BLUE = "#4c8eda"
@@ -38,6 +44,32 @@ def esc(s: str) -> str:
     """
     return (str(s).replace("&", "&amp;").replace("<", "&lt;")
             .replace(">", "&gt;").replace('"', "&quot;"))
+
+
+def theme_variants(body: str) -> tuple[str, str]:
+    """Bake an adaptive SVG into explicit light and dark variants."""
+    start = body.find(MEDIA_START)
+    if start < 0:
+        return body, body
+    opening = body.find("{", start)
+    depth = 0
+    closing = None
+    for pos in range(opening, len(body)):
+        if body[pos] == "{":
+            depth += 1
+        elif body[pos] == "}":
+            depth -= 1
+            if depth == 0:
+                closing = pos
+                break
+    if closing is None:
+        raise ValueError("unclosed prefers-color-scheme block")
+    dark_rules = body[opening + 1:closing]
+    light = body[:start] + body[closing + 1:]
+    dark = body[:start] + dark_rules + body[closing + 1:]
+    light = "\n".join(line.rstrip() for line in light.splitlines())
+    dark = "\n".join(line.rstrip() for line in dark.splitlines())
+    return light, dark
 
 
 def text(x, y, body, fill=DIM, size=13, weight="normal", cls=None,
@@ -921,6 +953,12 @@ def main() -> None:
         path = OUT_DIR / f"{name}.svg"
         path.write_text(body, encoding="utf-8")
         print(f"wrote {path}")
+        if name in THEMED_ASSETS:
+            light, dark = theme_variants(body)
+            for theme, themed_body in (("light", light), ("dark", dark)):
+                themed_path = OUT_DIR / f"{name}.{theme}.svg"
+                themed_path.write_text(themed_body, encoding="utf-8")
+                print(f"wrote {themed_path}")
 
 
 if __name__ == "__main__":

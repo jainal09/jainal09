@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="390" height="250" viewBox="0 0 390 250" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" fill="none">
+<style>
+  .c0{fill:#ebedf0}.c1{fill:#aceebb}.c2{fill:#4ac26b}.c3{fill:#2da44e}.c4{fill:#116329}
+  .clab{fill:#59636e}.cnum{fill:#1f2328}
+
+    .c0{fill:#151b23}.c1{fill:#033a16}.c2{fill:#196c2e}.c3{fill:#2ea043}.c4{fill:#56d364}
+    .clab{fill:#8b949e}.cnum{fill:#e6edf3}
+
+</style>
+<defs><rect id="mobile-cell" width="16" height="16" rx="3"/></defs>
+<text x="42" y="24" class="clab" font-size="12" font-weight="normal">Apr</text>
+<text x="82" y="24" class="clab" font-size="12" font-weight="normal">May</text>
+<text x="182" y="24" class="clab" font-size="12" font-weight="normal">Jun</text>
+<text x="262" y="24" class="clab" font-size="12" font-weight="normal">Jul</text>
+<text x="342" y="24" class="clab" font-size="12" font-weight="normal">Aug</text>
+<text x="4" y="68" class="clab" font-size="11" font-weight="normal">Mon</text>
+<text x="4" y="108" class="clab" font-size="11" font-weight="normal">Wed</text>
+<text x="4" y="148" class="clab" font-size="11" font-weight="normal">Fri</text>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="42" y="36" class="c0"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="42" y="56" class="c0"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="42" y="76" class="c3"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="42" y="96" class="c0"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="42" y="116" class="c0"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="42" y="136" class="c0"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="42" y="156" class="c0"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="62" y="36" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="62" y="56" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="62" y="76" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="62" y="96" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="62" y="116" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="62" y="136" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="62" y="156" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="82" y="36" class="c2"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="82" y="56" class="c2"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="82" y="76" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="82" y="96" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="82" y="116" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="82" y="136" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="82" y="156" class="c2"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="102" y="36" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="102" y="56" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="102" y="76" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="102" y="96" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="102" y="116" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="102" y="136" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="102" y="156" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="122" y="36" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="122" y="56" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="122" y="76" class="c3"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="122" y="96" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="122" y="116" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="122" y="136" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="122" y="156" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="142" y="36" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="142" y="56" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="142" y="76" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="142" y="96" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="142" y="116" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="142" y="136" class="c3"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="142" y="156" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="162" y="36" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="162" y="56" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="162" y="76" class="c2"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="162" y="96" class="c3"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="162" y="116" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="162" y="136" class="c4"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="162" y="156" class="c4"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="182" y="36" class="c3"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="182" y="56" class="c4"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="182" y="76" class="c4"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="182" y="96" class="c2"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="182" y="116" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="182" y="136" class="c4"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="182" y="156" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="202" y="36" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="202" y="56" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="202" y="76" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="202" y="96" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="202" y="116" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="202" y="136" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="202" y="156" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="222" y="36" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="222" y="56" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="222" y="76" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="222" y="96" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="222" y="116" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="222" y="136" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="222" y="156" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="242" y="36" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="242" y="56" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="242" y="76" class="c2"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="242" y="96" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="242" y="116" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="242" y="136" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="242" y="156" class="c3"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="262" y="36" class="c2"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="262" y="56" class="c3"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="262" y="76" class="c4"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="262" y="96" class="c2"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="262" y="116" class="c2"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="262" y="136" class="c3"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="262" y="156" class="c3"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="282" y="36" class="c3"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="282" y="56" class="c4"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="282" y="76" class="c3"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="282" y="96" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="282" y="116" class="c3"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="282" y="136" class="c2"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="282" y="156" class="c0"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="302" y="36" class="c0"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="302" y="56" class="c0"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="302" y="76" class="c0"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="302" y="96" class="c0"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="302" y="116" class="c0"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="302" y="136" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="302" y="156" class="c0"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="322" y="36" class="c2"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="322" y="56" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="322" y="76" class="c0"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="322" y="96" class="c0"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="322" y="116" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="322" y="136" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="322" y="156" class="c1"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="342" y="36" class="c4"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="342" y="56" class="c3"/>
+<use href="#mobile-cell" xlink:href="#mobile-cell" x="342" y="76" class="c1"/>
+<text x="42" y="207" class="cnum" font-size="18" font-weight="bold">1,617</text>
+<text x="105" y="207" class="clab" font-size="13" font-weight="normal">contributions this year</text>
+<text x="42" y="234" class="cnum" font-size="18" font-weight="bold">83</text>
+<text x="72" y="234" class="clab" font-size="13" font-weight="normal">day longest streak</text>
+</svg>

@@ -18,6 +18,8 @@ import subprocess
 import webbrowser
 from pathlib import Path
 
+from generate_art import theme_variants
+
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / ".github" / "scripts" / "preview.html"
 VARIANTS = ROOT / ".github" / "scripts" / ".preview-assets"
@@ -66,38 +68,6 @@ paint(dark);
 """
 
 
-MEDIA_START = "@media (prefers-color-scheme: dark){"
-
-
-def theme_variants(body: str) -> tuple[str, str]:
-    """Return explicit light/dark SVGs from one internal media query.
-
-    CSS rules inside the media block contain their own braces, so a regular
-    expression cannot reliably identify the matching close. Scan brace depth
-    instead, then remove the block for light and unwrap it for dark.
-    """
-    start = body.find(MEDIA_START)
-    if start < 0:
-        return body, body
-    opening = body.find("{", start)
-    depth = 0
-    closing = None
-    for pos in range(opening, len(body)):
-        if body[pos] == "{":
-            depth += 1
-        elif body[pos] == "}":
-            depth -= 1
-            if depth == 0:
-                closing = pos
-                break
-    if closing is None:
-        raise ValueError("unclosed prefers-color-scheme block")
-    dark_rules = body[opening + 1:closing]
-    light = body[:start] + body[closing + 1:]
-    dark = body[:start] + dark_rules + body[closing + 1:]
-    return light, dark
-
-
 def variants() -> None:
     """Bake each asset into an explicitly light and an explicitly dark copy.
 
@@ -109,10 +79,22 @@ def variants() -> None:
     """
     VARIANTS.mkdir(exist_ok=True)
     for src in sorted((ROOT / "assets").glob("*.svg")):
+        if src.stem.endswith((".light", ".dark")):
+            continue
         body = src.read_text(encoding="utf-8")
         light, dark = theme_variants(body)
         (VARIANTS / f"{src.stem}.light.svg").write_text(light, encoding="utf-8")
         (VARIANTS / f"{src.stem}.dark.svg").write_text(dark, encoding="utf-8")
+
+
+def preview_asset(match: re.Match) -> str:
+    """Map production theme variants back to one locally switchable source."""
+    stem = Path(match.group(1)).stem
+    if stem.endswith((".light", ".dark")):
+        stem = stem.rsplit(".", 1)[0]
+    return (f'.preview-assets/{stem}.light.svg" '
+            f'data-dark=".preview-assets/{stem}.dark.svg" '
+            f'data-light=".preview-assets/{stem}.light.svg')
 
 
 def render(md: str) -> str:
@@ -130,11 +112,7 @@ def main() -> None:
     variants()
     # Point every asset at its baked light copy, and remember the dark one so
     # the toggle can swap both the page and the artwork together.
-    html = RAW.sub(
-        lambda m: f'.preview-assets/{Path(m.group(1)).stem}.light.svg" '
-                  f'data-dark=".preview-assets/{Path(m.group(1)).stem}.dark.svg" '
-                  f'data-light=".preview-assets/{Path(m.group(1)).stem}.light.svg',
-        html)
+    html = RAW.sub(preview_asset, html)
 
     OUT.write_text(
         "<!doctype html><html><head><meta charset='utf-8'>"

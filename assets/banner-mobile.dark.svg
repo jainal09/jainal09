@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="390" height="226" viewBox="0 0 390 226" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" fill="none">
+<style>
+  .bpr{fill:#656d76}.bcmd{fill:#1a7f37}.btxt{fill:#1f2328}
+  .bcur{fill:#0969da}.bchrome{fill:#d0d7de}
+
+    .bpr{fill:#8b949e}.bcmd{fill:#3fb950}.btxt{fill:#e6edf3}
+    .bcur{fill:#58a6ff}.bchrome{fill:#30363d}
+
+</style>
+<circle cx="18" cy="16" r="4.5" fill="#f85149"/>
+<circle cx="34" cy="16" r="4.5" fill="#d29922"/>
+<circle cx="50" cy="16" r="4.5" fill="#3fb950"/>
+<line x1="18" y1="30" x2="372" y2="30" class="bchrome" stroke="currentColor" stroke-width="1" opacity="0.65"/>
+<clipPath id="mt0"><rect x="18" y="36" width="0" height="22"><animate attributeName="width" from="0" to="281" dur="0.53s" begin="0.2s" fill="freeze"/></rect></clipPath>
+<text x="18" y="53" class="bcmd" clip-path="url(#mt0)" font-size="15" font-weight="normal">jainal09@github:~$ whoami</text>
+<clipPath id="mt1"><rect x="18" y="62" width="0" height="22"><animate attributeName="width" from="0" to="348" dur="0.65s" begin="1.35s" fill="freeze"/></rect></clipPath>
+<text x="18" y="79" class="btxt" clip-path="url(#mt1)" font-size="15" font-weight="normal">Software Engineer — distributed</text>
+<clipPath id="mt2"><rect x="18" y="84" width="0" height="22"><animate attributeName="width" from="0" to="337" dur="0.63s" begin="2.02s" fill="freeze"/></rect></clipPath>
+<text x="18" y="101" class="btxt" clip-path="url(#mt2)" font-size="15" font-weight="normal">systems, event-driven backends</text>
+<clipPath id="mt3"><rect x="18" y="114" width="0" height="22"><animate attributeName="width" from="0" to="360" dur="0.67s" begin="2.85s" fill="freeze"/></rect></clipPath>
+<text x="18" y="131" class="bcmd" clip-path="url(#mt3)" font-size="15" font-weight="normal">jainal09@github:~$ cat focus.txt</text>
+<clipPath id="mt4"><rect x="18" y="140" width="0" height="22"><animate attributeName="width" from="0" to="382" dur="0.71s" begin="4.0s" fill="freeze"/></rect></clipPath>
+<text x="18" y="157" class="btxt" clip-path="url(#mt4)" font-size="15" font-weight="normal">Kafka · NATS · Kubernetes · things</text>
+<clipPath id="mt5"><rect x="18" y="162" width="0" height="22"><animate attributeName="width" from="0" to="258" dur="0.48s" begin="4.74s" fill="freeze"/></rect></clipPath>
+<text x="18" y="179" class="btxt" clip-path="url(#mt5)" font-size="15" font-weight="normal">that stay up under load</text>
+<rect x="233" y="164" width="8" height="18" class="bcur" opacity="0"><animate attributeName="opacity" values="0;0;1;0;1;0;1" keyTimes="0;0.635;0.684;0.744;0.805;0.866;1" dur="8.22s" repeatCount="indefinite"/></rect>
+</svg>
