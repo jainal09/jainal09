@@ -388,12 +388,13 @@
 <rect x="942" y="78" width="13" height="13" rx="2.5" class="c2"/>
 <rect x="942" y="95" width="13" height="13" rx="2.5" class="c1"/>
 <rect x="942" y="112" width="13" height="13" rx="2.5" class="c1"/>
-<rect x="942" y="129" width="13" height="13" rx="2.5" class="c0"/>
-<text x="58" y="187" class="cnum" font-size="15" font-weight="bold">1,804</text>
+<rect x="942" y="129" width="13" height="13" rx="2.5" class="c1"/>
+<rect x="942" y="146" width="13" height="13" rx="2.5" class="c1"/>
+<text x="58" y="187" class="cnum" font-size="15" font-weight="bold">1,811</text>
 <text x="116" y="187" class="clab" font-size="12" font-weight="normal">contributions in the last year</text>
 <text x="358" y="187" class="cnum" font-size="15" font-weight="bold">83</text>
 <text x="388" y="187" class="clab" font-size="12" font-weight="normal">day longest streak</text>
-<text x="548" y="187" class="cnum" font-size="15" font-weight="bold">0</text>
+<text x="548" y="187" class="cnum" font-size="15" font-weight="bold">24</text>
 <text x="578" y="187" class="clab" font-size="12" font-weight="normal">day current streak</text>
 <text x="758" y="187" class="clab" font-size="10" font-weight="normal">less</text>
 <rect x="792" y="177" width="12" height="12" rx="2.5" class="c0"/>
