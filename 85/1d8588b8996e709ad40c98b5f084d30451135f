@@ -1,0 +1,31 @@
+.github/scripts/generate_art.py
+  s_19efbd24d01d75::t_c700465839b25c 411-417,434-437,499-500,506-507,509-510,562
+assets/project-facet-mobile.dark.svg
+  s_19efbd24d01d75::t_5c1639241c7707 14
+assets/project-facet-mobile.light.svg
+  s_19efbd24d01d75::t_ee43bb4c44c015 14
+assets/project-facet-mobile.svg
+  s_19efbd24d01d75::t_46cc1884428d68 14-15
+assets/project-facet.dark.svg
+  s_19efbd24d01d75::t_04b90fa03cd49b 1,11-32
+assets/project-facet.light.svg
+  s_19efbd24d01d75::t_bd94e87534d6dd 1,11-32
+assets/project-facet.svg
+  s_19efbd24d01d75::t_d2898c0bd0d543 1,11-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "851d8588b8996e709ad40c98b5f084d30451135f",
+  "prompts": {},
+  "sessions": {
+    "s_19efbd24d01d75": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a03498-4b19-73e0-8825-ea6aa9305805",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Jainal Gosaliya <jainal09gosalia@gmail.com>"
+    }
+  }
+}
