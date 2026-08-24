@@ -89,24 +89,20 @@ Benchmarking NATS against Kafka through a tool I made - [knack](https://github.c
 ## Featured Projects
 
 <p align="center">
+  <a href="https://github.com/jainal09/facet-os">Facet</a> ·
   <a href="https://github.com/jainal09/envdrift">envdrift</a> ·
   <a href="https://github.com/jainal09/knack">knack</a> ·
   <a href="https://github.com/jainal09/drill">drill</a> ·
   <a href="https://github.com/jainal09/pyro-bot">Pyro</a>
 </p>
 
-<a href="#gh-dark-mode-only">
-  <picture>
-    <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/projects-mobile.dark.svg">
-    <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/projects.dark.svg" alt="Featured projects: envdrift, knack, drill, and Pyro" width="100%" />
-  </picture>
-</a>
-<a href="#gh-light-mode-only">
-  <picture>
-    <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/projects-mobile.light.svg">
-    <img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/projects.light.svg" alt="Featured projects: envdrift, knack, drill, and Pyro" width="100%" />
-  </picture>
-</a>
+<p align="center">
+  <a href="https://github.com/jainal09/facet-os#gh-dark-mode-only"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-facet-mobile.dark.svg"><img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-facet.dark.svg" alt="Facet — an operating system for a cube-shaped ESP32-S3 device" /></picture></a><a href="https://github.com/jainal09/facet-os#gh-light-mode-only"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-facet-mobile.light.svg"><img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-facet.light.svg" alt="Facet — an operating system for a cube-shaped ESP32-S3 device" /></picture></a>
+  <a href="https://github.com/jainal09/envdrift#gh-dark-mode-only"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-envdrift-mobile.dark.svg"><img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-envdrift.dark.svg" alt="envdrift — prevent environment variable drift across teams" /></picture></a><a href="https://github.com/jainal09/envdrift#gh-light-mode-only"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-envdrift-mobile.light.svg"><img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-envdrift.light.svg" alt="envdrift — prevent environment variable drift across teams" /></picture></a>
+  <a href="https://github.com/jainal09/knack#gh-dark-mode-only"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-knack-mobile.dark.svg"><img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-knack.dark.svg" alt="knack — Kafka and NATS benchmarking for constrained hardware" /></picture></a><a href="https://github.com/jainal09/knack#gh-light-mode-only"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-knack-mobile.light.svg"><img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-knack.light.svg" alt="knack — Kafka and NATS benchmarking for constrained hardware" /></picture></a>
+  <a href="https://github.com/jainal09/drill#gh-dark-mode-only"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-drill-mobile.dark.svg"><img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-drill.dark.svg" alt="drill — the LeetCode editor living in your terminal" /></picture></a><a href="https://github.com/jainal09/drill#gh-light-mode-only"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-drill-mobile.light.svg"><img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-drill.light.svg" alt="drill — the LeetCode editor living in your terminal" /></picture></a>
+  <a href="https://github.com/jainal09/pyro-bot#gh-dark-mode-only"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-pyro-mobile.dark.svg"><img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-pyro.dark.svg" alt="Pyro — chat with the Python documentation" /></picture></a><a href="https://github.com/jainal09/pyro-bot#gh-light-mode-only"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-pyro-mobile.light.svg"><img src="https://raw.githubusercontent.com/jainal09/jainal09/main/assets/project-pyro.light.svg" alt="Pyro — chat with the Python documentation" /></picture></a>
+</p>
 
 &nbsp;
 

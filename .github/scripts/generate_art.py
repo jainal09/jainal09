@@ -16,7 +16,12 @@ OUT_DIR = Path("assets")
 THEMED_ASSETS = {
     "banner", "banner-mobile", "stack", "stack-mobile",
     "contributions", "contributions-mobile", "cluster", "cluster-mobile",
-    "projects", "projects-mobile", "music", "music-mobile",
+    "project-facet", "project-facet-mobile",
+    "project-envdrift", "project-envdrift-mobile",
+    "project-knack", "project-knack-mobile",
+    "project-drill", "project-drill-mobile",
+    "project-pyro", "project-pyro-mobile",
+    "music", "music-mobile",
 }
 MEDIA_START = "@media (prefers-color-scheme: dark){"
 
@@ -309,6 +314,22 @@ def stack_mobile() -> str:
 
 PROJECTS = (
     {
+        "slug": "facet",
+        "name": "Facet",
+        "logo": "facet",
+        "hero": True,
+        "featured": True,
+        "meta": "C · ESP-IDF · LVGL · MIT",
+        "tagline": "A tiny operating system where every app is a physical face.",
+        "description": (
+            "Built for a cube-shaped ESP32-S3 with a 480×480 AMOLED: apps build "
+            "on open, free on close, and remember their state."
+        ),
+        "metric": "4 live faces · ~25 KB working margin · 1–26 ms app switches",
+        "tags": ("ESP32-S3", "ESP-IDF", "LVGL", "C", "AMOLED"),
+    },
+    {
+        "slug": "envdrift",
         "name": "envdrift",
         "logo": "envdrift",
         "logo_width": 300,
@@ -323,6 +344,7 @@ PROJECTS = (
         "tags": ("Pydantic", "pre-commit", "dotenvx", "Azure Key Vault", "AWS Secrets Manager"),
     },
     {
+        "slug": "knack",
         "name": "knack",
         "logo": "knack",
         "logo_width": 210,
@@ -337,6 +359,7 @@ PROJECTS = (
         "tags": ("Kafka", "NATS JetStream", "Docker", "Benchmarking", "Observability"),
     },
     {
+        "slug": "drill",
         "name": "drill",
         "logo": "drill",
         "logo_width": 100,
@@ -351,6 +374,7 @@ PROJECTS = (
         "tags": ("Deliberate Practice", "Python", "Live REPL", "No Autocomplete"),
     },
     {
+        "slug": "pyro",
         "name": "Pyro",
         "logo": "pyro",
         "logo_width": 220,
@@ -367,6 +391,14 @@ PROJECTS = (
 )
 
 PROJECT_LOGO_URLS = {
+    "facet-light": (
+        "https://raw.githubusercontent.com/jainal09/facet-os/main/"
+        "docs/images/facet-hero-light.jpg"
+    ),
+    "facet-dark": (
+        "https://raw.githubusercontent.com/jainal09/facet-os/main/"
+        "docs/images/facet-hero.jpg"
+    ),
     "envdrift": (
         "https://raw.githubusercontent.com/jainal09/envdrift/main/"
         "docs/assets/images/env-drift-logo.png"
@@ -388,9 +420,10 @@ PROJECT_STYLE = """<style>
   .project-canvas,.project-card{fill:#ffffff}.project-card{stroke:#d0d7de}
   .project-primary{fill:#1f2328}.project-muted{fill:#59636e}
   .project-pill{fill:#f6f8fa;stroke:#d0d7de}
+  .project-hero-edge{fill:none;stroke:#d0d7de}
   .project-logo-light{display:block}.project-logo-dark{display:none}
   .project-pyro-backdrop{display:none}
-  @media (prefers-color-scheme: dark){.project-canvas,.project-card{fill:#0d1117}.project-card{stroke:#30363d}.project-primary{fill:#e6edf3}.project-muted{fill:#8b949e}.project-pill{fill:#161b22;stroke:#30363d}.project-logo-light{display:none}.project-logo-dark{display:block}.project-pyro-backdrop{display:block;fill:#e6edf3}}
+  @media (prefers-color-scheme: dark){.project-canvas,.project-card{fill:#0d1117}.project-card{stroke:#30363d}.project-primary{fill:#e6edf3}.project-muted{fill:#8b949e}.project-pill{fill:#161b22;stroke:#30363d}.project-hero-edge{stroke:#30363d}.project-logo-light{display:none}.project-logo-dark{display:block}.project-pyro-backdrop{display:block;fill:#e6edf3}}
 </style>"""
 
 
@@ -412,7 +445,7 @@ def fetch_project_logos() -> dict[str, str]:
 
 
 def project_theme_variants(body: str) -> tuple[str, str]:
-    """Bake one knack wordmark per file; some SVG thumbnailers ignore display:none."""
+    """Bake one themed visual per file; some SVG thumbnailers ignore display:none."""
     light, dark = theme_variants(body)
     light = "\n".join(
         line for line in light.splitlines()
@@ -452,25 +485,46 @@ def _project_card(x: int, y: int, width: int, height: int, index: int,
     # SVG text does not wrap itself. Keep the estimate conservative so a
     # monospace line cannot bleed into the neighbouring desktop card or past
     # the phone edge after GitHub scales the image.
-    line_chars = 32 if mobile else 42
+    line_chars = 32 if mobile else (82 if width > 500 else 40)
     out = [
         f'<rect x="{x}" y="{y}" width="{width}" height="{height}" rx="12" '
         f'class="project-card" stroke-width="1.5"/>',
     ]
-    logo_width = min(project["logo_width"], inner)
-    logo_height = project["logo_height"]
-    logo_x = x + (width - logo_width) // 2
-    logo_y = y + 14 + (100 - logo_height) // 2
-    image = (
-        f'x="{logo_x}" y="{logo_y}" width="{logo_width}" height="{logo_height}" '
-        f'preserveAspectRatio="xMidYMid meet"'
-    )
+    if project.get("hero"):
+        hero_x = x + pad
+        hero_y = y + 18
+        hero_width = inner
+        hero_height = 220 if width > 500 else 136
+        clip_id = f'hero-{project["slug"]}-{index}'
+        out += [
+            f'<defs><clipPath id="{clip_id}"><rect x="{hero_x}" y="{hero_y}" '
+            f'width="{hero_width}" height="{hero_height}" rx="10"/></clipPath></defs>',
+            f'<image x="{hero_x}" y="{hero_y}" width="{hero_width}" height="{hero_height}" '
+            f'preserveAspectRatio="xMidYMid slice" clip-path="url(#{clip_id})" '
+            f'class="project-logo-light" href="{logos["facet-light"]}"/>',
+            f'<image x="{hero_x}" y="{hero_y}" width="{hero_width}" height="{hero_height}" '
+            f'preserveAspectRatio="xMidYMid slice" clip-path="url(#{clip_id})" '
+            f'class="project-logo-dark" href="{logos["facet-dark"]}"/>',
+            f'<rect x="{hero_x}" y="{hero_y}" width="{hero_width}" height="{hero_height}" '
+            f'rx="10" class="project-hero-edge" stroke-width="1"/>',
+        ]
+        title_y = hero_y + hero_height + 34
+    else:
+        logo_width = min(project["logo_width"], inner)
+        logo_height = project["logo_height"]
+        logo_x = x + (width - logo_width) // 2
+        logo_y = y + 14 + (120 - logo_height) // 2
+        image = (
+            f'x="{logo_x}" y="{logo_y}" width="{logo_width}" height="{logo_height}" '
+            f'preserveAspectRatio="xMidYMid meet"'
+        )
+        title_y = y + 165
     if project["logo"] == "knack":
         out += [
             f'<image {image} class="project-logo-light" href="{logos["knack-light"]}"/>',
             f'<image {image} class="project-logo-dark" href="{logos["knack-dark"]}"/>',
         ]
-    else:
+    elif not project.get("hero"):
         if project["logo"] == "pyro":
             out.append(
                 f'<rect x="{x + width // 2 - 58}" y="{logo_y + 66}" width="116" '
@@ -478,12 +532,12 @@ def _project_card(x: int, y: int, width: int, height: int, index: int,
             )
         out.append(f'<image {image} href="{logos[project["logo"]]}"/>')
     out += [
-        text(x + pad, y + 142, f"{index:02d}", GREEN, 16, "bold"),
-        text(x + pad + 38, y + 142, project["name"], BLUE, 22, "bold"),
-        text(x + pad, y + 168, project["meta"], None, 10 if mobile else 12,
+        text(x + pad, title_y, f"{index:02d}", GREEN, 16, "bold"),
+        text(x + pad + 38, title_y, project["name"], BLUE, 22, "bold"),
+        text(x + pad, title_y + 26, project["meta"], None, 10 if mobile else 12,
              cls="project-muted"),
     ]
-    cursor_y = y + 203
+    cursor_y = title_y + 61
     for line in _project_lines(project["tagline"], line_chars):
         out.append(text(x + pad, cursor_y, line, None, 16, "bold", cls="project-primary"))
         cursor_y += 21
@@ -499,30 +553,23 @@ def _project_card(x: int, y: int, width: int, height: int, index: int,
     return out
 
 
-def projects(logos: dict[str, str]) -> str:
-    """A desktop 2x2 grid that keeps the original scan-friendly composition."""
-    width, height = 980, 956
-    card_width, card_height = 464, 450
+def project_card(project: dict, index: int, logos: dict[str, str]) -> str:
+    """One independently clickable desktop card."""
+    width = 814 if project.get("featured") else 405
+    height = 535 if project.get("featured") else 505
     s = [svg_open(width, height), PROJECT_STYLE,
          f'<rect width="{width}" height="{height}" class="project-canvas"/>']
-    for i, project in enumerate(PROJECTS):
-        x = 16 + (i % 2) * (card_width + 20)
-        y = 18 + (i // 2) * (card_height + 20)
-        s.extend(_project_card(
-            x, y, card_width, card_height, i + 1, project, False, logos
-        ))
+    s.extend(_project_card(1, 1, width - 2, height - 2, index, project, False, logos))
     return "\n".join(s) + "\n</svg>"
 
 
-def projects_mobile(logos: dict[str, str]) -> str:
-    """One full-width project per row; GitHub cannot reflow HTML table cells."""
-    width, card_height, gap = 390, 450, 16
-    height = 24 + len(PROJECTS) * card_height + (len(PROJECTS) - 1) * gap
+def project_card_mobile(project: dict, index: int, logos: dict[str, str]) -> str:
+    """The same card at phone width, with a conservative text measure."""
+    width = 390
+    height = 535 if project.get("featured") else 505
     s = [svg_open(width, height), PROJECT_STYLE,
          f'<rect width="{width}" height="{height}" class="project-canvas"/>']
-    for i, project in enumerate(PROJECTS):
-        y = 12 + i * (card_height + gap)
-        s.extend(_project_card(16, y, 358, card_height, i + 1, project, True, logos))
+    s.extend(_project_card(16, 1, 358, height - 2, index, project, True, logos))
     return "\n".join(s) + "\n</svg>"
 
 
@@ -1162,14 +1209,22 @@ def main() -> None:
     calendar = fetch_calendar()
     spotify = fetch_spotify()
     project_logos = fetch_project_logos()
+    project_pieces = tuple(
+        piece
+        for index, project in enumerate(PROJECTS, 1)
+        for piece in (
+            (f'project-{project["slug"]}', project_card(project, index, project_logos)),
+            (f'project-{project["slug"]}-mobile',
+             project_card_mobile(project, index, project_logos)),
+        )
+    )
     pieces = (
         ("banner", banner()), ("banner-mobile", banner_mobile()),
         ("contributions", contributions(calendar)),
         ("contributions-mobile", contributions_mobile(calendar)),
         ("cluster", cluster()), ("cluster-mobile", cluster_mobile()),
         ("stack", stack()), ("stack-mobile", stack_mobile()),
-        ("projects", projects(project_logos)),
-        ("projects-mobile", projects_mobile(project_logos)),
+    ) + project_pieces + (
         ("trophies", trophies(fetch_stats())),
         ("music", music(spotify)), ("music-mobile", music_mobile(spotify)),
     )
@@ -1178,7 +1233,7 @@ def main() -> None:
         path.write_text(body, encoding="utf-8")
         print(f"wrote {path}")
         if name in THEMED_ASSETS:
-            variants = project_theme_variants if name.startswith("projects") else theme_variants
+            variants = project_theme_variants if name.startswith("project-") else theme_variants
             light, dark = variants(body)
             for theme, themed_body in (("light", light), ("dark", dark)):
                 themed_path = OUT_DIR / f"{name}.{theme}.svg"
