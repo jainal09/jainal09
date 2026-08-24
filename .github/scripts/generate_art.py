@@ -500,10 +500,10 @@ def _project_card(x: int, y: int, width: int, height: int, index: int,
             f'<defs><clipPath id="{clip_id}"><rect x="{hero_x}" y="{hero_y}" '
             f'width="{hero_width}" height="{hero_height}" rx="10"/></clipPath></defs>',
             f'<image x="{hero_x}" y="{hero_y}" width="{hero_width}" height="{hero_height}" '
-            f'preserveAspectRatio="xMidYMid slice" clip-path="url(#{clip_id})" '
+            f'preserveAspectRatio="xMidYMid meet" clip-path="url(#{clip_id})" '
             f'class="project-logo-light" href="{logos["facet-light"]}"/>',
             f'<image x="{hero_x}" y="{hero_y}" width="{hero_width}" height="{hero_height}" '
-            f'preserveAspectRatio="xMidYMid slice" clip-path="url(#{clip_id})" '
+            f'preserveAspectRatio="xMidYMid meet" clip-path="url(#{clip_id})" '
             f'class="project-logo-dark" href="{logos["facet-dark"]}"/>',
             f'<rect x="{hero_x}" y="{hero_y}" width="{hero_width}" height="{hero_height}" '
             f'rx="10" class="project-hero-edge" stroke-width="1"/>',
