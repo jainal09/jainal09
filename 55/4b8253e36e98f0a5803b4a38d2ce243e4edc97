@@ -1,0 +1,27 @@
+README.md
+  s_19efbd24d01d75::t_0398acfc99c14c 100
+assets/project-facet-mobile.dark.svg
+  s_19efbd24d01d75::t_9ee99c684dfff5 14
+assets/project-facet-mobile.svg
+  s_19efbd24d01d75::t_095e7915b12a5d 15
+assets/project-facet.dark.svg
+  s_19efbd24d01d75::t_c1fe0070311fa5 14
+assets/project-facet.svg
+  s_19efbd24d01d75::t_0381ed1f542ec9 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "554b8253e36e98f0a5803b4a38d2ce243e4edc97",
+  "prompts": {},
+  "sessions": {
+    "s_19efbd24d01d75": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a03498-4b19-73e0-8825-ea6aa9305805",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Jainal Gosaliya <jainal09gosalia@gmail.com>"
+    }
+  }
+}
