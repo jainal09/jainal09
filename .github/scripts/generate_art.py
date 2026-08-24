@@ -391,14 +391,6 @@ PROJECTS = (
 )
 
 PROJECT_LOGO_URLS = {
-    "facet-light": (
-        "https://raw.githubusercontent.com/jainal09/facet-os/main/"
-        "docs/images/facet-hero-light.jpg"
-    ),
-    "facet-dark": (
-        "https://raw.githubusercontent.com/jainal09/facet-os/main/"
-        "docs/images/facet-hero.jpg"
-    ),
     "envdrift": (
         "https://raw.githubusercontent.com/jainal09/envdrift/main/"
         "docs/assets/images/env-drift-logo.png"
@@ -414,6 +406,13 @@ PROJECT_LOGO_URLS = {
         "https://github.com/jainal09/pyro-bot/assets/34179361/"
         "5d494fb4-5721-42f7-b463-cd12e8e3c86c"
     ),
+}
+
+PROJECT_LOCAL_IMAGES = {
+    "facet-desktop-light": OUT_DIR / "facet-card-hero-desktop.light.jpg",
+    "facet-desktop-dark": OUT_DIR / "facet-card-hero-desktop.dark.jpg",
+    "facet-mobile-light": OUT_DIR / "facet-card-hero-mobile.light.jpg",
+    "facet-mobile-dark": OUT_DIR / "facet-card-hero-mobile.dark.jpg",
 }
 
 PROJECT_STYLE = """<style>
@@ -432,7 +431,10 @@ def fetch_project_logos() -> dict[str, str]:
     import base64
     import urllib.request
 
-    logos = {}
+    logos = {
+        name: f"data:image/jpeg;base64,{base64.b64encode(path.read_bytes()).decode('ascii')}"
+        for name, path in PROJECT_LOCAL_IMAGES.items()
+    }
     for name, url in PROJECT_LOGO_URLS.items():
         request = urllib.request.Request(url, headers={"User-Agent": "jainal09-profile-art"})
         with urllib.request.urlopen(request, timeout=30) as response:
@@ -494,17 +496,18 @@ def _project_card(x: int, y: int, width: int, height: int, index: int,
         hero_x = x + pad
         hero_y = y + 18
         hero_width = inner
-        hero_height = 220 if width > 500 else 136
+        hero_height = 328 if width > 500 else 136
+        hero_layout = "mobile" if mobile else "desktop"
         clip_id = f'hero-{project["slug"]}-{index}'
         out += [
             f'<defs><clipPath id="{clip_id}"><rect x="{hero_x}" y="{hero_y}" '
             f'width="{hero_width}" height="{hero_height}" rx="10"/></clipPath></defs>',
             f'<image x="{hero_x}" y="{hero_y}" width="{hero_width}" height="{hero_height}" '
-            f'preserveAspectRatio="xMidYMid meet" clip-path="url(#{clip_id})" '
-            f'class="project-logo-light" href="{logos["facet-light"]}"/>',
+            f'preserveAspectRatio="xMidYMid slice" clip-path="url(#{clip_id})" '
+            f'class="project-logo-light" href="{logos[f"facet-{hero_layout}-light"]}"/>',
             f'<image x="{hero_x}" y="{hero_y}" width="{hero_width}" height="{hero_height}" '
-            f'preserveAspectRatio="xMidYMid meet" clip-path="url(#{clip_id})" '
-            f'class="project-logo-dark" href="{logos["facet-dark"]}"/>',
+            f'preserveAspectRatio="xMidYMid slice" clip-path="url(#{clip_id})" '
+            f'class="project-logo-dark" href="{logos[f"facet-{hero_layout}-dark"]}"/>',
             f'<rect x="{hero_x}" y="{hero_y}" width="{hero_width}" height="{hero_height}" '
             f'rx="10" class="project-hero-edge" stroke-width="1"/>',
         ]
@@ -556,7 +559,7 @@ def _project_card(x: int, y: int, width: int, height: int, index: int,
 def project_card(project: dict, index: int, logos: dict[str, str]) -> str:
     """One independently clickable desktop card."""
     width = 814 if project.get("featured") else 405
-    height = 535 if project.get("featured") else 505
+    height = 643 if project.get("featured") else 505
     s = [svg_open(width, height), PROJECT_STYLE,
          f'<rect width="{width}" height="{height}" class="project-canvas"/>']
     s.extend(_project_card(1, 1, width - 2, height - 2, index, project, False, logos))
